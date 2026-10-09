@@ -58,7 +58,8 @@ button{font-family:inherit;font-size:inherit;cursor:default;border:0;background:
 .dicon.dragging{opacity:.7}
 
 /* ============ WINDOWS ============ */
-#winLayer{position:absolute;inset:0}
+#winLayer{position:absolute;inset:0;pointer-events:none}
+#winLayer .window{pointer-events:auto}
 .window{
   position:absolute;display:flex;flex-direction:column;background:#c0c0c0;padding:2px;
   min-width:220px;min-height:140px;
@@ -2220,6 +2221,7 @@ const DESKTOP_ICON_LIST = [
 ];
 
 let iconDrag = null;
+let lastDragEnd = 0;
 let lastIconClick = {id:null, time:0};
 
 function refreshDesktopIcons(){
@@ -2246,6 +2248,7 @@ function refreshDesktopIcons(){
 
     d.addEventListener('click', ev=>{
       ev.stopPropagation();
+      if(Date.now() - lastDragEnd < 80) return;
       area.querySelectorAll('.dicon').forEach(x=>x.classList.remove('sel'));
       d.classList.add('sel');
 
@@ -2307,11 +2310,25 @@ function refreshDesktopIcons(){
     });
 
     if('ontouchstart' in window){
+      let tapT = 0;
+      d.addEventListener('touchstart', ev=>{
+        const t0 = ev.touches[0];
+        area.querySelectorAll('.dicon').forEach(x=>x.classList.remove('sel'));
+        d.classList.add('sel');
+        iconDrag = {el:d, id:id, startX:t0.clientX, startY:t0.clientY,
+          origX:parseInt(d.style.left,10)||0, origY:parseInt(d.style.top,10)||0, moved:false};
+      }, {passive:true});
       d.addEventListener('touchend', ev=>{
-        if(iconDrag && iconDrag.moved) return;
+        const was = iconDrag;
+        if(was && was.moved){ window.dispatchEvent(new MouseEvent('mouseup')); ev.preventDefault(); return; }
+        iconDrag = null;
         ev.preventDefault();
-        if(id === 'computer') openApp('explorer', {path:[]});
-        else openApp(id);
+        const now = Date.now();
+        if(now - tapT < 450){
+          tapT = 0;
+          if(id === 'computer') openApp('explorer', {path:[]});
+          else openApp(id);
+        } else tapT = now;
       });
     }
 
@@ -2334,6 +2351,12 @@ window.addEventListener('mousemove', ev=>{
   iconDrag.el.style.top  = ny + 'px';
   iconDrag.el.classList.add('dragging');
 });
+window.addEventListener('touchmove', ev=>{
+  if(!iconDrag) return;
+  const t0 = ev.touches[0];
+  window.dispatchEvent(new MouseEvent('mousemove', {clientX:t0.clientX, clientY:t0.clientY}));
+  if(iconDrag.moved) ev.preventDefault();
+}, {passive:false});
 window.addEventListener('mouseup', ()=>{
   if(!iconDrag) return;
   if(iconDrag.moved){
@@ -2345,6 +2368,7 @@ window.addEventListener('mouseup', ()=>{
     };
     localStorage.setItem('w94_iconpos', JSON.stringify(saved));
   }
+  if(iconDrag.moved) lastDragEnd = Date.now();
   iconDrag.el.classList.remove('dragging');
   iconDrag = null;
 });
@@ -5970,5 +5994,444 @@ console.log('%c[Windows 94] Implementaciones funcionales registradas: ' + Object
 
 })();
 </script>
+<script>
+/* ==========================================================================
+   PARCHE FINAL: (1) 91 iconos nuevos con dibujo propio  (2) traducción total
+   ========================================================================== */
+(function(){
+'use strict';
+/* ---------- 1. ICONOS ---------- */
+var c;
+function F(col,x,y,w,h){c.fillStyle=col;c.fillRect(x,y,w,h);}
+function A(col,x,y,r,s,e){c.fillStyle=col;c.beginPath();c.arc(x,y,r,s||0,e==null?7:e);c.fill();}
+function P(col,p){c.fillStyle=col;c.beginPath();c.moveTo(p[0],p[1]);for(var i=2;i<p.length;i+=2)c.lineTo(p[i],p[i+1]);c.closePath();c.fill();}
+function S(col,w,p){c.strokeStyle=col;c.lineWidth=w;c.beginPath();c.moveTo(p[0],p[1]);for(var i=2;i<p.length;i+=2)c.lineTo(p[i],p[i+1]);c.stroke();}
+var W='#fff',K='#000';
+var G={
+card:function(a){F(W,4,2,8,12);F(a,7,6,2,4);F(a,6,7,4,2);F(a,5,3,2,2);F(a,9,11,2,2);},
+card2:function(a){F('#cfd8ff',3,3,7,10);F(W,6,2,7,11);F(a,8,6,2,4);F(a,7,7,4,2);},
+qcard:function(a){F(W,4,2,8,12);F(a,6,4,4,1);F(a,9,5,1,2);F(a,7,7,2,1);F(a,7,9,2,2);},
+heart:function(a){F(a,4,4,3,3);F(a,9,4,3,3);F(a,3,5,10,3);F(a,4,8,8,2);F(a,5,10,6,1);F(a,7,11,2,1);F(W,5,5,1,1);},
+spider:function(){F(W,6,6,4,5);F(W,7,4,2,2);F(W,3,5,3,1);F(W,3,8,3,1);F(W,10,5,3,1);F(W,10,8,3,1);F(W,4,10,2,1);F(W,10,10,2,1);F('#f33',7,8,2,1);},
+pinball:function(a){A(a,5,5,2.2);A('#ddd',10,6,1.8);F('#f44',3,11,4,2);F('#f44',9,11,4,2);F(W,7,2,1,1);},
+blocks:function(){F('#f80',5,2,3,3);F('#f80',5,5,3,3);F('#f80',5,8,3,3);F('#f80',8,8,3,3);F('#0ff',3,11,3,3);F('#0f0',6,11,3,3);F('#f0f',9,11,3,3);},
+snake:function(a){F(a,3,5,2,7);F(a,3,5,8,2);F(a,9,5,2,6);F(a,9,9,4,2);F(K,12,9,1,1);F('#f33',11,2,2,2);},
+pong:function(a){F(W,3,4,2,6);F(W,11,6,2,6);F(a,7,7,2,2);for(var y=2;y<14;y+=3)F('#888',8,y,1,1);},
+chess:function(){F(W,6,3,4,3);F(W,7,6,2,1);F(W,6,7,4,3);F(W,5,10,6,2);F(W,4,12,8,1);F('#888',7,4,1,1);},
+checkers:function(a){A(a,6,10,3.4);A(W,10,6,3.4);A('#ccc',6,10,1.6);A('#ccc',10,6,1.6);},
+sdk:function(a){for(var i=0;i<3;i++)for(var j=0;j<3;j++)F((i+j)%2?W:a,3+i*3,3+j*3,3,3);F(K,4,4,1,1);F(K,10,7,1,1);F(K,7,10,1,1);},
+ttt:function(a){F(W,6,3,1,10);F(W,9,3,1,10);F(W,3,6,10,1);F(W,3,9,10,1);S('#f55',1,[3,3,5,5]);S('#f55',1,[5,3,3,5]);A(a,11,11,1.4);},
+txt:function(a,b,s){c.fillStyle=a;c.font=(s.length>1?'bold 9px':'bold 12px')+' monospace';c.textAlign='center';c.fillText(s,8,s.length>1?11:12);c.textAlign='left';},
+brick:function(a){F('#f55',3,3,4,2);F('#fa0',7,3,4,2);F('#ff0',3,5,4,2);F('#5f5',7,5,4,2);F('#5cf',11,3,2,4);F(W,7,9,2,2);F(a,4,12,8,1);},
+rock:function(){P('#aaa',[5,3,11,4,13,8,10,12,5,12,3,8]);F('#666',6,6,2,2);F('#666',9,9,2,1);},
+invader:function(a){F(a,4,5,8,4);F(a,5,3,1,2);F(a,10,3,1,2);F(K,5,6,2,2);F(K,9,6,2,2);F(a,4,9,2,2);F(a,10,9,2,2);F(a,7,9,2,1);},
+pac:function(a){c.fillStyle=a;c.beginPath();c.moveTo(7,8);c.arc(7,8,5,.25*Math.PI,1.75*Math.PI);c.fill();F(K,6,4,1,1);F(W,11,7,1,2);F(W,13,7,1,2);},
+simon:function(){F('#e33',3,3,5,5);F('#3c3',8,3,5,5);F('#37f',3,8,5,5);F('#fd0',8,8,5,5);},
+dice:function(a){F(W,3,3,10,10);F(a,5,5,2,2);F(a,9,5,2,2);F(a,7,7,2,2);F(a,5,9,2,2);F(a,9,9,2,2);},
+coin:function(a){A('#fd0',8,8,5.5);A('#c90',8,8,4);A('#fd0',8,8,3.4);F(a,7,5,2,6);F(a,6,6,4,1);F(a,6,9,4,1);},
+ball:function(a){A(W,8,8,5.5);A(a,8,8,3.2);F(W,7,7,2,2);},
+cal:function(a){F(W,2,3,12,11);F(a,2,3,12,3);F(K,4,2,1,2);F(K,11,2,1,2);for(var i=0;i<3;i++)for(var j=0;j<3;j++)F('#555',4+i*3,8+j*2,2,1);},
+person:function(){A(W,8,5.5,2.6);c.fillStyle=W;c.beginPath();c.arc(8,14,5,Math.PI,0);c.fill();},
+people:function(){A(W,5.5,6,2);A('#cde',10.5,5.5,2);c.fillStyle=W;c.beginPath();c.arc(5.5,14,4,Math.PI,0);c.fill();c.fillStyle='#cde';c.beginPath();c.arc(10.5,13,3.6,Math.PI,0);c.fill();},
+bars:function(a){F(a,3,9,2,4);F('#ff0',6,6,2,7);F('#f80',9,4,2,9);F('#f33',12,7,1,6);F(W,2,13,12,1);},
+defrag:function(){var k=['#0ff','#f0f','#ff0',W];for(var i=0;i<4;i++)for(var j=0;j<4;j++)F((i*3+j*5)%7<3?k[(i+j)%4]:'#335',2+i*3,2+j*3,2,2);},
+tree:function(a){F(a,3,3,3,2);F(W,4,5,1,7);F(W,4,8,4,1);F(W,4,11,4,1);F(W,8,7,5,3);F(W,8,10,5,3);},
+chip:function(a){F('#bbb',5,5,6,6);for(var i=0;i<3;i++){F('#ddd',6+i*2,3,1,2);F('#ddd',6+i*2,11,1,2);F('#ddd',3,6+i*2,2,1);F('#ddd',11,6+i*2,2,1);}F(a,7,7,2,2);},
+clip:function(){F('#a66a1a',4,2,8,12);F(W,5,4,6,9);F('#999',6,1,4,3);F('#888',6,6,4,1);F('#888',6,8,4,1);F('#888',6,10,3,1);},
+calc:function(a){F('#bbb',4,2,8,12);F('#9f9',5,3,6,2);for(var i=0;i<3;i++)for(var j=0;j<2;j++)F(i==2&&j==1?a:'#333',5+j*4,6+i*3,3,2);},
+conv:function(){F(W,3,5,8,2);P(W,[10,3,13,6,10,9]);F(W,5,10,8,2);P(W,[6,8,3,11,6,14]);},
+clock:function(a){A(W,8,8,5.5);c.strokeStyle=a;c.lineWidth=1;c.beginPath();c.arc(8,8,5.5,0,7);c.stroke();F(K,8,4,1,5);F(K,8,8,3,1);F('#ccc',7,1,2,2);},
+hourglass:function(a){F(W,4,2,8,1);F(W,4,13,8,1);P(W,[4,3,12,3,8,8]);P(a,[8,8,4,13,12,13]);},
+bell:function(){c.fillStyle='#fd0';c.beginPath();c.arc(8,7,4,Math.PI,0);c.fill();F('#fd0',4,7,8,3);F('#fd0',3,10,10,1);F('#a80',7,12,2,2);F('#fd0',7,2,2,1);},
+weather:function(){A('#fd0',6,6,3);A(W,7,10,3);A(W,10.5,9.5,3.4);F(W,5,10,9,3);},
+sticky:function(){F(W,3,3,10,10);F('#b90',4,6,8,1);F('#b90',4,8,8,1);F('#b90',4,10,5,1);F('#ccc',10,10,3,3);},
+lens:function(){c.strokeStyle=W;c.lineWidth=1.8;c.beginPath();c.arc(7,7,3.6,0,7);c.stroke();S(W,2.2,[9.6,9.6,13,13]);},
+keys:function(){for(var r=0;r<2;r++)for(var i=0;i<4;i++)F('#ddd',3+i*3,4+r*3,2,2);F('#ddd',4,10,8,2);},
+speaker:function(a){F(W,3,6,3,4);P(W,[6,6,10,3,10,13,6,10]);c.strokeStyle=a;c.lineWidth=1;c.beginPath();c.arc(10,8,3,-.9,.9);c.stroke();c.beginPath();c.arc(10,8,5,-.8,.8);c.stroke();},
+mic:function(a){F(W,6,2,4,7);F(W,5,3,6,5);c.strokeStyle=W;c.lineWidth=1;c.beginPath();c.arc(8,8,4,0,Math.PI);c.stroke();F(W,7,12,2,2);F(a,7,4,2,2);},
+camera:function(a){F('#ccc',2,5,12,8);F('#ccc',5,3,5,2);A(K,8,9,3);A(a,8,9,2);F('#f55',11,6,2,1);},
+info:function(a){A(W,8,8,5.5);F(a,7,7,2,5);F(a,7,4,2,2);},
+disk:function(a){F('#ddd',3,3,10,10);F('#888',5,3,6,4);F(W,6,4,2,2);F(W,5,9,6,4);F('#777',6,10,4,1);F(K,9,9,5,5);F(a,10,10,3,3);},
+play:function(a){P(W,[6,4,12,8,6,12]);F(a,3,13,10,1);},
+cd:function(a,b){A('#ddd',8,8,5.6);A(a,8,8,3);A(b,8,8,1.4);F(W,4,5,2,1);},
+note:function(){F(W,7,3,1,8);F(W,12,3,1,7);F(W,7,3,6,2);A(W,6,11,1.9);A(W,11,10,1.9);},
+radio:function(a){F('#c8a060',3,6,10,7);S(W,1,[10,6,12,2]);F(K,4,8,4,4);F('#a80',4,9,4,1);A(a,11,9,1.5);F(W,10,12,3,1);},
+sliders:function(){F('#aaa',4,3,1,10);F('#aaa',8,3,1,10);F('#aaa',12,3,1,10);F(W,3,5,3,2);F(W,7,9,3,2);F(W,11,4,3,2);},
+wave:function(a){S(a,1.2,[2,8,4,3,6,13,8,4,10,12,12,5,14,8]);},
+image:function(){F(W,2,3,12,10);F('#6cf',3,4,10,8);A('#fd0',10,6,1.5);P('#3a3',[3,12,7,7,11,12]);P('#2a2',[8,12,11,9,13,12]);},
+slides:function(a){F(W,2,3,12,8);F(a,3,4,10,6);F(W,4,8,2,2);F(W,7,6,2,4);F(W,10,5,2,5);F('#ccc',7,11,2,2);F('#ccc',5,13,6,1);},
+db:function(a){F('#bbb',3,5,10,6);A('#bbb',8,11,0.01);c.fillStyle='#bbb';c.beginPath();c.ellipse(8,11,5,2,0,0,7);c.fill();c.fillStyle='#eee';c.beginPath();c.ellipse(8,4.5,5,2,0,0,7);c.fill();F(a,3,7,10,1);F(a,3,9,10,1);},
+gantt:function(a){F(a,3,4,5,2);F(W,5,7,6,2);F(a,8,10,5,2);F(W,2,3,1,10);},
+chart:function(a){F(W,3,3,1,10);F(W,3,12,10,1);S(a,1.2,[4,10,7,7,9,9,12,4]);F(a,11,4,2,1);},
+sheet:function(a){F(W,3,3,10,10);F('#cfc',3,3,10,3);F(a,3,6,10,1);F(a,3,9,10,1);F(a,6,3,1,10);F(a,9,3,1,10);},
+page:function(a){F(W,3,2,10,12);F('#ccc',10,2,3,3);F(a,5,4,4,1);F(a,5,7,6,1);F(a,5,9,6,1);F(a,5,11,4,1);},
+inv:function(a){F(W,3,2,10,12);F('#888',5,4,6,1);F('#888',5,6,6,1);F('#888',5,8,4,1);F(a,5,10,6,3);F(W,7,11,2,1);},
+book:function(a){F(a,3,2,10,12);F(W,5,3,8,10);F('#555',6,5,5,1);F('#555',6,7,5,1);F('#555',6,9,3,1);},
+check:function(a){for(var i=0;i<3;i++){F(W,3,3+i*4,3,3);F(a,4,4+i*4,1,1);F(W,7,4+i*4,6,1);}},
+term:function(a){F(K,2,3,12,10);F(a,4,5,1,1);F(a,5,6,1,1);F(a,4,7,1,1);F(a,7,8,3,1);F('#080',4,10,8,1);},
+run:function(a){F('#ddd',2,3,12,10);F('#00a',2,3,12,2);P(a,[5,7,11,10,5,13]);},
+folder:function(){F('#e8b020',3,3,5,2);F('#fd7',2,5,12,8);F('#b88400',2,12,12,1);},
+mail:function(a){F(W,2,4,12,9);S('#888',1,[2,4,8,9,14,4]);F(a,11,10,2,2);},
+bubble:function(a){F(W,2,3,12,8);P(W,[5,11,5,14,8,11]);F(a,4,6,2,2);F(a,7,6,2,2);F(a,10,6,2,2);},
+news:function(){F(W,2,3,12,10);F(K,3,4,10,2);F('#999',3,7,4,5);F('#555',8,7,5,1);F('#555',8,9,5,1);F('#555',8,11,5,1);},
+globe:function(){A('#3a7ad8',8,8,5.6);F('#3c3',5,4,3,3);F('#3c3',9,7,3,4);F('#3c3',5,9,2,2);c.strokeStyle='rgba(255,255,255,.7)';c.lineWidth=.7;c.beginPath();c.ellipse(8,8,2.6,5.6,0,0,7);c.stroke();c.beginPath();c.moveTo(2.4,8);c.lineTo(13.6,8);c.stroke();},
+upd:function(){P(W,[5,2,8,6,2,6]);F(W,4,6,2,6);F('#9f9',10,4,2,6);P('#9f9',[8,10,14,10,11,14]);},
+dl:function(a){F(W,7,2,2,6);P(W,[4,8,12,8,8,12]);F(a,3,13,10,1);},
+bulb:function(a){A(a,8,6.5,3.8);F('#888',6,10,4,1);F('#888',6,11,4,1);F('#666',7,12,2,1);F(W,6,5,1,1);},
+flag:function(){F('#f33',3,3,4,4);F('#3c3',8,3,5,4);F('#37f',3,8,4,5);F('#fd0',8,8,5,5);},
+hang:function(a){F(W,3,13,8,1);F(W,4,3,1,10);F(W,4,3,6,1);F(W,9,3,1,2);A(a,9.5,6,1.5);F(a,9,7,1,3);F(a,8,8,3,1);F(a,8,10,1,2);F(a,10,10,1,2);}
+};
+/* id|fondo|dibujo|acento|texto */
+var SPEC=('solitaire|#0a6e0a|card|#c00;freecell|#0a6e0a|card2|#c00;hearts|#5a0000|heart|#e22;spider|#1a3a1a|spider;pinball|#4b0082|pinball|#0ff;tetris|#14145a|blocks;snake|#0a5a0a|snake|#7f7;pong|#000|pong|#0ff;chess|#4a3a2a|chess;checkers|#6a1a1a|checkers|#222;sudoku|#14247a|sdk|#9bf;g2048|#c07000|txt|#fff|2;tictactoe|#14247a|ttt|#5cf;memory|#a04000|qcard|#a04000;hangman|#333|hang|#fc0;breakout|#003a3a|brick|#0ff;asteroids|#101030|rock;invaders|#003000|invader|#6f6;pacman|#000|pac|#fe0;simon|#000|simon;dice|#1a5a1a|dice|#c00;coinflip|#5a4a00|coin|#a60;lottery|#5a0a5a|ball|#e3c;bingo|#0a5a5a|ball|#f80;blackjack|#0a3a0a|card|#000;' +
+'calendar|#fff|cal|#d22;contacts|#14347a|person;taskmgr|#2a2a2a|bars|#0f0;defrag|#14247a|defrag;regedit|#5a1a1a|tree|#fc0;devmgr|#2a2a2a|chip|#0f0;charmap|#5a1a6a|txt|#fff|Ω;clipboard|#6a4a00|clip;scicalc|#14247a|calc|#f80;converter|#006a6a|conv;stopwatch|#7a1a1a|clock|#f33;timer|#7a5000|hourglass|#fc0;alarm|#7a1a1a|bell;weather|#2a5a9a|weather;stickies|#d8c800|sticky;magnifier|#4a4a4a|lens;osk|#2a2a2a|keys;volume|#0a5a0a|speaker|#ff0;recorder|#6a0a0a|mic|#f33;camera|#1a1a1a|camera|#39f;sysinfo|#14247a|info|#14247a;scandisk|#2a2a5a|disk|#0f0;format|#2a2a5a|disk|#f22;chkdsk|#2a2a5a|disk|#ff0;backup|#2a2a5a|disk|#0ff;' +
+'mediaplayer|#0a246a|play|#0f0;cdplayer|#2a2a2a|cd|#c0c0ff|#2a2a2a;midi|#3a2a5a|note;radio|#6a1a1a|radio|#0f0;mixer|#2a2a2a|sliders;equalizer|#0a4a0a|bars|#0f0;visualizer|#3c1470|wave|#0ff;imageview|#a06000|image;slideshow|#0a246a|slides|#c60;soundrec|#4a0a4a|mic|#0f0;iexplore|#0a246a|globe;outlook|#14247a|mail|#d22;chat|#0a5a0a|bubble|#0a5a0a;email|#14347a|mail|#06c;ftp|#2a2a2a|upd;news|#6a1a1a|news;browser|#0a4a8a|globe;download|#0a5a0a|dl|#ff0;netmeeting|#14247a|people;telnet|#101010|term|#0f0;' +
+'wordpad|#14247a|page|#06c;spreadsheet|#0a5a0a|sheet|#6a6;presentation|#a04000|slides|#06c;database|#2a2a2a|db|#39f;project|#14247a|gantt|#f80;finance|#0a5a0a|chart|#ff0;invoice|#6a6a6a|inv|#06c;budget|#0a5a0a|coin|#a60;journal|#6a146a|book|#c4c;todo|#14247a|check|#0f0;planner|#a04000|cal|#06c;addressbook|#14347a|book|#c8a060;fileman|#6a5000|folder;command|#000|term|#ccc;helpview|#d8d800|txt|#c00|?;rundlg|#14247a|run|#0f0;findfiles|#14247a|lens;welcome|#0a246a|flag;aboutwin|#0a246a|info|#06c;tips|#c8b800|bulb|#fff;readme|#bbb|page|#14247a').split(';');
+SPEC.forEach(function(s){
+  var p=s.split('|'),id=p[0],bg=p[1];
+  ICONS[id]=makeIcon(function(g){
+    c=g;F(K,0,0,16,16);c.clearRect(0,0,1,1);c.clearRect(15,0,1,1);c.clearRect(0,15,1,1);c.clearRect(15,15,1,1);
+    F(bg,1,1,14,14);F('rgba(255,255,255,.35)',1,1,14,1);F('rgba(255,255,255,.35)',1,1,1,14);
+    F('rgba(0,0,0,.4)',1,14,14,1);F('rgba(0,0,0,.4)',14,1,1,14);
+    G[p[2]](p[3]||'#fff',p[4]||bg,p[4]||'');
+  });
+});
+console.log('Iconos nuevos redibujados:',SPEC.length);
+refreshDesktopIcons();buildStartMenu();refreshTaskbar();
+
+/* ---------- 2. TRADUCCIÓN TOTAL ---------- */
+var L=['es','pt','fr','ru','ja'],D={};
+function d(k,v){D[k]=v;}
+d('Score: ',['Puntos: ','Pontos: ','Score : ','Очки: ','得点: ']);
+d('GAME OVER (click to restart)',['FIN DEL JUEGO (clic para reiniciar)','FIM DE JOGO (clique para reiniciar)','PARTIE TERMINÉE (cliquez pour rejouer)','ИГРА ОКОНЧЕНА (клик — заново)','ゲームオーバー（クリックで再開）']);
+d('GAME OVER (click)',['FIN DEL JUEGO (clic)','FIM DE JOGO (clique)','PARTIE TERMINÉE (clic)','ИГРА ОКОНЧЕНА (клик)','ゲームオーバー（クリック）']);
+d('Click to restart',['Clic para reiniciar','Clique para reiniciar','Cliquez pour rejouer','Клик — заново','クリックで再開']);
+d('Your turn (X)',['Tu turno (X)','Sua vez (X)','À vous (X)','Ваш ход (X)','あなたの番 (X)']);
+d('Your turn',['Tu turno','Sua vez','À vous','Ваш ход','あなたの番']);
+d('You win!',['¡Has ganado!','Você venceu!','Vous avez gagné !','Вы победили!','あなたの勝ち！']);
+d('You lose! Word: ',['¡Has perdido! Palabra: ','Você perdeu! Palavra: ','Perdu ! Mot : ','Вы проиграли! Слово: ','負け！ 単語: ']);
+d('You win! Word: ',['¡Has ganado! Palabra: ','Você venceu! Palavra: ','Gagné ! Mot : ','Победа! Слово: ','勝ち！ 単語: ']);
+d('Press Start',['Pulsa Inicio','Pressione Iniciar','Appuyez sur Démarrer','Нажмите «Старт»','スタートを押してください']);
+d('Game over! Level: ',['¡Fin del juego! Nivel: ','Fim de jogo! Nível: ','Partie terminée ! Niveau : ','Игра окончена! Уровень: ','ゲームオーバー！ レベル: ']);
+d('Correct! Next...',['¡Correcto! Siguiente...','Correto! Próximo...','Correct ! Suivant...','Верно! Дальше...','正解！ 次へ...']);
+d('Click to flip',['Clic para lanzar','Clique para lançar','Cliquez pour lancer','Клик — бросить','クリックで投げる']);
+d('Draw number',['Sacar número','Sortear número','Tirer un numéro','Вытянуть число','番号を引く']);
+d('Correct!',['¡Correcto!','Correto!','Correct !','Верно!','正解！']);
+d('Not solved yet',['Aún sin resolver','Ainda não resolvido','Pas encore résolu','Ещё не решено','まだ解けていません']);
+d('Number 1-9 (or empty to clear):',['Número 1-9 (o vacío para borrar):','Número 1-9 (ou vazio para limpar):','Chiffre 1-9 (ou vide pour effacer) :','Число 1–9 (или пусто для очистки):','数字 1-9（空欄で消去）:']);
+d(' · ← → nudge',[' · ← → empujar',' · ← → empurrar',' · ← → secouer',' · ← → толчок',' · ← → 揺らす']);
+d('Hit or Stand?',['¿Pedir carta o plantarse?','Pedir carta ou parar?','Tirer ou rester ?','Взять карту или остановиться?','ヒット？ スタンド？']);
+d('BUST! Dealer wins.',['¡Te pasaste! Gana la banca.','Estourou! A banca vence.','Dépassé ! La banque gagne.','Перебор! Выиграл дилер.','バースト！ ディーラーの勝ち。']);
+d('Dealer busts — you win!',['La banca se pasa: ¡ganas!','A banca estourou — você venceu!','La banque dépasse — vous gagnez !','У дилера перебор — вы победили!','ディーラーがバースト — あなたの勝ち！']);
+d('Dealer wins',['Gana la banca','A banca vence','La banque gagne','Выиграл дилер','ディーラーの勝ち']);
+d('=Name:',['Nombre:','Nome:','Nom :','Имя:','名前:']);
+d('=Phone:',['Teléfono:','Telefone:','Téléphone :','Телефон:','電話:']);
+d('=Email:',['Correo:','E-mail:','E-mail :','Эл. почта:','メール:']);
+d('No running apps',['Sin aplicaciones en ejecución','Nenhum aplicativo em execução','Aucune application en cours','Нет запущенных приложений','実行中のアプリはありません']);
+d('CPU Usage: ',['Uso de CPU: ','Uso de CPU: ','Utilisation CPU : ','Загрузка ЦП: ','CPU使用率: ']);
+d('Mem Usage: ',['Uso de memoria: ','Uso de memória: ','Mémoire : ','Память: ','メモリ使用率: ']);
+d('This Computer',['Este equipo','Este computador','Cet ordinateur','Этот компьютер','このコンピュータ']);
+d('Display adapters',['Adaptadores de pantalla','Adaptadores de vídeo','Cartes graphiques','Видеоадаптеры','ディスプレイ アダプタ']);
+d('Disk drives',['Unidades de disco','Unidades de disco','Lecteurs de disque','Дисковые устройства','ディスク ドライブ']);
+d('Floppy Disk Drive',['Unidad de disquete','Unidade de disquete','Lecteur de disquette','Дисковод гибких дисков','フロッピー ディスク ドライブ']);
+d('Keyboards',['Teclados','Teclados','Claviers','Клавиатуры','キーボード']);
+d('Mice and other pointing devices',['Mouse y otros dispositivos señaladores','Mouse e outros dispositivos apontadores','Souris et autres périphériques de pointage','Мыши и другие указывающие устройства','マウスとそのほかのポインティング デバイス']);
+d('Modems',['Módems','Modems','Modems','Модемы','モデム']);
+d('Sound, video and game controllers',['Controladores de sonido, vídeo y juegos','Controladores de som, vídeo e jogos','Contrôleurs audio, vidéo et jeu','Звуковые, видео и игровые устройства','サウンド、ビデオ、およびゲーム コントローラ']);
+d('Ports (COM & LPT)',['Puertos (COM y LPT)','Portas (COM e LPT)','Ports (COM et LPT)','Порты (COM и LPT)','ポート (COM と LPT)']);
+d('Click a character to select it',['Haz clic en un carácter para seleccionarlo','Clique em um caractere para selecioná-lo','Cliquez sur un caractère pour le sélectionner','Щёлкните символ, чтобы выбрать его','文字をクリックして選択']);
+d('Selected: "',['Seleccionado: "','Selecionado: "','Sélection : "','Выбрано: "','選択: "']);
+d('Clipboard contents will appear here...',['El contenido del portapapeles aparecerá aquí...','O conteúdo da área de transferência aparecerá aqui...','Le contenu du presse-papiers apparaîtra ici...','Здесь появится содержимое буфера обмена...','クリップボードの内容がここに表示されます...']);
+d('Clipboard Viewer — read-only',['Visor del portapapeles — solo lectura','Visualizador da Área de Transferência — somente leitura','Presse-papiers — lecture seule','Просмотр буфера — только чтение','クリップボード ビューア — 読み取り専用']);
+d('Alarm at (HH:MM):',['Alarma a las (HH:MM):','Alarme às (HH:MM):','Alarme à (HH:MM) :','Будильник на (ЧЧ:ММ):','アラーム時刻 (HH:MM):']);
+d('Alarm set for ',['Alarma programada para ','Alarme definido para ','Alarme réglée pour ','Будильник установлен на ','アラーム設定: ']);
+d('ALARM!',['¡ALARMA!','ALARME!','ALARME !','БУДИЛЬНИК!','アラーム！']);
+d('=Weather',['El Tiempo','Previsão do Tempo','Météo','Погода','天気']);
+d('Simulated data',['Datos simulados','Dados simulados','Données simulées','Имитация данных','シミュレーション データ']);
+d('Line In',['Entrada de línea','Entrada de linha','Entrée ligne','Линейный вход','ライン入力']);
+d('Mute All',['Silenciar todo','Silenciar tudo','Tout couper','Отключить всё','すべてミュート']);
+d('Record',['Grabar','Gravar','Enregistrer','Запись','録音']);
+d('Stop',['Detener','Parar','Arrêter','Стоп','停止']);
+d('Play',['Reproducir','Reproduzir','Lire','Играть','再生']);
+d('Camera ready (simulated)',['Cámara lista (simulada)','Câmera pronta (simulada)','Caméra prête (simulée)','Камера готова (имитация)','カメラ準備完了（シミュレーション）']);
+d('Simulated Camera Feed',['Imagen de cámara simulada','Imagem de câmera simulada','Flux caméra simulé','Имитация изображения камеры','シミュレーション カメラ映像']);
+d('Captured at ',['Capturado a las ','Capturado às ','Capturé à ','Снято в ','撮影時刻: ']);
+d('Registered to',['Registrado a','Registrado para','Enregistré au nom de','Зарегистрировано на','登録先']);
+d('System Information',['Información del sistema','Informações do Sistema','Informations système','Сведения о системе','システム情報']);
+d('Scanning file allocation table...',['Analizando la tabla de asignación de archivos...','Verificando a tabela de alocação de arquivos...',"Analyse de la table d'allocation des fichiers...",'Проверка таблицы размещения файлов...','ファイル アロケーション テーブルを検査中...']);
+d('Checking directory structure...',['Comprobando la estructura de directorios...','Verificando a estrutura de diretórios...','Vérification de la structure des répertoires...','Проверка структуры каталогов...','ディレクトリ構造を確認中...']);
+d('Scanning for lost clusters...',['Buscando clústeres perdidos...','Procurando clusters perdidos...','Recherche des clusters perdus...','Поиск потерянных кластеров...','失われたクラスタを検索中...']);
+d('Verifying file system...',['Verificando el sistema de archivos...','Verificando o sistema de arquivos...','Vérification du système de fichiers...','Проверка файловой системы...','ファイル システムを確認中...']);
+d('Scanning for cross-linked files...',['Buscando archivos con enlaces cruzados...','Procurando arquivos com links cruzados...','Recherche des fichiers à liens croisés...','Поиск файлов с перекрёстными ссылками...','クロスリンク ファイルを検索中...']);
+d('Checking disk surface...',['Comprobando la superficie del disco...','Verificando a superfície do disco...','Vérification de la surface du disque...','Проверка поверхности диска...','ディスク表面を確認中...']);
+d('No errors found.',['No se encontraron errores.','Nenhum erro encontrado.','Aucune erreur détectée.','Ошибок не найдено.','エラーは見つかりませんでした。']);
+d('Format Disk',['Formatear disco','Formatar disco','Formater le disque','Форматирование диска','ディスクのフォーマット']);
+d('Capacity: ',['Capacidad: ','Capacidade: ','Capacité : ','Ёмкость: ','容量: ']);
+d('File System: ',['Sistema de archivos: ','Sistema de arquivos: ','Système de fichiers : ','Файловая система: ','ファイル システム: ']);
+d('Format complete.',['Formato completado.','Formatação concluída.','Formatage terminé.','Форматирование завершено.','フォーマットが完了しました。']);
+d('Checking drive C: ...',['Comprobando la unidad C: ...','Verificando a unidade C: ...','Vérification du lecteur C: ...','Проверка диска C: ...','ドライブ C: を確認中...']);
+d('Scanning FAT: 100% complete',['Analizando FAT: 100% completado','Verificando FAT: 100% concluído','Analyse FAT : 100 % terminée','Проверка FAT: 100% завершено','FAT を検査中: 100% 完了']);
+d('Scanning directories: 100% complete',['Analizando directorios: 100% completado','Verificando diretórios: 100% concluído','Analyse des répertoires : 100 % terminée','Проверка каталогов: 100% завершено','ディレクトリを検査中: 100% 完了']);
+d('Scanning for lost clusters: none',['Clústeres perdidos: ninguno','Clusters perdidos: nenhum','Clusters perdus : aucun','Потерянные кластеры: нет','失われたクラスタ: なし']);
+d('Verifying files: OK',['Verificando archivos: correcto','Verificando arquivos: OK','Vérification des fichiers : OK','Проверка файлов: OK','ファイルの確認: OK']);
+d('Disk check complete. No errors.',['Comprobación del disco completa. Sin errores.','Verificação do disco concluída. Sem erros.','Vérification du disque terminée. Aucune erreur.','Проверка диска завершена. Ошибок нет.','ディスク チェック完了。エラーはありません。']);
+d('Backup to: ',['Copiar en: ','Fazer backup em: ','Sauvegarder vers : ','Копировать на: ','バックアップ先: ']);
+d('Tape drive',['Unidad de cinta','Unidade de fita','Lecteur de bande','Ленточный накопитель','テープ ドライブ']);
+d('Start Backup',['Iniciar copia','Iniciar backup','Démarrer la sauvegarde','Начать архивацию','バックアップ開始']);
+d('Backing up... ',['Copiando... ','Fazendo backup... ','Sauvegarde... ','Архивация... ','バックアップ中... ']);
+d('Backup complete.',['Copia completada.','Backup concluído.','Sauvegarde terminée.','Архивация завершена.','バックアップが完了しました。']);
+d('Visualizer — simulated audio',['Visualizador — audio simulado','Visualizador — áudio simulado','Visualiseur — audio simulé','Визуализатор — имитация звука','ビジュアライザー — シミュレーション音声']);
+d('Graphic Equalizer',['Ecualizador gráfico','Equalizador gráfico','Égaliseur graphique','Графический эквалайзер','グラフィック イコライザー']);
+d('Sample Image',['Imagen de ejemplo','Imagem de exemplo',"Image d'exemple",'Образец изображения','サンプル画像']);
+d('Welcome to Windows 94',['Bienvenido a Windows 94','Bem-vindo ao Windows 94','Bienvenue dans Windows 94','Добро пожаловать в Windows 94','Windows 94 へようこそ']);
+d('Welcome to WordPad',['Bienvenido a WordPad','Bem-vindo ao WordPad','Bienvenue dans WordPad','Добро пожаловать в WordPad','WordPad へようこそ']);
+d('The Information Superhighway',['La autopista de la información','A Super Via da Informação',"L'autoroute de l'information",'Информационная магистраль','情報スーパーハイウェイ']);
+d('New features and beyond',['Novedades y mucho más','Novidades e muito mais','Nouveautés et au-delà','Новые возможности и не только','新機能とその先へ']);
+d('Thank you for watching',['Gracias por ver','Obrigado por assistir','Merci de votre attention','Спасибо за внимание','ご視聴ありがとうございました']);
+d('Title Slide',['Diapositiva de título','Slide de título','Diapositive de titre','Титульный слайд','タイトル スライド']);
+d('Thank You',['Gracias','Obrigado','Merci','Спасибо','ありがとう']);
+d('◀ Prev',['◀ Anterior','◀ Anterior','◀ Précédent','◀ Назад','◀ 前へ']);
+d('Next ▶',['Siguiente ▶','Próximo ▶','Suivant ▶','Далее ▶','次へ ▶']);
+d('Downloaded',['Descargado','Baixado','Téléchargé','Загружено','ダウンロード済み']);
+d('Loan Calculator',['Calculadora de préstamos','Calculadora de empréstimos','Calculateur de prêt','Кредитный калькулятор','ローン計算']);
+d('Annual Rate (%)',['Tasa anual (%)','Taxa anual (%)','Taux annuel (%)','Годовая ставка (%)','年利 (%)']);
+d('Monthly payment: $',['Pago mensual: $','Pagamento mensal: $','Mensualité : $','Ежемесячный платёж: $','月々の支払い: $']);
+d('INVOICE ',['FACTURA ','FATURA ','FACTURE ','СЧЁТ ','請求書 ']);
+d('=From:',['De:','De:','De :','От:','差出人:']);
+d('=To:',['Para:','Para:','À :','Кому:','宛先:']);
+d('=Date:',['Fecha:','Data:','Date :','Дата:','日付:']);
+d('=Description',['Descripción','Descrição','Description','Описание','説明']);
+d('=Qty',['Cant.','Qtd.','Qté','Кол-во','数量']);
+d('Customer Name',['Nombre del cliente','Nome do cliente','Nom du client','Имя клиента','顧客名']);
+d('Customer Address',['Dirección del cliente','Endereço do cliente','Adresse du client','Адрес клиента','顧客の住所']);
+d('City, Country',['Ciudad, País','Cidade, País','Ville, Pays','Город, страна','市区町村、国']);
+d('3.5" Floppy disks',['Disquetes de 3,5"','Disquetes de 3,5"','Disquettes 3,5"','Дискеты 3,5"','3.5インチ フロッピー']);
+d('Buy floppy disks',['Comprar disquetes','Comprar disquetes','Acheter des disquettes','Купить дискеты','フロッピーを買う']);
+d('Install Windows 94',['Instalar Windows 94','Instalar o Windows 94','Installer Windows 94','Установить Windows 94','Windows 94 をインストールする']);
+d('Call tech support',['Llamar a soporte técnico','Ligar para o suporte técnico','Appeler le support technique','Позвонить в техподдержку','サポートに電話する']);
+d('Getting Started',['Primeros pasos','Primeiros passos','Prise en main','Начало работы','はじめに']);
+d('Using Programs',['Uso de programas','Usando programas','Utilisation des programmes','Работа с программами','プログラムの使い方']);
+d('Customizing Windows',['Personalizar Windows','Personalizando o Windows','Personnaliser Windows','Настройка Windows','Windows のカスタマイズ']);
+d('Using the Internet',['Uso de Internet','Usando a Internet',"Utilisation d'Internet",'Работа в Интернете','インターネットの使い方']);
+d('Keyboard Shortcuts',['Métodos abreviados de teclado','Atalhos de teclado','Raccourcis clavier','Сочетания клавиш','キーボード ショートカット']);
+d('This is the help content for ',['Este es el contenido de ayuda de ','Este é o conteúdo de ajuda de ',"Voici le contenu de l'aide de ",'Это справка по разделу ','これは次のヘルプの内容です: ']);
+d('. Windows 94 provides extensive documentation to help you make the most of your computer.',['. Windows 94 incluye documentación completa para que aproveches al máximo tu equipo.','. O Windows 94 oferece documentação completa para você aproveitar ao máximo o seu computador.','. Windows 94 fournit une documentation complète pour tirer le meilleur parti de votre ordinateur.','. В Windows 94 есть подробная документация, которая поможет вам использовать компьютер максимально эффективно.','。Windows 94 には、コンピュータを最大限に活用するための詳しい説明が用意されています。']);
+d('Use the navigation on the left to browse topics, or search for keywords using the Find feature.',['Usa el panel izquierdo para explorar los temas o busca palabras clave con la función Buscar.','Use a navegação à esquerda para ver os tópicos ou pesquise palavras-chave com o recurso Localizar.','Utilisez le volet de gauche pour parcourir les sujets ou recherchez des mots-clés avec la fonction Rechercher.','Используйте панель слева для просмотра тем или найдите ключевые слова с помощью функции «Найти».','左側のナビゲーションでトピックを参照するか、検索機能でキーワードを探してください。']);
+d('Type the name of a program and Windows will open it for you.',['Escriba el nombre de un programa y Windows lo abrirá por usted.','Digite o nome de um programa e o Windows o abrirá para você.',"Tapez le nom d'un programme et Windows l'ouvrira pour vous.",'Введите имя программы, и Windows откроет её для вас.','プログラム名を入力すると、Windows が開きます。']);
+d('Search for files...',['Buscar archivos...','Pesquisar arquivos...','Rechercher des fichiers...','Поиск файлов...','ファイルを検索...']);
+d('No files found',['No se encontraron archivos','Nenhum arquivo encontrado','Aucun fichier trouvé','Файлы не найдены','ファイルが見つかりません']);
+d('Welcome to ',['Bienvenido a ','Bem-vindo ao ','Bienvenue dans ','Добро пожаловать в ','ようこそ ']);
+d('The fastest, most powerful Windows yet.',['El Windows más rápido y potente hasta ahora.','O Windows mais rápido e poderoso até agora.',"Le Windows le plus rapide et le plus puissant à ce jour.",'Самая быстрая и мощная Windows на сегодня.','これまでで最速・最強の Windows。']);
+d('Did you know?',['¿Sabías que...?','Você sabia?','Le saviez-vous ?','Знаете ли вы?','ご存じですか？']);
+d('You can drag desktop icons to rearrange them',['Puedes arrastrar los iconos del escritorio para reorganizarlos','Você pode arrastar os ícones da área de trabalho para reorganizá-los','Vous pouvez faire glisser les icônes du bureau pour les réorganiser','Значки рабочего стола можно перетаскивать','デスクトップのアイコンはドラッグして並べ替えられます']);
+d('Right-click anywhere for a context menu',['Haz clic derecho en cualquier lugar para ver el menú contextual','Clique com o botão direito em qualquer lugar para abrir o menu de contexto','Cliquez avec le bouton droit n\'importe où pour afficher le menu contextuel','Щёлкните правой кнопкой в любом месте, чтобы открыть контекстное меню','どこでも右クリックでショートカット メニューを表示']);
+d('Ctrl+Alt+Del opens the login screen',['Ctrl+Alt+Supr abre la pantalla de inicio de sesión','Ctrl+Alt+Del abre a tela de login','Ctrl+Alt+Suppr ouvre l\'écran de connexion','Ctrl+Alt+Del открывает экран входа','Ctrl+Alt+Del でログオン画面を開きます']);
+d('100 programs are included with Windows 94',['Windows 94 incluye 100 programas','O Windows 94 inclui 100 programas','Windows 94 inclut 100 programmes','В Windows 94 входит 100 программ','Windows 94 には 100 個のプログラムが含まれています']);
+d('Copyright © 1994 Microsoft Corporation.',['Copyright © 1994 Microsoft Corporation.','Copyright © 1994 Microsoft Corporation.','Copyright © 1994 Microsoft Corporation.','Copyright © 1994 Microsoft Corporation.','Copyright © 1994 Microsoft Corporation.']);
+d('All rights reserved.',['Todos los derechos reservados.','Todos os direitos reservados.','Tous droits réservés.','Все права защищены.','All rights reserved.'.replace('All rights reserved.','すべての権利を保有します。')]);
+d('This product is licensed to:',['Este producto está licenciado a:','Este produto está licenciado para:','Ce produit est concédé sous licence à :','Лицензия выдана:','このプロダクトの使用許諾先:']);
+d('=User',['Usuario','Usuário','Utilisateur','Пользователь','ユーザー']);
+d('Physical memory available to Windows: ',['Memoria física disponible para Windows: ','Memória física disponível para o Windows: ','Mémoire physique disponible pour Windows : ','Физическая память, доступная Windows: ','Windows で使用可能な物理メモリ: ']);
+d('System resources: 85% free',['Recursos del sistema: 85% libres','Recursos do sistema: 85% livres','Ressources système : 85 % libres','Системные ресурсы: свободно 85%','システム リソース: 85% 空き']);
+d('File system: 32-bit, 16-bit compatible',['Sistema de archivos: 32 bits, compatible con 16 bits','Sistema de arquivos: 32 bits, compatível com 16 bits','Système de fichiers : 32 bits, compatible 16 bits','Файловая система: 32-разрядная, совместима с 16-разрядной','ファイル システム: 32 ビット（16 ビット互換）']);
+d('You can right-click the desktop to change icon arrangement.',['Haz clic derecho en el escritorio para cambiar la disposición de los iconos.','Clique com o botão direito na área de trabalho para organizar os ícones.','Cliquez avec le bouton droit sur le bureau pour réorganiser les icônes.','Щёлкните рабочий стол правой кнопкой, чтобы упорядочить значки.','デスクトップを右クリックするとアイコンの配置を変更できます。']);
+d('Press Alt+Tab to switch between open windows.',['Pulsa Alt+Tab para cambiar entre ventanas abiertas.','Pressione Alt+Tab para alternar entre as janelas abertas.','Appuyez sur Alt+Tab pour passer d\'une fenêtre à l\'autre.','Нажмите Alt+Tab для переключения между окнами.','Alt+Tab で開いているウィンドウを切り替えます。']);
+d('Drag windows by their title bar to move them.',['Arrastra las ventanas por su barra de título para moverlas.','Arraste as janelas pela barra de título para movê-las.','Faites glisser une fenêtre par sa barre de titre pour la déplacer.','Перетаскивайте окна за заголовок, чтобы переместить их.','タイトル バーをドラッグするとウィンドウを移動できます。']);
+d('Use the Language button on the taskbar to change locale.',['Usa el botón de idioma de la barra de tareas para cambiar de idioma.','Use o botão de idioma na barra de tarefas para trocar o idioma.','Utilisez le bouton de langue de la barre des tâches pour changer de langue.','Кнопка языка на панели задач меняет язык интерфейса.','タスク バーの言語ボタンで言語を切り替えられます。']);
+d('Double-click desktop icons to open programs.',['Haz doble clic en los iconos del escritorio para abrir programas.','Clique duas vezes nos ícones da área de trabalho para abrir programas.','Double-cliquez sur les icônes du bureau pour ouvrir les programmes.','Дважды щёлкните значок на рабочем столе, чтобы открыть программу.','デスクトップのアイコンをダブルクリックしてプログラムを開きます。']);
+d('Use the Command Prompt to run DOS commands.',['Usa el Símbolo del sistema para ejecutar comandos de DOS.','Use o Prompt de Comando para executar comandos do DOS.','Utilisez l\'Invite de commandes pour exécuter des commandes DOS.','Командная строка позволяет выполнять команды DOS.','コマンド プロンプトで DOS コマンドを実行できます。']);
+d('Drag the bottom-right corner of a window to resize it.',['Arrastra la esquina inferior derecha de una ventana para cambiar su tamaño.','Arraste o canto inferior direito da janela para redimensioná-la.','Faites glisser le coin inférieur droit d\'une fenêtre pour la redimensionner.','Потяните за правый нижний угол окна, чтобы изменить его размер.','ウィンドウの右下隅をドラッグするとサイズを変更できます。']);
+d('Press Ctrl+Alt+Del to return to the login screen.',['Pulsa Ctrl+Alt+Supr para volver a la pantalla de inicio de sesión.','Pressione Ctrl+Alt+Del para voltar à tela de login.','Appuyez sur Ctrl+Alt+Suppr pour revenir à l\'écran de connexion.','Нажмите Ctrl+Alt+Del, чтобы вернуться на экран входа.','Ctrl+Alt+Del でログオン画面に戻ります。']);
+d('You can save desktop icon positions by dragging them.',['Al arrastrar los iconos del escritorio se guarda su posición.','Ao arrastar os ícones da área de trabalho, a posição é salva.','Les positions des icônes sont enregistrées quand vous les déplacez.','Положение значков сохраняется, когда вы их перетаскиваете.','アイコンをドラッグすると位置が保存されます。']);
+d('The Control Panel lets you change wallpaper and language.',['En el Panel de control puedes cambiar el fondo y el idioma.','No Painel de Controle você muda o papel de parede e o idioma.','Le Panneau de configuration permet de changer le fond d\'écran et la langue.','В панели управления можно изменить обои и язык.','コントロール パネルで壁紙と言語を変更できます。']);
+d('Next Tip',['Siguiente consejo','Próxima dica','Astuce suivante','Следующий совет','次のヒント']);
+d('Delete ',['Eliminar ','Excluir ','Supprimer ','Удалить ','削除: ']);
+d('Row ',['Fila ','Linha ','Ligne ','Строка ','行 ']);
+d('=Item',['Elemento','Item','Élément','Элемент','項目']);
+d('=Value',['Valor','Valor','Valeur','Значение','値']);
+
+var EXT=`Add|Añadir|Adicionar|Ajouter|Добавить|追加
+Applications|Aplicaciones|Aplicativos|Applications|Приложения|アプリケーション
+Architecture:|Arquitectura:|Arquitetura:|Architecture :|Архитектура:|アーキテクチャ:
+=Actual|Real|Real|Réel|Факт|実績
+=Budget|Presupuesto|Orçamento|Budget|Бюджет|予算
+Calculate|Calcular|Calcular|Calculer|Рассчитать|計算
+Cancel|Cancelar|Cancelar|Annuler|Отмена|キャンセル
+Capture|Capturar|Capturar|Capturer|Снимок|撮影
+Category|Categoría|Categoria|Catégorie|Категория|カテゴリ
+Center|Centrar|Centralizar|Centrer|По центру|中央揃え
+Check|Comprobar|Verificar|Vérifier|Проверить|チェック
+Clear|Borrar|Limpar|Effacer|Очистить|クリア
+Close|Cerrar|Fechar|Fermer|Закрыть|閉じる
+Copy|Copiar|Copiar|Copier|Копировать|コピー
+Customers |Clientes |Clientes |Clients |Клиенты |顧客 
+DEALER|BANCA|BANCA|BANQUE|ДИЛЕР|ディーラー
+PLAYER|JUGADOR|JOGADOR|JOUEUR|ИГРОК|プレイヤー
+Defragment|Desfragmentar|Desfragmentar|Défragmenter|Дефрагментировать|最適化
+Deployment|Despliegue|Implantação|Déploiement|Развёртывание|展開
+Design|Diseño|Design|Conception|Проектирование|設計
+Development|Desarrollo|Desenvolvimento|Développement|Разработка|開発
+Planning|Planificación|Planejamento|Planification|Планирование|計画
+Testing|Pruebas|Testes|Tests|Тестирование|テスト
+Difference|Diferencia|Diferença|Différence|Разница|差額
+Dial-Up Networking|Acceso telefónico a redes|Rede dial-up|Accès réseau à distance|Удалённый доступ к сети|ダイヤルアップ ネットワーク
+Download|Descargar|Baixar|Télécharger|Скачать|ダウンロード
+Draw 6 numbers|Sacar 6 números|Sortear 6 números|Tirer 6 numéros|Вытянуть 6 чисел|6個の数字を引く
+Entertainment|Ocio|Lazer|Loisirs|Развлечения|娯楽
+=FREE|LIBRE|LIVRE|LIBRE|СВОБ.|フリー
+Find|Buscar|Localizar|Rechercher|Найти|検索
+Flat|Plano|Plano|Plat|Ровный|フラット
+Flip|Lanzar|Lançar|Lancer|Бросить|投げる
+Food|Comida|Alimentação|Alimentation|Питание|食費
+Format A:|Formatear A:|Formatar A:|Formater A:|Форматировать A:|A: をフォーマット
+Hit|Pedir|Pedir|Tirer|Взять|ヒット
+Stand|Plantarse|Parar|Rester|Хватит|スタンド
+Left|Izquierda|Esquerda|Gauche|Слева|左揃え
+Right|Derecha|Direita|Droite|Справа|右揃え
+=List|Lista|Lista|Liste|Список|箇条書き
+=Line|Línea|Linha|Ligne|Линия|ライン
+Master|Principal|Principal|Principal|Общая|マスター
+=Mic|Micrófono|Mic|Micro|Микрофон|マイク
+Microphone|Micrófono|Microfone|Microphone|Микрофон|マイク
+CD Audio|CD de audio|CD de áudio|CD audio|Аудио CD|CD オーディオ
+Mistakes: |Errores: |Erros: |Erreurs : |Ошибки: |ミス: 
+Pairs: |Parejas: |Pares: |Paires : |Пары: |ペア: 
+New Game|Nuevo juego|Novo jogo|Nouvelle partie|Новая игра|新しいゲーム
+New entry|Nueva entrada|Nova entrada|Nouvelle entrée|Новая запись|新しい記事
+New task...|Nueva tarea...|Nova tarefa...|Nouvelle tâche...|Новая задача...|新しいタスク...
+=Name|Nombre|Nome|Nom|Имя|名前
+=Price|Precio|Preço|Prix|Цена|価格
+=Total|Total|Total|Total|Итого|合計
+Refresh|Actualizar|Atualizar|Actualiser|Обновить|更新
+Reset|Reiniciar|Reiniciar|Réinitialiser|Сброс|リセット
+Result:|Resultado:|Resultado:|Résultat :|Результат:|結果:
+Roll|Lanzar|Lançar|Lancer|Бросить|振る
+=Seconds|Segundos|Segundos|Secondes|Секунды|秒
+Set alarm|Poner alarma|Definir alarme|Régler l'alarme|Установить|アラームを設定
+=Start|Iniciar|Iniciar|Démarrer|Старт|開始
+=Ready|Listo|Pronto|Prêt|Готово|準備完了
+Support (1 year)|Soporte (1 año)|Suporte (1 ano)|Support (1 an)|Поддержка (1 год)|サポート（1年）
+Rent|Alquiler|Aluguel|Loyer|Аренда|家賃
+Transport|Transporte|Transporte|Transports|Транспорт|交通費
+Utilities|Suministros|Utilidades|Charges|Коммунальные услуги|光熱費
+Troubleshooting|Solución de problemas|Solução de problemas|Dépannage|Устранение неполадок|トラブルシューティング
+Try the toolbar buttons!|¡Prueba los botones de la barra de herramientas!|Experimente os botões da barra de ferramentas!|Essayez les boutons de la barre d'outils !|Попробуйте кнопки на панели инструментов!|ツールバーのボタンを試してみてください！
+This is a rich text editor. You can|Este es un editor de texto enriquecido. Puedes|Este é um editor de texto formatado. Você pode|Ceci est un éditeur de texte enrichi. Vous pouvez|Это редактор форматированного текста. Вы можете|これはリッチ テキスト エディタです。次のことができます:
+Principal:|Capital:|Capital:|Capital :|Сумма кредита:|元金:
+Years:|Años:|Anos:|Années :|Лет:|年数:
+Type:|Tipo:|Tipo:|Type :|Тип:|種類:
+Value:|Valor:|Valor:|Valeur :|Значение:|値:
+=length|longitud|comprimento|longueur|длина|長さ
+=weight|peso|peso|poids|вес|重さ
+=temp|temperatura|temperatura|température|температура|温度
+Uptime:|Tiempo activo:|Tempo de atividade:|Temps de fonctionnement :|Время работы:|稼働時間:
+System:|Sistema:|Sistema:|Système :|Система:|システム:
+Sound:|Sonido:|Som:|Son :|Звук:|サウンド:
+Network:|Red:|Rede:|Réseau :|Сеть:|ネットワーク:
+Modem:|Módem:|Modem:|Modem :|Модем:|モデム:
+Memory:|Memoria:|Memória:|Mémoire :|Память:|メモリ:
+Display:|Pantalla:|Vídeo:|Écran :|Дисплей:|ディスプレイ:
+Disk |Disco |Disco |Disque |Диск |ディスク 
+1.44 MB floppy|Disquete de 1,44 MB|Disquete de 1,44 MB|Disquette 1,44 Mo|Дискета 1,44 МБ|1.44 MB フロッピー
+16-bit / simulated|16 bits / simulado|16 bits / simulado|16 bits / simulé|16-разрядная / имитация|16ビット / シミュレーション
+16-bit Edition|Edición de 16 bits|Edição 16-bit|Édition 16 bits|16-разрядная версия|16ビット版
+540 MB total, 120 MB free|540 MB en total, 120 MB libres|540 MB no total, 120 MB livres|540 Mo au total, 120 Mo libres|Всего 540 МБ, свободно 120 МБ|合計 540 MB、空き 120 MB
+SVGA 800x600 256 colors|SVGA 800x600, 256 colores|SVGA 800x600, 256 cores|SVGA 800x600, 256 couleurs|SVGA 800x600, 256 цветов|SVGA 800x600 256色
+2. Introduction|2. Introducción|2. Introdução|2. Introduction|2. Введение|2. はじめに
+3. Features|3. Características|3. Recursos|3. Fonctionnalités|3. Возможности|3. 機能
+Version |Versión |Versão |Version |Версия |バージョン 
+e.g. notepad, calc, paint, explorer...|p. ej. notepad, calc, paint, explorer...|ex.: notepad, calc, paint, explorer...|ex. : notepad, calc, paint, explorer...|напр.: notepad, calc, paint, explorer...|例: notepad, calc, paint, explorer...
+Available: |Disponibles: |Disponíveis: |Disponibles : |Доступно: |利用可能: 
+Version:|Versión:|Versão:|Version :|Версия:|バージョン:
+=Wave|Onda|Onda|Onde|Волна|波形
+Windows 94 License|Licencia de Windows 94|Licença do Windows 94|Licence Windows 94|Лицензия Windows 94|Windows 94 ライセンス
+=bold|negrita|negrito|gras|жирный|太字
+=italic|cursiva|itálico|italique|курсив|斜体
+=underline|subrayado|sublinhado|souligné|подчёркнутый|下線
+=, and|, y|, e|, et|, и|、
+=your text.|tu texto.|seu texto.|votre texte.|свой текст.|テキストを装飾できます。
+Named:|Nombre:|Nome:|Nom :|Имя:|名前:`;
+EXT.split('\n').forEach(function(l){var q=l.split('|');D[q[0]]=q.slice(1);});
+var DS={},LS=['en','pt','fr','ru','ja'];
+var EXS=`=Lun|Mon|Seg|Lun|Пн|月
+=Mar|Tue|Ter|Mar|Вт|火
+=Mié|Wed|Qua|Mer|Ср|水
+=Jue|Thu|Qui|Jeu|Чт|木
+=Vie|Fri|Sex|Ven|Пт|金
+=Sáb|Sat|Sáb|Sam|Сб|土
+=Dom|Sun|Dom|Dim|Вс|日
+=Azul|Blue|Azul|Bleu|Синий|青
+=Gris|Gray|Cinza|Gris|Серый|グレー
+=Morado|Purple|Roxo|Violet|Фиолетовый|紫
+=Negro|Black|Preto|Noir|Чёрный|黒
+=Rojo|Red|Vermelho|Rouge|Красный|赤
+=Rosa|Pink|Rosa|Rose|Розовый|ピンク
+=Teal|Teal|Azul-petróleo|Sarcelle|Бирюзовый|ティール
+=Verde|Green|Verde|Vert|Зелёный|緑
+=Documentos|Documents|Documentos|Documents|Документы|ドキュメント
+=Imagenes|Pictures|Imagens|Images|Изображения|画像
+=Imágenes|Pictures|Imagens|Images|Изображения|画像
+=Programas|Programs|Programas|Programmes|Программы|プログラム`;
+EXS.split('\n').forEach(function(l){var q=l.split('|');DS[q[0].slice(1)]=q.slice(1);});
+var keys=Object.keys(D).filter(function(k){return k[0]!=='=';}).sort(function(a,b){return b.length-a.length;});
+var RE=new RegExp(keys.map(function(k){
+  var e=k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  return (/^\w/.test(k)?'\\b':'')+e+(/\w$/.test(k)?'\\b':'');
+}).join('|'),'g');
+function tx(s){
+  if(typeof s!=='string'||!s)return s;
+  var t0=s.trim();
+  if(lang!=='en'){
+    var i=L.indexOf(lang);
+    if(i>=0){
+      var ex=D['='+t0];
+      s=ex?s.replace(t0,ex[i]):s.replace(RE,function(m){return D[m]?D[m][i]:m;});
+    }
+  }
+  if(lang!=='es'){
+    var j=LS.indexOf(lang),e2=DS[s.trim()];
+    if(j>=0&&e2)s=s.replace(s.trim(),e2[j]);
+  }
+  return s;
+}
+function fixNode(n){
+  var p=n.parentNode;if(p&&(p.nodeName==='SCRIPT'||p.nodeName==='STYLE'||p.nodeName==='TEXTAREA'))return;
+  var v=tx(n.nodeValue);if(v!==n.nodeValue)n.nodeValue=v;
+}
+function walk(root){
+  if(!root)return;
+  if(root.nodeType===3){fixNode(root);return;}
+  if(root.nodeType!==1)return;
+  var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),n,list=[];
+  while((n=w.nextNode()))list.push(n);
+  list.forEach(fixNode);
+  var els=root.querySelectorAll?root.querySelectorAll('[placeholder],[title]'):[];
+  Array.prototype.forEach.call(els,fixAttr);
+  fixAttr(root);
+}
+function fixAttr(el){
+  ['placeholder','title'].forEach(function(a){
+    if(el.getAttribute&&el.hasAttribute(a)){var o=el.getAttribute(a),v=tx(o);if(v!==o)el.setAttribute(a,v);}
+  });
+}
+var obs=new MutationObserver(function(recs){
+  recs.forEach(function(r){
+    if(r.type==='characterData')fixNode(r.target);
+    else if(r.type==='attributes')fixAttr(r.target);
+    else r.addedNodes.forEach(walk);
+  });
+  obs.takeRecords();
+});
+obs.observe(document.body,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['placeholder','title']});
+['alert','confirm','prompt'].forEach(function(f){
+  var o=window[f];
+  window[f]=function(m,d2){return f==='prompt'?o.call(window,tx(String(m)),d2):o.call(window,tx(String(m)));};
+});
+var _sl=setLang;
+setLang=function(code){_sl(code);walk(document.body);try{refreshDesktopIcons();buildStartMenu();}catch(e){}};
+walk(document.body);
+console.log('Traducción total activa · frases:',Object.keys(D).length);
+})();
+</script>
+
 </body>
 </html>
