@@ -1,0 +1,3538 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Windows 94</title>
+<style>
+/* ============ RESET / BASE ============ */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{
+  font-family:Tahoma,"MS Sans Serif",Geneva,Verdana,"Segoe UI","Yu Gothic UI",Meiryo,"Noto Sans JP",sans-serif;
+  font-size:12px;background:#000;user-select:none;-webkit-tap-highlight-color:transparent;
+}
+input,textarea{user-select:text;font-family:inherit}
+img{image-rendering:pixelated;-ms-interpolation-mode:nearest-neighbor}
+button{font-family:inherit;font-size:inherit;cursor:default;border:0;background:none;color:inherit}
+
+/* ============ BEVELS ============ */
+.out{background:#c0c0c0;box-shadow:inset -1px -1px 0 #000,inset 1px 1px 0 #dfdfdf,inset -2px -2px 0 #808080,inset 2px 2px 0 #fff}
+.in{background:#fff;box-shadow:inset 1px 1px 0 #000,inset -1px -1px 0 #dfdfdf,inset 2px 2px 0 #808080,inset -2px -2px 0 #fff}
+.btn{
+  background:#c0c0c0;padding:3px 12px;min-width:66px;color:#000;
+  box-shadow:inset -1px -1px 0 #000,inset 1px 1px 0 #dfdfdf,inset -2px -2px 0 #808080,inset 2px 2px 0 #fff;
+}
+.btn:active{box-shadow:inset 1px 1px 0 #000,inset -1px -1px 0 #dfdfdf,inset 2px 2px 0 #808080,inset -2px -2px 0 #fff;padding:4px 11px 2px 13px}
+
+/* ============ BOOT ============ */
+#boot{
+  position:fixed;inset:0;background:#000;z-index:99999;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+  color:#c0c0c0;transition:opacity .5s;
+}
+#boot.hide{opacity:0;pointer-events:none}
+.boot-flag{display:grid;grid-template-columns:1fr 1fr;gap:2px;width:64px;height:64px;margin-bottom:22px;transform:skewY(-6deg)}
+.boot-flag i{display:block}
+.boot-flag i:nth-child(1){background:#ff3b30;box-shadow:2px 2px 0 #7a0000}
+.boot-flag i:nth-child(2){background:#34c759;box-shadow:2px 2px 0 #005500}
+.boot-flag i:nth-child(3){background:#0a84ff;box-shadow:2px 2px 0 #001f66}
+.boot-flag i:nth-child(4){background:#ffcc00;box-shadow:2px 2px 0 #7a5c00}
+.boot-title{font-size:34px;letter-spacing:1px;color:#fff;text-shadow:2px 2px 0 #000080,4px 4px 0 #000}
+.boot-title span{color:#ffcc00}
+.boot-sub{margin-top:18px;font-size:12px;color:#c0c0c0;letter-spacing:1px}
+.boot-bar{width:260px;height:18px;margin-top:14px;background:#000;box-shadow:inset 0 0 0 1px #808080;padding:2px}
+#bootFill{height:100%;width:0;background:repeating-linear-gradient(90deg,#000080 0 10px,#1084d0 10px 12px);transition:width .18s}
+.boot-copy{position:absolute;bottom:18px;font-size:10px;color:#808080}
+
+/* ============ DESKTOP ============ */
+#desktop{position:absolute;inset:0 0 30px 0;background:#008080;overflow:hidden}
+#desktop.pat{background-image:
+  repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0 2px,transparent 2px 4px),
+  repeating-linear-gradient(90deg,rgba(0,0,0,.06) 0 2px,transparent 2px 4px)}
+#iconArea{position:absolute;inset:6px;display:block}
+.dicon{position:absolute;width:78px;padding:4px 2px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:default;color:#fff}
+.dicon img{width:32px;height:32px;filter:drop-shadow(1px 1px 0 rgba(0,0,0,.5));pointer-events:none}
+.dicon span{font-size:11px;text-align:center;padding:1px 4px;text-shadow:1px 1px 0 #000;line-height:1.2;pointer-events:none}
+.dicon.sel span{background:#000080;outline:1px dotted #fff;text-shadow:none}
+.dicon.dragging{opacity:.7}
+
+/* ============ WINDOWS ============ */
+#winLayer{position:absolute;inset:0}
+.window{
+  position:absolute;display:flex;flex-direction:column;background:#c0c0c0;padding:2px;
+  min-width:220px;min-height:140px;
+  box-shadow:inset -1px -1px 0 #000,inset 1px 1px 0 #dfdfdf,inset -2px -2px 0 #808080,inset 2px 2px 0 #fff,3px 3px 9px rgba(0,0,0,.5);
+}
+.titlebar{
+  height:20px;display:flex;align-items:center;gap:4px;padding:0 2px 0 3px;flex:0 0 auto;
+  background:linear-gradient(90deg,#000080,#1084d0);color:#fff;font-weight:bold;font-size:11px;cursor:move;
+}
+.window.inactive .titlebar{background:linear-gradient(90deg,#808080,#b5b5b5);color:#e0e0e0}
+.tb-icon{width:16px;height:16px}
+.tb-title{flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.tb-buttons{display:flex;gap:2px}
+.tbtn{
+  width:17px;height:15px;display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:bold;color:#000;line-height:1;padding-bottom:1px;
+  background:#c0c0c0;box-shadow:inset -1px -1px 0 #000,inset 1px 1px 0 #dfdfdf,inset -2px -2px 0 #808080,inset 2px 2px 0 #fff;
+}
+.tbtn:active{box-shadow:inset 1px 1px 0 #000,inset -1px -1px 0 #dfdfdf,inset 2px 2px 0 #808080,inset -2px -2px 0 #fff}
+.win-body{flex:1;display:flex;flex-direction:column;overflow:hidden;margin-top:2px;position:relative}
+.resize-handle{position:absolute;right:0;bottom:0;width:16px;height:16px;cursor:nwse-resize;z-index:5}
+
+/* ============ MENUS ============ */
+.menubar{display:flex;background:#c0c0c0;padding:1px 0;flex:0 0 auto;border-bottom:1px solid #808080}
+.menu-title{padding:2px 8px;font-size:12px;cursor:default}
+.menu-title:hover{background:#000080;color:#fff}
+.dropdown{
+  position:absolute;background:#c0c0c0;padding:2px;min-width:160px;z-index:2000;
+  box-shadow:inset -1px -1px 0 #000,inset 1px 1px 0 #dfdfdf,inset -2px -2px 0 #808080,inset 2px 2px 0 #fff,3px 3px 6px rgba(0,0,0,.4);
+}
+.dd-item{padding:4px 22px 4px 22px;font-size:12px;cursor:default;white-space:nowrap}
+.dd-item:hover{background:#000080;color:#fff}
+.dd-sep{height:2px;margin:3px 2px;border-top:1px solid #808080;border-bottom:1px solid #fff}
+
+/* ============ TASKBAR ============ */
+#taskbar{
+  position:absolute;bottom:0;left:0;right:0;height:30px;background:#c0c0c0;display:flex;align-items:center;
+  padding:2px 3px;gap:3px;z-index:5000;
+  box-shadow:inset 0 1px 0 #fff,inset 0 2px 0 #dfdfdf;
+}
+#startBtn{
+  display:flex;align-items:center;gap:4px;padding:2px 7px 2px 4px;height:24px;font-weight:bold;font-size:12px;
+  background:#c0c0c0;box-shadow:inset -1px -1px 0 #000,inset 1px 1px 0 #dfdfdf,inset -2px -2px 0 #808080,inset 2px 2px 0 #fff;
+}
+#startBtn.on{box-shadow:inset 1px 1px 0 #000,inset -1px -1px 0 #dfdfdf,inset 2px 2px 0 #808080,inset -2px -2px 0 #fff}
+#startBtn img{width:18px;height:18px}
+#taskList{flex:1;display:flex;gap:3px;overflow:hidden;padding:0 4px}
+.task-btn{
+  display:flex;align-items:center;gap:5px;height:24px;padding:2px 8px;max-width:170px;min-width:120px;
+  font-size:11px;text-align:left;overflow:hidden;background:#c0c0c0;
+  box-shadow:inset -1px -1px 0 #000,inset 1px 1px 0 #dfdfdf,inset -2px -2px 0 #808080,inset 2px 2px 0 #fff;
+}
+.task-btn.on{box-shadow:inset 1px 1px 0 #000,inset -1px -1px 0 #dfdfdf,inset 2px 2px 0 #808080,inset -2px -2px 0 #fff;background:#d4d0c8;font-weight:bold}
+.task-btn img{width:16px;height:16px;flex:0 0 auto}
+.task-btn span{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+#tray{display:flex;align-items:center;gap:8px;padding:0 8px;height:24px;box-shadow:inset 1px 1px 0 #808080,inset -1px -1px 0 #fff}
+#langBtn{cursor:pointer;font-size:11px;font-weight:bold;padding:1px 4px;box-shadow:inset -1px -1px 0 #000,inset 1px 1px 0 #dfdfdf,inset -2px -2px 0 #808080,inset 2px 2px 0 #fff;background:#c0c0c0}
+#clockEl{font-size:11px;min-width:48px;text-align:center}
+
+/* ============ START MENU ============ */
+#startMenu{
+  position:absolute;left:3px;bottom:30px;display:none;z-index:6000;
+  background:#c0c0c0;padding:2px;
+  box-shadow:inset -1px -1px 0 #000,inset 1px 1px 0 #dfdfdf,inset -2px -2px 0 #808080,inset 2px 2px 0 #fff,4px 4px 10px rgba(0,0,0,.5);
+}
+#startMenu.open{display:flex}
+.sm-side{width:26px;background:linear-gradient(180deg,#000080,#1084d0);display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px}
+.sm-side span{writing-mode:vertical-rl;transform:rotate(180deg);color:#c0c0c0;font-weight:bold;font-size:14px;letter-spacing:2px;white-space:nowrap}
+.sm-side b{color:#fff}
+.sm-list{display:flex;flex-direction:column;min-width:210px;padding:2px 0}
+.sm-item{display:flex;align-items:center;gap:9px;padding:6px 12px 6px 8px;font-size:12px;cursor:default;position:relative}
+.sm-item:hover{background:#000080;color:#fff}
+.sm-item img{width:24px;height:24px}
+.sm-item .arrow{margin-left:auto;font-size:10px}
+.sm-sep{height:2px;margin:3px 6px;border-top:1px solid #808080;border-bottom:1px solid #fff}
+#smSub{
+  position:absolute;left:100%;bottom:0;margin-left:2px;display:none;background:#c0c0c0;padding:2px;min-width:190px;
+  max-height:76vh;overflow-y:auto;
+  box-shadow:inset -1px -1px 0 #000,inset 1px 1px 0 #dfdfdf,inset -2px -2px 0 #808080,inset 2px 2px 0 #fff,4px 4px 10px rgba(0,0,0,.5);
+}
+#smSub.open{display:block}
+#smSub .sm-item{padding:4px 12px 4px 6px;font-size:11px}
+#smSub .sm-item img{width:18px;height:18px}
+.sm-cat{
+  padding:3px 8px;font-size:10px;font-weight:bold;color:#000080;
+  background:#dfdfdf;border-top:1px solid #fff;border-bottom:1px solid #808080;
+  letter-spacing:.5px;
+}
+
+/* ============ MODAL / DIALOG ============ */
+.modal{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.08);z-index:3000}
+.dialog{min-width:260px;max-width:90%;padding:2px;background:#c0c0c0;
+  box-shadow:inset -1px -1px 0 #000,inset 1px 1px 0 #dfdfdf,inset -2px -2px 0 #808080,inset 2px 2px 0 #fff,3px 3px 8px rgba(0,0,0,.4)}
+.dlg-title{background:linear-gradient(90deg,#000080,#1084d0);color:#fff;font-weight:bold;font-size:11px;padding:3px 6px}
+.dlg-body{padding:12px;font-size:12px;display:flex;flex-direction:column;gap:8px}
+.dlg-buttons{display:flex;justify-content:center;gap:8px;padding:4px 8px 10px}
+.dlg-input{width:100%;padding:3px 5px;font-size:12px;border:0;outline:none}
+.dlg-list{max-height:180px;overflow:auto;background:#fff;box-shadow:inset 1px 1px 0 #000,inset -1px -1px 0 #dfdfdf,inset 2px 2px 0 #808080,inset -2px -2px 0 #fff}
+.dlg-list div{padding:4px 8px;display:flex;align-items:center;gap:6px;cursor:default}
+.dlg-list div:hover{background:#000080;color:#fff}
+
+/* ============ APP: NOTEPAD ============ */
+.notepad-area{
+  flex:1;resize:none;border:0;outline:none;padding:4px;font-family:"Lucida Console",Consolas,monospace;font-size:13px;
+  background:#fff;box-shadow:inset 1px 1px 0 #808080,inset -1px -1px 0 #fff;margin:2px;
+}
+
+/* ============ APP: CALCULATOR ============ */
+.calc-wrap{flex:1;display:flex;flex-direction:column;padding:6px;gap:6px}
+.calc-disp{text-align:right;padding:5px 8px;font-size:20px;font-family:"Lucida Console",monospace;background:#fff;
+  box-shadow:inset 1px 1px 0 #000,inset -1px -1px 0 #dfdfdf,inset 2px 2px 0 #808080,inset -2px -2px 0 #fff;min-height:34px;overflow:hidden}
+.calc-grid{flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.calc-grid button{font-size:15px;font-weight:bold;background:#c0c0c0;
+  box-shadow:inset -1px -1px 0 #000,inset 1px 1px 0 #dfdfdf,inset -2px -2px 0 #808080,inset 2px 2px 0 #fff}
+.calc-grid button:active{box-shadow:inset 1px 1px 0 #000,inset -1px -1px 0 #dfdfdf,inset 2px 2px 0 #808080,inset -2px -2px 0 #fff}
+.calc-grid button.op{color:#000080}
+.calc-grid button.eq{color:#a00000}
+
+/* ============ APP: PAINT ============ */
+.paint-wrap{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.paint-tools{display:flex;flex-wrap:wrap;align-items:center;gap:4px;padding:4px;background:#c0c0c0;border-bottom:1px solid #808080}
+.paint-tools button{padding:3px 7px;font-size:11px;background:#c0c0c0;
+  box-shadow:inset -1px -1px 0 #000,inset 1px 1px 0 #dfdfdf,inset -2px -2px 0 #808080,inset 2px 2px 0 #fff}
+.paint-tools button.on{box-shadow:inset 1px 1px 0 #000,inset -1px -1px 0 #dfdfdf,inset 2px 2px 0 #808080,inset -2px -2px 0 #fff;background:#d8d8d8}
+.swatch{width:18px;height:18px;box-shadow:inset -1px -1px 0 #000,inset 1px 1px 0 #dfdfdf;cursor:pointer}
+.swatch.on{outline:2px solid #000080;outline-offset:1px}
+.paint-canvas-area{flex:1;overflow:auto;background:#808080;padding:6px}
+.paint-canvas-area canvas{background:#fff;cursor:crosshair;box-shadow:2px 2px 0 rgba(0,0,0,.4)}
+
+/* ============ APP: MINESWEEPER ============ */
+.mines-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;padding:10px;background:#c0c0c0}
+.mines-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:5px 7px;width:100%;
+  box-shadow:inset 1px 1px 0 #808080,inset -1px -1px 0 #fff}
+.led{background:#000;color:#ff0000;font-family:"Lucida Console",monospace;font-size:18px;padding:1px 5px;letter-spacing:1px}
+.face{width:28px;height:28px;font-size:16px;line-height:1;background:#c0c0c0;
+  box-shadow:inset -1px -1px 0 #000,inset 1px 1px 0 #dfdfdf,inset -2px -2px 0 #808080,inset 2px 2px 0 #fff}
+.face:active{box-shadow:inset 1px 1px 0 #000,inset -1px -1px 0 #dfdfdf,inset 2px 2px 0 #808080,inset -2px -2px 0 #fff}
+.mines-grid{display:grid;gap:0;box-shadow:inset 2px 2px 0 #808080,inset -2px -2px 0 #fff;padding:3px;background:#c0c0c0}
+.cell{width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;
+  font-family:"Lucida Console",monospace;background:#c0c0c0;
+  box-shadow:inset -1px -1px 0 #808080,inset 1px 1px 0 #fff;cursor:default}
+.cell.open{box-shadow:none;background:#c0c0c0;border:1px solid #b0b0b0}
+.cell.mine{background:#ff0000}
+.c1{color:#0000ff}.c2{color:#008000}.c3{color:#ff0000}.c4{color:#000080}
+.c5{color:#800000}.c6{color:#008080}.c7{color:#000}.c8{color:#808080}
+
+/* ============ APP: EXPLORER ============ */
+.exp-wrap{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.exp-bar{display:flex;align-items:center;gap:6px;padding:4px;background:#c0c0c0;border-bottom:1px solid #808080}
+.exp-bar button{width:26px;height:24px;font-size:13px;background:#c0c0c0;
+  box-shadow:inset -1px -1px 0 #000,inset 1px 1px 0 #dfdfdf,inset -2px -2px 0 #808080,inset 2px 2px 0 #fff}
+.exp-bar button:active{box-shadow:inset 1px 1px 0 #000,inset -1px -1px 0 #dfdfdf,inset 2px 2px 0 #808080,inset -2px -2px 0 #fff}
+.exp-path{flex:1;padding:3px 6px;font-size:11px;background:#fff;overflow:hidden;white-space:nowrap;
+  box-shadow:inset 1px 1px 0 #000,inset -1px -1px 0 #dfdfdf,inset 2px 2px 0 #808080,inset -2px -2px 0 #fff}
+.exp-list{flex:1;overflow:auto;background:#fff;display:flex;flex-wrap:wrap;align-content:flex-start;gap:6px;padding:8px;
+  box-shadow:inset 1px 1px 0 #808080,inset -1px -1px 0 #fff;margin:2px}
+.exp-item{width:82px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 2px;cursor:default;font-size:11px;text-align:center;word-break:break-word}
+.exp-item img{width:32px;height:32px}
+.exp-item.sel{background:#000080;color:#fff}
+.exp-status{padding:3px 6px;font-size:11px;background:#c0c0c0;border-top:1px solid #fff}
+
+/* ============ APP: CMD ============ */
+.cmd-wrap{flex:1;display:flex;flex-direction:column;background:#000;color:#c0c0c0;font-family:"Lucida Console",Consolas,monospace;font-size:13px;padding:6px;overflow:hidden}
+.cmd-out{flex:1;overflow-y:auto;white-space:pre-wrap;word-break:break-word;line-height:1.35}
+.cmd-line{display:flex;align-items:center;gap:0}
+.cmd-line input{flex:1;background:transparent;border:0;outline:none;color:#c0c0c0;font-family:inherit;font-size:13px;caret-color:#c0c0c0}
+
+/* ============ APP: SETTINGS ============ */
+.set-wrap{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:14px;background:#c0c0c0}
+.set-group{background:#c0c0c0;padding:10px;box-shadow:inset -1px -1px 0 #000,inset 1px 1px 0 #dfdfdf,inset -2px -2px 0 #808080,inset 2px 2px 0 #fff}
+.set-group h3{font-size:12px;margin-bottom:8px;color:#000080}
+.lang-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.lang-grid button{padding:6px 4px;font-size:11px;background:#c0c0c0;
+  box-shadow:inset -1px -1px 0 #000,inset 1px 1px 0 #dfdfdf,inset -2px -2px 0 #808080,inset 2px 2px 0 #fff}
+.lang-grid button.on{box-shadow:inset 1px 1px 0 #000,inset -1px -1px 0 #dfdfdf,inset 2px 2px 0 #808080,inset -2px -2px 0 #fff;background:#d8d8d8;font-weight:bold}
+.wall-grid{display:flex;flex-wrap:wrap;gap:8px}
+.wall{width:44px;height:32px;cursor:pointer;box-shadow:inset -1px -1px 0 #000,inset 1px 1px 0 #dfdfdf}
+.wall.on{outline:2px solid #000080;outline-offset:2px}
+.about-box{display:flex;gap:12px;align-items:center;font-size:11px;line-height:1.6}
+
+/* ============ APP: CLOCK ============ */
+.clock-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#c0c0c0;padding:14px}
+.clock-face{width:150px;height:150px;border-radius:50%;background:#fff;position:relative;
+  box-shadow:inset 2px 2px 0 #808080,inset -2px -2px 0 #fff,0 0 0 3px #c0c0c0,0 0 0 5px #808080}
+.clock-face .h,.clock-face .m,.clock-face .s{position:absolute;left:50%;bottom:50%;transform-origin:bottom center;background:#000;border-radius:2px}
+.clock-face .h{width:5px;height:42px;margin-left:-2.5px}
+.clock-face .m{width:3px;height:58px;margin-left:-1.5px}
+.clock-face .s{width:1.5px;height:64px;margin-left:-.75px;background:#c00}
+.clock-face .dot{position:absolute;inset:0;border-radius:50%}
+.clock-digital{font-family:"Lucida Console",monospace;font-size:26px;letter-spacing:2px;background:#000;color:#0f0;padding:5px 12px;
+  box-shadow:inset 1px 1px 0 #808080,inset -1px -1px 0 #fff}
+.clock-date{font-size:12px}
+
+/* ============ SHUTDOWN ============ */
+#shutdownScreen{position:fixed;inset:0;background:#000;color:#ffb000;display:none;align-items:center;justify-content:center;flex-direction:column;gap:26px;z-index:99998;
+  font-family:"Lucida Console",monospace;font-size:16px;text-align:center;padding:20px}
+#shutdownScreen.show{display:flex}
+#shutdownScreen button{padding:8px 20px;font-size:13px;background:#c0c0c0;color:#000;
+  box-shadow:inset -1px -1px 0 #000,inset 1px 1px 0 #dfdfdf,inset -2px -2px 0 #808080,inset 2px 2px 0 #fff}
+
+::-webkit-scrollbar{width:16px;height:16px;background:#c0c0c0}
+::-webkit-scrollbar-track{background:#dfdfdf;box-shadow:inset 1px 1px 0 #808080}
+::-webkit-scrollbar-thumb{background:#c0c0c0;box-shadow:inset -1px -1px 0 #000,inset 1px 1px 0 #dfdfdf,inset -2px -2px 0 #808080,inset 2px 2px 0 #fff}
+::-webkit-scrollbar-corner{background:#c0c0c0}
+</style>
+<style>
+/* ============================================================
+   NUEVAS FUNCIONALIDADES: Login, menús contextuales, apps extra
+   ============================================================ */
+
+/* ---------- LOGIN SCREEN (Windows 2000 + 95) ---------- */
+#loginScreen{
+  position:fixed;inset:0;z-index:99990;display:none;align-items:center;justify-content:center;
+  background:linear-gradient(160deg,#0a246a 0%,#3a6ea5 45%,#1e3a8a 100%);
+  font-family:Tahoma,"MS Sans Serif",sans-serif;
+}
+#loginScreen.show{display:flex}
+.login-w2k{
+  width:min(94vw,620px);background:#fff;display:flex;flex-direction:column;
+  box-shadow:0 0 0 3px #000,0 0 0 6px #dfe8f5,0 0 0 7px #0a246a,0 16px 48px rgba(0,0,0,.7);
+}
+.login-topbar{
+  background:linear-gradient(90deg,#0a246a,#3a6ea5);color:#fff;padding:14px 20px;
+  display:flex;align-items:baseline;gap:12px;border-bottom:3px solid #ffcc00;
+}
+.login-brand{font-size:28px;font-weight:bold;letter-spacing:1px;text-shadow:1px 1px 0 #000}
+.login-brand span{color:#ffcc00}
+.login-sub{font-size:11px;opacity:.85;letter-spacing:3px;text-transform:uppercase}
+.login-prompt{padding:16px 22px 4px;font-size:13px;color:#0a246a;font-weight:bold}
+.login-users{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;padding:10px 22px 18px}
+.login-user{
+  display:flex;align-items:center;gap:10px;padding:8px 10px;cursor:pointer;
+  border:2px solid transparent;border-radius:3px;transition:background .1s,border-color .1s;
+}
+.login-user:hover{background:#dfe8f5;border-color:#3a6ea5}
+.login-user-av{
+  width:44px;height:44px;border-radius:3px;flex:0 0 auto;
+  background:linear-gradient(135deg,#3a6ea5,#0a246a);
+  display:flex;align-items:center;justify-content:center;color:#fff;
+  font-size:22px;font-weight:bold;box-shadow:inset 0 0 0 2px #fff,0 0 0 1px #000;
+}
+.login-user-name{font-size:13px;font-weight:bold;color:#000}
+.login-user-type{font-size:11px;color:#555}
+.login-bottom{
+  background:#dfe8f5;padding:10px 22px;display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid #a8b8d0;font-size:11px;color:#0a246a;
+}
+.login-bottom button{
+  font-size:11px;padding:4px 12px;background:#c0c0c0;color:#000;cursor:pointer;border:0;font-family:inherit;
+  box-shadow:inset -1px -1px 0 #000,inset 1px 1px 0 #dfdfdf,inset -2px -2px 0 #808080,inset 2px 2px 0 #fff;
+}
+.login-bottom button:active{box-shadow:inset 1px 1px 0 #000,inset -1px -1px 0 #dfdfdf,inset 2px 2px 0 #808080,inset -2px -2px 0 #fff}
+.login-hint{
+  position:fixed;bottom:16px;left:0;right:0;text-align:center;color:#dfe8f5;font-size:11px;letter-spacing:1px;
+  text-shadow:1px 1px 0 #000;
+}
+
+/* Windows 95 style password dialog */
+.login-w95{
+  position:absolute;width:400px;max-width:94vw;background:#c0c0c0;padding:2px;display:none;
+  box-shadow:inset -1px -1px 0 #000,inset 1px 1px 0 #dfdfdf,inset -2px -2px 0 #808080,inset 2px 2px 0 #fff,5px 5px 14px rgba(0,0,0,.7);
+  z-index:99995;
+}
+.login-w95.show{display:block}
+.login-w95-title{
+  height:20px;background:linear-gradient(90deg,#000080,#1084d0);color:#fff;font-weight:bold;font-size:11px;
+  display:flex;align-items:center;padding:0 2px 0 6px;gap:4px;
+}
+.login-w95-title span{flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.login-w95-body{display:flex;gap:14px;padding:16px 14px 8px}
+.login-w95-icon{font-size:40px;line-height:1;filter:drop-shadow(1px 1px 0 rgba(0,0,0,.3))}
+.login-w95-fields{flex:1;display:flex;flex-direction:column;gap:8px;font-size:11px}
+.login-w95-fields label{display:flex;align-items:center;gap:6px}
+.login-w95-fields .lbl{width:80px;flex:0 0 auto}
+.login-w95-fields input[type=text],.login-w95-fields input[type=password]{
+  flex:1;min-width:0;padding:2px 4px;font-size:11px;font-family:inherit;border:0;outline:none;
+  background:#fff;
+  box-shadow:inset 1px 1px 0 #000,inset -1px -1px 0 #dfdfdf,inset 2px 2px 0 #808080,inset -2px -2px 0 #fff;
+}
+.login-w95-check{font-size:11px;display:flex;align-items:center;gap:4px;margin-top:2px}
+.login-w95-buttons{display:flex;justify-content:flex-end;gap:6px;padding:6px 14px 14px}
+.login-w95-buttons .btn{min-width:72px}
+
+/* ---------- CONTEXT MENU ---------- */
+.ctx-menu{
+  position:fixed;z-index:99999;background:#c0c0c0;padding:2px;min-width:180px;
+  box-shadow:inset -1px -1px 0 #000,inset 1px 1px 0 #dfdfdf,inset -2px -2px 0 #808080,inset 2px 2px 0 #fff,3px 3px 9px rgba(0,0,0,.45);
+}
+.ctx-item{padding:4px 26px 4px 24px;font-size:12px;cursor:default;white-space:nowrap;position:relative}
+.ctx-item:hover{background:#000080;color:#fff}
+.ctx-item.disabled{color:#808080;pointer-events:none}
+.ctx-sep{height:2px;margin:3px 2px;border-top:1px solid #808080;border-bottom:1px solid #fff}
+.ctx-item b{position:absolute;left:6px;font-weight:normal;font-size:11px}
+.ctx-item i{float:right;font-style:normal;font-size:10px;margin-left:18px}
+
+/* ---------- APP SHELL ---------- */
+.app-shell{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.app-toolbar{
+  display:flex;align-items:center;gap:3px;padding:3px 4px;background:#c0c0c0;
+  border-bottom:1px solid #808080;flex-wrap:wrap;flex:0 0 auto;
+}
+.app-toolbtn{
+  padding:3px 9px;font-size:11px;background:#c0c0c0;border:0;cursor:default;font-family:inherit;color:#000;
+  box-shadow:inset -1px -1px 0 #000,inset 1px 1px 0 #dfdfdf,inset -2px -2px 0 #808080,inset 2px 2px 0 #fff;
+}
+.app-toolbtn:active{box-shadow:inset 1px 1px 0 #000,inset -1px -1px 0 #dfdfdf,inset 2px 2px 0 #808080,inset -2px -2px 0 #fff}
+.app-content{
+  flex:1;overflow:auto;background:#fff;padding:10px;font-size:12px;
+  box-shadow:inset 1px 1px 0 #808080,inset -1px -1px 0 #fff;margin:2px;
+}
+.app-status{padding:3px 8px;font-size:11px;background:#c0c0c0;border-top:1px solid #fff;flex:0 0 auto}
+</style>
+</head>
+<body>
+
+<!-- ================= BOOT ================= -->
+<div id="boot">
+  <div class="boot-flag"><i></i><i></i><i></i><i></i></div>
+  <div class="boot-title">Windows<span>94</span></div>
+  <div class="boot-sub" data-i18n="boot">Iniciando Windows 94...</div>
+  <div class="boot-bar"><div id="bootFill"></div></div>
+  <div class="boot-copy">© 1994 · 16-bit Edition · Build 4.00.950</div>
+</div>
+
+<!-- ================= DESKTOP ================= -->
+<div id="desktop">
+  <div id="iconArea"></div>
+  <div id="winLayer"></div>
+</div>
+
+<!-- ================= TASKBAR ================= -->
+<div id="taskbar">
+  <button id="startBtn"><img id="startIcon" alt=""><span data-i18n="start">Inicio</span></button>
+  <div id="taskList"></div>
+  <div id="tray">
+    <span id="langBtn">ES</span>
+    <span id="clockEl">00:00</span>
+  </div>
+</div>
+
+<!-- ================= START MENU ================= -->
+<div id="startMenu">
+  <div class="sm-side"><span>Windows<b>94</b></span></div>
+  <div class="sm-list" id="smList"></div>
+</div>
+
+<!-- ================= SHUTDOWN ================= -->
+<div id="shutdownScreen">
+  <p data-i18n="shutdownDone">Ahora puede apagar el equipo.</p>
+  <button onclick="location.reload()" data-i18n="restart">Reiniciar</button>
+</div>
+
+<!-- ================= LOGIN SCREEN (Windows 2000 + 95) ================= -->
+<div id="loginScreen">
+  <div class="login-w2k">
+    <div class="login-topbar">
+      <div class="login-brand">Windows<span>94</span></div>
+      <div class="login-sub">Professional</div>
+    </div>
+    <div class="login-prompt" id="loginPrompt">Haga clic en un usuario para iniciar sesión</div>
+    <div class="login-users" id="loginUsers"></div>
+    <div class="login-bottom">
+      <span>Windows 94 · Build 4.00.950 · 16-bit Edition</span>
+      <button id="loginShutdownBtn">Apagar equipo</button>
+    </div>
+  </div>
+
+  <div class="login-w95" id="loginW95">
+    <div class="login-w95-title">
+      <span id="loginW95Title">Enter Network Password</span>
+      <button class="tbtn" id="loginClose">✕</button>
+    </div>
+    <div class="login-w95-body">
+      <div class="login-w95-icon">🔒</div>
+      <div class="login-w95-fields">
+        <label><span class="lbl" id="loginUserLbl">User name:</span><input id="loginUser" type="text" readonly></label>
+        <label><span class="lbl" id="loginPassLbl">Password:</span><input id="loginPass" type="password" autocomplete="off"></label>
+        <label class="login-w95-check"><input type="checkbox" id="loginSave"> <span id="loginSaveLbl">Save this password</span></label>
+      </div>
+    </div>
+    <div class="login-w95-buttons">
+      <button class="btn" id="loginOK">OK</button>
+      <button class="btn" id="loginCancel">Cancel</button>
+    </div>
+  </div>
+
+  <div class="login-hint" id="loginHint">Presione Ctrl + Alt + Supr para iniciar sesión · Windows 2000 / 95 Style</div>
+</div>
+
+<script>
+/* =========================================================
+   1. IDIOMAS / LANGUAGES / LANGUES / ЯЗЫКИ / 言語
+   ========================================================= */
+const LANGS = [
+  {code:'es', name:'Español',  short:'ES'},
+  {code:'en', name:'English',  short:'EN'},
+  {code:'pt', name:'Português',short:'PT'},
+  {code:'fr', name:'Français', short:'FR'},
+  {code:'ru', name:'Русский',  short:'RU'},
+  {code:'ja', name:'日本語',    short:'JA'}
+];
+
+const T = {
+es:{
+ os:"Windows 94", boot:"Iniciando Windows 94...", welcome:"Bienvenido",
+ start:"Inicio", programs:"Programas", documents:"Documentos", settingsM:"Configuración",
+ find:"Buscar", helpM:"Ayuda", runM:"Ejecutar...", shutdownM:"Apagar el sistema...",
+ shutdownTitle:"Apagar el equipo", shutdownMsg:"¿Está seguro de que desea apagar Windows 94?",
+ shutdownDone:"Ahora puede apagar el equipo con seguridad.",
+ restart:"Reiniciar", ok:"Aceptar", cancel:"Cancelar", yes:"Sí", no:"No",
+ close:"Cerrar", apply:"Aplicar", about:"Acerca de",
+ language:"Idioma", wallpaper:"Fondo de pantalla", version:"Versión 4.00.950",
+ app_computer:"Mi PC", app_explorer:"Explorador", app_notepad:"Bloc de notas",
+ app_calculator:"Calculadora", app_paint:"Paint", app_mines:"Buscaminas",
+ app_cmd:"Símbolo del sistema", app_settings:"Panel de control", app_clock:"Reloj",
+ file:"Archivo", edit:"Edición", view:"Ver", help:"Ayuda", game:"Juego", format:"Formato",
+ newF:"Nuevo", openF:"Abrir", saveF:"Guardar", saveAs:"Guardar como...", exitF:"Salir",
+ clearF:"Limpiar", undoF:"Deshacer", aboutF:"Acerca de Windows 94",
+ newGame:"Nuevo juego", beginner:"Principiante", intermediate:"Intermedio", expert:"Experto",
+ minesLeft:"Minas", timeLbl:"Tiempo", youWon:"¡Has ganado!", youLost:"¡Boom! Has perdido",
+ restartG:"Reiniciar",
+ cmdWelcome:"Windows 94 [Versión 4.00.950]",
+ cmdHelp:"Comandos: help, dir, cd, echo, cls, ver, date, time, lang, open, exit",
+ cmdNotFound:"Comando no reconocido:",
+ fs_docs:"Documentos", fs_imgs:"Imágenes", fs_win:"Windows", fs_prog:"Programas",
+ notepadEmpty:"Sin título", fileSaved:"Archivo guardado", fileName:"Nombre del archivo:",
+ confirmDelete:"¿Eliminar este elemento?", newFolder:"Nueva carpeta", folderName:"Nombre de la carpeta:",
+ items:"elementos", calcError:"Error", brush:"Pincel", eraser:"Borrador", line:"Línea",
+ rect:"Rectángulo", fill:"Rellenar", color:"Color", size:"Tamaño", clear:"Limpiar",
+ runTitle:"Ejecutar", runLabel:"Escriba el nombre del programa:", runErr:"No se encuentra el archivo",
+ font:"Fuente", wordWrap:"Ajuste de línea", dateLbl:"Fecha", digital:"Digital", analog:"Analógico",
+ root:"Raíz", up:"Subir", del:"Eliminar", newFld:"Nueva carpeta", openWith:"Abrir"
+},
+en:{
+ os:"Windows 94", boot:"Starting Windows 94...", welcome:"Welcome",
+ start:"Start", programs:"Programs", documents:"Documents", settingsM:"Settings",
+ find:"Find", helpM:"Help", runM:"Run...", shutdownM:"Shut Down...",
+ shutdownTitle:"Shut Down Windows", shutdownMsg:"Are you sure you want to shut down Windows 94?",
+ shutdownDone:"It is now safe to turn off your computer.",
+ restart:"Restart", ok:"OK", cancel:"Cancel", yes:"Yes", no:"No",
+ close:"Close", apply:"Apply", about:"About",
+ language:"Language", wallpaper:"Wallpaper", version:"Version 4.00.950",
+ app_computer:"My Computer", app_explorer:"Explorer", app_notepad:"Notepad",
+ app_calculator:"Calculator", app_paint:"Paint", app_mines:"Minesweeper",
+ app_cmd:"Command Prompt", app_settings:"Control Panel", app_clock:"Clock",
+ file:"File", edit:"Edit", view:"View", help:"Help", game:"Game", format:"Format",
+ newF:"New", openF:"Open", saveF:"Save", saveAs:"Save As...", exitF:"Exit",
+ clearF:"Clear", undoF:"Undo", aboutF:"About Windows 94",
+ newGame:"New Game", beginner:"Beginner", intermediate:"Intermediate", expert:"Expert",
+ minesLeft:"Mines", timeLbl:"Time", youWon:"You win!", youLost:"Boom! Game over",
+ restartG:"Restart",
+ cmdWelcome:"Windows 94 [Version 4.00.950]",
+ cmdHelp:"Commands: help, dir, cd, echo, cls, ver, date, time, lang, open, exit",
+ cmdNotFound:"Bad command or file name:",
+ fs_docs:"Documents", fs_imgs:"Pictures", fs_win:"Windows", fs_prog:"Programs",
+ notepadEmpty:"Untitled", fileSaved:"File saved", fileName:"File name:",
+ confirmDelete:"Delete this item?", newFolder:"New Folder", folderName:"Folder name:",
+ items:"items", calcError:"Error", brush:"Brush", eraser:"Eraser", line:"Line",
+ rect:"Rectangle", fill:"Fill", color:"Color", size:"Size", clear:"Clear",
+ runTitle:"Run", runLabel:"Type the name of a program:", runErr:"File not found",
+ font:"Font", wordWrap:"Word Wrap", dateLbl:"Date", digital:"Digital", analog:"Analog",
+ root:"Root", up:"Up", del:"Delete", newFld:"New Folder", openWith:"Open"
+},
+pt:{
+ os:"Windows 94", boot:"Iniciando o Windows 94...", welcome:"Bem-vindo",
+ start:"Iniciar", programs:"Programas", documents:"Documentos", settingsM:"Configurações",
+ find:"Localizar", helpM:"Ajuda", runM:"Executar...", shutdownM:"Desligar o computador...",
+ shutdownTitle:"Desligar o Windows", shutdownMsg:"Tem certeza de que deseja desligar o Windows 94?",
+ shutdownDone:"Agora é seguro desligar o computador.",
+ restart:"Reiniciar", ok:"OK", cancel:"Cancelar", yes:"Sim", no:"Não",
+ close:"Fechar", apply:"Aplicar", about:"Sobre",
+ language:"Idioma", wallpaper:"Papel de parede", version:"Versão 4.00.950",
+ app_computer:"Meu Computador", app_explorer:"Explorador", app_notepad:"Bloco de Notas",
+ app_calculator:"Calculadora", app_paint:"Paint", app_mines:"Campo Minado",
+ app_cmd:"Prompt de Comando", app_settings:"Painel de Controle", app_clock:"Relógio",
+ file:"Arquivo", edit:"Editar", view:"Exibir", help:"Ajuda", game:"Jogo", format:"Formatar",
+ newF:"Novo", openF:"Abrir", saveF:"Salvar", saveAs:"Salvar como...", exitF:"Sair",
+ clearF:"Limpar", undoF:"Desfazer", aboutF:"Sobre o Windows 94",
+ newGame:"Novo jogo", beginner:"Iniciante", intermediate:"Intermediário", expert:"Especialista",
+ minesLeft:"Minas", timeLbl:"Tempo", youWon:"Você venceu!", youLost:"Boom! Você perdeu",
+ restartG:"Reiniciar",
+ cmdWelcome:"Windows 94 [Versão 4.00.950]",
+ cmdHelp:"Comandos: help, dir, cd, echo, cls, ver, date, time, lang, open, exit",
+ cmdNotFound:"Comando não reconhecido:",
+ fs_docs:"Documentos", fs_imgs:"Imagens", fs_win:"Windows", fs_prog:"Programas",
+ notepadEmpty:"Sem título", fileSaved:"Arquivo salvo", fileName:"Nome do arquivo:",
+ confirmDelete:"Excluir este item?", newFolder:"Nova pasta", folderName:"Nome da pasta:",
+ items:"itens", calcError:"Erro", brush:"Pincel", eraser:"Borracha", line:"Linha",
+ rect:"Retângulo", fill:"Preencher", color:"Cor", size:"Tamanho", clear:"Limpar",
+ runTitle:"Executar", runLabel:"Digite o nome do programa:", runErr:"Arquivo não encontrado",
+ font:"Fonte", wordWrap:"Quebra automática", dateLbl:"Data", digital:"Digital", analog:"Analógico",
+ root:"Raiz", up:"Acima", del:"Excluir", newFld:"Nova pasta", openWith:"Abrir"
+},
+fr:{
+ os:"Windows 94", boot:"Démarrage de Windows 94...", welcome:"Bienvenue",
+ start:"Démarrer", programs:"Programmes", documents:"Documents", settingsM:"Paramètres",
+ find:"Rechercher", helpM:"Aide", runM:"Exécuter...", shutdownM:"Arrêter le système...",
+ shutdownTitle:"Arrêter Windows", shutdownMsg:"Voulez-vous vraiment arrêter Windows 94 ?",
+ shutdownDone:"Vous pouvez maintenant éteindre votre ordinateur.",
+ restart:"Redémarrer", ok:"OK", cancel:"Annuler", yes:"Oui", no:"Non",
+ close:"Fermer", apply:"Appliquer", about:"À propos",
+ language:"Langue", wallpaper:"Fond d'écran", version:"Version 4.00.950",
+ app_computer:"Poste de travail", app_explorer:"Explorateur", app_notepad:"Bloc-notes",
+ app_calculator:"Calculatrice", app_paint:"Paint", app_mines:"Démineur",
+ app_cmd:"Invite de commandes", app_settings:"Panneau de configuration", app_clock:"Horloge",
+ file:"Fichier", edit:"Édition", view:"Affichage", help:"Aide", game:"Jeu", format:"Format",
+ newF:"Nouveau", openF:"Ouvrir", saveF:"Enregistrer", saveAs:"Enregistrer sous...", exitF:"Quitter",
+ clearF:"Effacer", undoF:"Annuler", aboutF:"À propos de Windows 94",
+ newGame:"Nouvelle partie", beginner:"Débutant", intermediate:"Intermédiaire", expert:"Expert",
+ minesLeft:"Mines", timeLbl:"Temps", youWon:"Gagné !", youLost:"Boum ! Perdu",
+ restartG:"Recommencer",
+ cmdWelcome:"Windows 94 [Version 4.00.950]",
+ cmdHelp:"Commandes : help, dir, cd, echo, cls, ver, date, time, lang, open, exit",
+ cmdNotFound:"Commande inconnue :",
+ fs_docs:"Documents", fs_imgs:"Images", fs_win:"Windows", fs_prog:"Programmes",
+ notepadEmpty:"Sans titre", fileSaved:"Fichier enregistré", fileName:"Nom du fichier :",
+ confirmDelete:"Supprimer cet élément ?", newFolder:"Nouveau dossier", folderName:"Nom du dossier :",
+ items:"éléments", calcError:"Erreur", brush:"Pinceau", eraser:"Gomme", line:"Ligne",
+ rect:"Rectangle", fill:"Remplir", color:"Couleur", size:"Taille", clear:"Effacer",
+ runTitle:"Exécuter", runLabel:"Tapez le nom d'un programme :", runErr:"Fichier introuvable",
+ font:"Police", wordWrap:"Retour à la ligne", dateLbl:"Date", digital:"Numérique", analog:"Analogique",
+ root:"Racine", up:"Monter", del:"Supprimer", newFld:"Nouveau dossier", openWith:"Ouvrir"
+},
+ru:{
+ os:"Windows 94", boot:"Запуск Windows 94...", welcome:"Добро пожаловать",
+ start:"Пуск", programs:"Программы", documents:"Документы", settingsM:"Настройка",
+ find:"Найти", helpM:"Справка", runM:"Выполнить...", shutdownM:"Завершение работы...",
+ shutdownTitle:"Завершение работы Windows", shutdownMsg:"Вы действительно хотите завершить работу Windows 94?",
+ shutdownDone:"Теперь питание компьютера можно отключить.",
+ restart:"Перезагрузить", ok:"ОК", cancel:"Отмена", yes:"Да", no:"Нет",
+ close:"Закрыть", apply:"Применить", about:"О программе",
+ language:"Язык", wallpaper:"Обои", version:"Версия 4.00.950",
+ app_computer:"Мой компьютер", app_explorer:"Проводник", app_notepad:"Блокнот",
+ app_calculator:"Калькулятор", app_paint:"Paint", app_mines:"Сапёр",
+ app_cmd:"Командная строка", app_settings:"Панель управления", app_clock:"Часы",
+ file:"Файл", edit:"Правка", view:"Вид", help:"Справка", game:"Игра", format:"Формат",
+ newF:"Создать", openF:"Открыть", saveF:"Сохранить", saveAs:"Сохранить как...", exitF:"Выход",
+ clearF:"Очистить", undoF:"Отменить", aboutF:"О программе Windows 94",
+ newGame:"Новая игра", beginner:"Новичок", intermediate:"Любитель", expert:"Профессионал",
+ minesLeft:"Мины", timeLbl:"Время", youWon:"Вы победили!", youLost:"Бум! Вы проиграли",
+ restartG:"Заново",
+ cmdWelcome:"Windows 94 [Версия 4.00.950]",
+ cmdHelp:"Команды: help, dir, cd, echo, cls, ver, date, time, lang, open, exit",
+ cmdNotFound:"Неизвестная команда:",
+ fs_docs:"Документы", fs_imgs:"Изображения", fs_win:"Windows", fs_prog:"Программы",
+ notepadEmpty:"Без имени", fileSaved:"Файл сохранён", fileName:"Имя файла:",
+ confirmDelete:"Удалить этот элемент?", newFolder:"Новая папка", folderName:"Имя папки:",
+ items:"элементов", calcError:"Ошибка", brush:"Кисть", eraser:"Ластик", line:"Линия",
+ rect:"Прямоугольник", fill:"Заливка", color:"Цвет", size:"Размер", clear:"Очистить",
+ runTitle:"Выполнить", runLabel:"Введите имя программы:", runErr:"Файл не найден",
+ font:"Шрифт", wordWrap:"Перенос по словам", dateLbl:"Дата", digital:"Цифровые", analog:"Аналоговые",
+ root:"Корень", up:"Вверх", del:"Удалить", newFld:"Новая папка", openWith:"Открыть"
+},
+ja:{
+ os:"Windows 94", boot:"Windows 94 を起動しています...", welcome:"ようこそ",
+ start:"スタート", programs:"プログラム", documents:"ドキュメント", settingsM:"設定",
+ find:"検索", helpM:"ヘルプ", runM:"ファイル名を指定して実行...", shutdownM:"Windows の終了...",
+ shutdownTitle:"Windows の終了", shutdownMsg:"Windows 94 を終了してもよろしいですか？",
+ shutdownDone:"電源を切っても安全です。",
+ restart:"再起動", ok:"OK", cancel:"キャンセル", yes:"はい", no:"いいえ",
+ close:"閉じる", apply:"適用", about:"バージョン情報",
+ language:"言語", wallpaper:"壁紙", version:"バージョン 4.00.950",
+ app_computer:"マイ コンピュータ", app_explorer:"エクスプローラ", app_notepad:"メモ帳",
+ app_calculator:"電卓", app_paint:"ペイント", app_mines:"マインスイーパ",
+ app_cmd:"コマンド プロンプト", app_settings:"コントロール パネル", app_clock:"時計",
+ file:"ファイル", edit:"編集", view:"表示", help:"ヘルプ", game:"ゲーム", format:"書式",
+ newF:"新規作成", openF:"開く", saveF:"上書き保存", saveAs:"名前を付けて保存...", exitF:"終了",
+ clearF:"クリア", undoF:"元に戻す", aboutF:"Windows 94 のバージョン情報",
+ newGame:"新しいゲーム", beginner:"初級", intermediate:"中級", expert:"上級",
+ minesLeft:"地雷", timeLbl:"時間", youWon:"勝ちました！", youLost:"ドカン！負けました",
+ restartG:"やり直し",
+ cmdWelcome:"Windows 94 [Version 4.00.950]",
+ cmdHelp:"コマンド: help, dir, cd, echo, cls, ver, date, time, lang, open, exit",
+ cmdNotFound:"コマンドが見つかりません:",
+ fs_docs:"ドキュメント", fs_imgs:"ピクチャ", fs_win:"Windows", fs_prog:"プログラム",
+ notepadEmpty:"無題", fileSaved:"ファイルを保存しました", fileName:"ファイル名:",
+ confirmDelete:"この項目を削除しますか？", newFolder:"新しいフォルダ", folderName:"フォルダ名:",
+ items:"項目", calcError:"エラー", brush:"ブラシ", eraser:"消しゴム", line:"直線",
+ rect:"四角形", fill:"塗りつぶし", color:"色", size:"太さ", clear:"クリア",
+ runTitle:"ファイル名を指定して実行", runLabel:"プログラム名を入力してください:", runErr:"ファイルが見つかりません",
+ font:"フォント", wordWrap:"折り返し", dateLbl:"日付", digital:"デジタル", analog:"アナログ",
+ root:"ルート", up:"上へ", del:"削除", newFld:"新しいフォルダ", openWith:"開く"
+}
+};
+
+/* =========================================================
+   TABLA DE TRADUCCIONES EXTENDIDA
+   (para las 91 apps nuevas + menús + login + toolbars)
+   ========================================================= */
+const TRANSLATIONS = {
+  // ---- Juegos ----
+  app_solitaire:   {es:'Solitario', en:'Solitaire', pt:'Paciência', fr:'Solitaire', ru:'Косынка', ja:'ソリティア'},
+  app_freecell:    {es:'FreeCell', en:'FreeCell', pt:'FreeCell', fr:'FreeCell', ru:'Свободная ячейка', ja:'フリーセル'},
+  app_hearts:      {es:'Corazones', en:'Hearts', pt:'Copas', fr:'Cœur', ru:'Червы', ja:'ハーツ'},
+  app_spider:      {es:'Spider Solitario', en:'Spider Solitaire', pt:'Spider', fr:'Spider', ru:'Паук', ja:'スパイダー'},
+  app_pinball:     {es:'Pinball 3D', en:'3D Pinball', pt:'Pinball 3D', fr:'Pinball 3D', ru:'Пинбол', ja:'ピンボール'},
+  app_tetris:      {es:'Tetris', en:'Tetris', pt:'Tetris', fr:'Tetris', ru:'Тетрис', ja:'テトリス'},
+  app_snake:       {es:'Serpiente', en:'Snake', pt:'Cobra', fr:'Serpent', ru:'Змейка', ja:'スネーク'},
+  app_pong:        {es:'Pong', en:'Pong', pt:'Pong', fr:'Pong', ru:'Понг', ja:'ポン'},
+  app_chess:       {es:'Ajedrez', en:'Chess', pt:'Xadrez', fr:'Échecs', ru:'Шахматы', ja:'チェス'},
+  app_checkers:    {es:'Damas', en:'Checkers', pt:'Damas', fr:'Dames', ru:'Шашки', ja:'チェッカー'},
+  app_sudoku:      {es:'Sudoku', en:'Sudoku', pt:'Sudoku', fr:'Sudoku', ru:'Судоку', ja:'数独'},
+  app_g2048:       {es:'2048', en:'2048', pt:'2048', fr:'2048', ru:'2048', ja:'2048'},
+  app_tictactoe:   {es:'Tres en línea', en:'Tic-Tac-Toe', pt:'Jogo da Velha', fr:'Morpion', ru:'Крестики-нолики', ja:'三目並べ'},
+  app_memory:      {es:'Memoria', en:'Memory', pt:'Memória', fr:'Memory', ru:'Мемори', ja:'神経衰弱'},
+  app_hangman:     {es:'Ahorcado', en:'Hangman', pt:'Forca', fr:'Pendu', ru:'Виселица', ja:'ハングマン'},
+  app_breakout:    {es:'Breakout', en:'Breakout', pt:'Breakout', fr:'Casse-briques', ru:'Арканоид', ja:'ブロック崩し'},
+  app_asteroids:   {es:'Asteroides', en:'Asteroids', pt:'Asteroides', fr:'Astéroïdes', ru:'Астероиды', ja:'アステロイド'},
+  app_invaders:    {es:'Invasores', en:'Invaders', pt:'Invasores', fr:'Envahisseurs', ru:'Космические захватчики', ja:'インベーダー'},
+  app_pacman:      {es:'Comecocos', en:'Pac-Man', pt:'Pac-Man', fr:'Pac-Man', ru:'Пакман', ja:'パックマン'},
+  app_simon:       {es:'Simón Dice', en:'Simon Says', pt:'Simon', fr:'Simon', ru:'Саймон', ja:'サイモン'},
+  app_dice:        {es:'Dados', en:'Dice', pt:'Dados', fr:'Dés', ru:'Кости', ja:'サイコロ'},
+  app_coinflip:    {es:'Cara o Cruz', en:'Coin Flip', pt:'Cara ou Coroa', fr:'Pile ou Face', ru:'Орёл или решка', ja:'コイントス'},
+  app_lottery:     {es:'Lotería', en:'Lottery', pt:'Loteria', fr:'Loterie', ru:'Лотерея', ja:'宝くじ'},
+  app_bingo:       {es:'Bingo', en:'Bingo', pt:'Bingo', fr:'Bingo', ru:'Бинго', ja:'ビンゴ'},
+  app_blackjack:   {es:'Blackjack', en:'Blackjack', pt:'Blackjack', fr:'Blackjack', ru:'Блэкджек', ja:'ブラックジャック'},
+  // ---- Accesorios ----
+  app_calendar:    {es:'Calendario', en:'Calendar', pt:'Calendário', fr:'Calendrier', ru:'Календарь', ja:'カレンダー'},
+  app_contacts:    {es:'Contactos', en:'Contacts', pt:'Contatos', fr:'Contacts', ru:'Контакты', ja:'連絡先'},
+  app_taskmgr:     {es:'Administrador de tareas', en:'Task Manager', pt:'Gerenciador de Tarefas', fr:'Gestionnaire des tâches', ru:'Диспетчер задач', ja:'タスクマネージャ'},
+  app_defrag:      {es:'Desfragmentador', en:'Disk Defragmenter', pt:'Desfragmentador', fr:'Défragmenteur', ru:'Дефрагментация', ja:'デフラグ'},
+  app_regedit:     {es:'Editor del Registro', en:'Registry Editor', pt:'Editor do Registro', fr:'Éditeur du Registre', ru:'Редактор реестра', ja:'レジストリエディタ'},
+  app_devmgr:      {es:'Administrador de dispositivos', en:'Device Manager', pt:'Gerenciador de Dispositivos', fr:'Gestionnaire de périphériques', ru:'Диспетчер устройств', ja:'デバイスマネージャ'},
+  app_charmap:     {es:'Mapa de caracteres', en:'Character Map', pt:'Mapa de Caracteres', fr:'Table des caractères', ru:'Таблица символов', ja:'文字コード表'},
+  app_clipboard:   {es:'Visor del portapapeles', en:'Clipboard Viewer', pt:'Visualizador da Área de Transferência', fr:'Presse-papiers', ru:'Просмотр буфера', ja:'クリップボードビューア'},
+  app_scicalc:     {es:'Calculadora científica', en:'Scientific Calculator', pt:'Calculadora Científica', fr:'Calculatrice scientifique', ru:'Инженерный калькулятор', ja:'関数電卓'},
+  app_converter:   {es:'Conversor de unidades', en:'Unit Converter', pt:'Conversor de Unidades', fr:'Convertisseur', ru:'Конвертер единиц', ja:'単位変換'},
+  app_stopwatch:   {es:'Cronómetro', en:'Stopwatch', pt:'Cronômetro', fr:'Chronomètre', ru:'Секундомер', ja:'ストップウォッチ'},
+  app_timer:       {es:'Temporizador', en:'Timer', pt:'Temporizador', fr:'Minuteur', ru:'Таймер', ja:'タイマー'},
+  app_alarm:       {es:'Alarma', en:'Alarm', pt:'Alarme', fr:'Alarme', ru:'Будильник', ja:'アラーム'},
+  app_weather:     {es:'El Tiempo', en:'Weather', pt:'Previsão do Tempo', fr:'Météo', ru:'Погода', ja:'天気'},
+  app_stickies:    {es:'Notas adhesivas', en:'Sticky Notes', pt:'Notas Adesivas', fr:'Notes autocollantes', ru:'Заметки', ja:'付箋'},
+  app_magnifier:   {es:'Lupa', en:'Magnifier', pt:'Lupa', fr:'Loupe', ru:'Экранная лупа', ja:'拡大鏡'},
+  app_osk:         {es:'Teclado en pantalla', en:'On-Screen Keyboard', pt:'Teclado Virtual', fr:'Clavier visuel', ru:'Экранная клавиатура', ja:'スクリーンキーボード'},
+  app_volume:      {es:'Control de volumen', en:'Volume Control', pt:'Controle de Volume', fr:'Contrôle du volume', ru:'Регулятор громкости', ja:'音量コントロール'},
+  app_recorder:    {es:'Grabadora de sonidos', en:'Sound Recorder', pt:'Gravador de Som', fr:'Magnétophone', ru:'Звукозапись', ja:'サウンドレコーダー'},
+  app_camera:      {es:'Cámara', en:'Camera', pt:'Câmera', fr:'Appareil photo', ru:'Камера', ja:'カメラ'},
+  app_sysinfo:     {es:'Información del sistema', en:'System Information', pt:'Informações do Sistema', fr:'Informations système', ru:'Сведения о системе', ja:'システム情報'},
+  app_scandisk:    {es:'ScanDisk', en:'ScanDisk', pt:'ScanDisk', fr:'ScanDisk', ru:'ScanDisk', ja:'スキャンディスク'},
+  app_format:      {es:'Formatear', en:'Format', pt:'Formatar', fr:'Formater', ru:'Форматирование', ja:'フォーマット'},
+  app_chkdsk:      {es:'Comprobar disco', en:'Check Disk', pt:'Verificar Disco', fr:'Vérifier le disque', ru:'Проверка диска', ja:'ディスクチェック'},
+  app_backup:      {es:'Copia de seguridad', en:'Backup', pt:'Backup', fr:'Sauvegarde', ru:'Архивация', ja:'バックアップ'},
+  // ---- Multimedia ----
+  app_mediaplayer: {es:'Reproductor multimedia', en:'Media Player', pt:'Reprodutor Multimídia', fr:'Lecteur multimédia', ru:'Проигрыватель', ja:'メディアプレーヤー'},
+  app_cdplayer:    {es:'Reproductor de CD', en:'CD Player', pt:'Reprodutor de CD', fr:'Lecteur CD', ru:'CD-плеер', ja:'CDプレーヤー'},
+  app_midi:        {es:'Reproductor MIDI', en:'MIDI Player', pt:'Reprodutor MIDI', fr:'Lecteur MIDI', ru:'MIDI-плеер', ja:'MIDIプレーヤー'},
+  app_radio:       {es:'Radio', en:'Radio', pt:'Rádio', fr:'Radio', ru:'Радио', ja:'ラジオ'},
+  app_mixer:       {es:'Mezclador', en:'Mixer', pt:'Mixer', fr:'Mixeur', ru:'Микшер', ja:'ミキサー'},
+  app_equalizer:   {es:'Ecualizador', en:'Equalizer', pt:'Equalizador', fr:'Égaliseur', ru:'Эквалайзер', ja:'イコライザー'},
+  app_visualizer:  {es:'Visualizador', en:'Visualizer', pt:'Visualizador', fr:'Visualiseur', ru:'Визуализатор', ja:'ビジュアライザー'},
+  app_imageview:   {es:'Visor de imágenes', en:'Image Viewer', pt:'Visualizador de Imagens', fr:'Visionneuse', ru:'Просмотр изображений', ja:'イメージビューア'},
+  app_slideshow:   {es:'Presentación', en:'Slideshow', pt:'Apresentação', fr:'Diaporama', ru:'Слайд-шоу', ja:'スライドショー'},
+  app_soundrec:    {es:'Grabación de audio', en:'Audio Recording', pt:'Gravação de Áudio', fr:'Enregistrement audio', ru:'Запись звука', ja:'録音'},
+  // ---- Internet ----
+  app_iexplore:    {es:'Internet Explorer', en:'Internet Explorer', pt:'Internet Explorer', fr:'Internet Explorer', ru:'Internet Explorer', ja:'Internet Explorer'},
+  app_outlook:     {es:'Outlook Express', en:'Outlook Express', pt:'Outlook Express', fr:'Outlook Express', ru:'Outlook Express', ja:'Outlook Express'},
+  app_chat:        {es:'Chat IRC', en:'IRC Chat', pt:'Chat IRC', fr:'Chat IRC', ru:'IRC-чат', ja:'IRCチャット'},
+  app_email:       {es:'Correo electrónico', en:'E-mail', pt:'E-mail', fr:'Courriel', ru:'Электронная почта', ja:'メール'},
+  app_ftp:         {es:'Cliente FTP', en:'FTP Client', pt:'Cliente FTP', fr:'Client FTP', ru:'FTP-клиент', ja:'FTPクライアント'},
+  app_news:        {es:'Lector de noticias', en:'News Reader', pt:'Leitor de Notícias', fr:'Lecteur de news', ru:'Новостной клиент', ja:'ニュースリーダー'},
+  app_browser:     {es:'Navegador Web', en:'Web Browser', pt:'Navegador Web', fr:'Navigateur Web', ru:'Веб-браузер', ja:'Webブラウザ'},
+  app_download:    {es:'Gestor de descargas', en:'Download Manager', pt:'Gerenciador de Downloads', fr:'Gestionnaire de téléchargement', ru:'Менеджер загрузок', ja:'ダウンロードマネージャ'},
+  app_netmeeting:  {es:'NetMeeting', en:'NetMeeting', pt:'NetMeeting', fr:'NetMeeting', ru:'NetMeeting', ja:'NetMeeting'},
+  app_telnet:      {es:'Telnet', en:'Telnet', pt:'Telnet', fr:'Telnet', ru:'Telnet', ja:'Telnet'},
+  // ---- Oficina ----
+  app_wordpad:     {es:'WordPad', en:'WordPad', pt:'WordPad', fr:'WordPad', ru:'WordPad', ja:'ワードパッド'},
+  app_spreadsheet: {es:'Hoja de cálculo', en:'Spreadsheet', pt:'Planilha', fr:'Tableur', ru:'Таблица', ja:'表計算'},
+  app_presentation:{es:'Presentaciones', en:'Presentations', pt:'Apresentações', fr:'Présentations', ru:'Презентации', ja:'プレゼンテーション'},
+  app_database:    {es:'Base de datos', en:'Database', pt:'Banco de Dados', fr:'Base de données', ru:'База данных', ja:'データベース'},
+  app_project:     {es:'Gestor de proyectos', en:'Project Manager', pt:'Gerenciador de Projetos', fr:'Gestionnaire de projet', ru:'Менеджер проектов', ja:'プロジェクト管理'},
+  app_finance:     {es:'Finanzas', en:'Finance', pt:'Finanças', fr:'Finance', ru:'Финансы', ja:'ファイナンス'},
+  app_invoice:     {es:'Facturación', en:'Invoicing', pt:'Faturamento', fr:'Facturation', ru:'Выставление счетов', ja:'請求書'},
+  app_budget:      {es:'Presupuesto', en:'Budget', pt:'Orçamento', fr:'Budget', ru:'Бюджет', ja:'予算'},
+  app_journal:     {es:'Diario', en:'Journal', pt:'Diário', fr:'Journal', ru:'Дневник', ja:'ジャーナル'},
+  app_todo:        {es:'Lista de tareas', en:'To-Do List', pt:'Lista de Tarefas', fr:'Liste de tâches', ru:'Список задач', ja:'ToDoリスト'},
+  app_planner:     {es:'Planificador', en:'Planner', pt:'Planejador', fr:'Planificateur', ru:'Планировщик', ja:'プランナー'},
+  app_addressbook: {es:'Libreta de direcciones', en:'Address Book', pt:'Catálogo de Endereços', fr:'Carnet d\'adresses', ru:'Адресная книга', ja:'アドレス帳'},
+  // ---- Sistema ----
+  app_fileman:     {es:'Administrador de archivos', en:'File Manager', pt:'Gerenciador de Arquivos', fr:'Gestionnaire de fichiers', ru:'Файловый менеджер', ja:'ファイルマネージャ'},
+  app_command:     {es:'Símbolo del sistema 2', en:'Command Prompt 2', pt:'Prompt de Comando 2', fr:'Invite 2', ru:'Командная строка 2', ja:'コマンドプロンプト2'},
+  app_helpview:    {es:'Visor de ayuda', en:'Help Viewer', pt:'Visualizador de Ajuda', fr:'Visionneuse d\'aide', ru:'Просмотр справки', ja:'ヘルプビューア'},
+  app_rundlg:      {es:'Ejecutar', en:'Run', pt:'Executar', fr:'Exécuter', ru:'Выполнить', ja:'ファイル名を指定して実行'},
+  app_findfiles:   {es:'Buscar archivos', en:'Find Files', pt:'Localizar Arquivos', fr:'Rechercher des fichiers', ru:'Поиск файлов', ja:'ファイルの検索'},
+  app_welcome:     {es:'Bienvenido', en:'Welcome', pt:'Bem-vindo', fr:'Bienvenue', ru:'Добро пожаловать', ja:'ようこそ'},
+  app_aboutwin:    {es:'Acerca de Windows 94', en:'About Windows 94', pt:'Sobre o Windows 94', fr:'À propos de Windows 94', ru:'О Windows 94', ja:'Windows 94 について'},
+  app_tips:        {es:'Consejos del día', en:'Tip of the Day', pt:'Dica do Dia', fr:'Astuce du jour', ru:'Совет дня', ja:'今日のヒント'},
+  app_readme:      {es:'Léame', en:'Readme', pt:'Leia-me', fr:'Lisez-moi', ru:'Прочти меня', ja:'Readme'},
+
+  // ---- Categorías ----
+  cat_acc:   {es:'Accesorios', en:'Accessories', pt:'Acessórios', fr:'Accessoires', ru:'Стандартные', ja:'アクセサリ'},
+  cat_games: {es:'Juegos', en:'Games', pt:'Jogos', fr:'Jeux', ru:'Игры', ja:'ゲーム'},
+  cat_net:   {es:'Internet', en:'Internet', pt:'Internet', fr:'Internet', ru:'Интернет', ja:'インターネット'},
+  cat_media: {es:'Multimedia', en:'Multimedia', pt:'Multimídia', fr:'Multimédia', ru:'Мультимедиа', ja:'マルチメディア'},
+  cat_sys:   {es:'Sistema', en:'System', pt:'Sistema', fr:'Système', ru:'Система', ja:'システム'},
+  cat_office:{es:'Oficina', en:'Office', pt:'Escritório', fr:'Bureau', ru:'Офис', ja:'オフィス'},
+
+  // ---- Toolbar buttons ----
+  tb_new:    {es:'Nuevo', en:'New', pt:'Novo', fr:'Nouveau', ru:'Создать', ja:'新規'},
+  tb_open:   {es:'Abrir', en:'Open', pt:'Abrir', fr:'Ouvrir', ru:'Открыть', ja:'開く'},
+  tb_save:   {es:'Guardar', en:'Save', pt:'Salvar', fr:'Enregistrer', ru:'Сохранить', ja:'保存'},
+  tb_edit:   {es:'Editar', en:'Edit', pt:'Editar', fr:'Modifier', ru:'Правка', ja:'編集'},
+  tb_delete: {es:'Eliminar', en:'Delete', pt:'Excluir', fr:'Supprimer', ru:'Удалить', ja:'削除'},
+  tb_refresh:{es:'Actualizar', en:'Refresh', pt:'Atualizar', fr:'Actualiser', ru:'Обновить', ja:'更新'},
+  tb_ok:     {es:'Aceptar', en:'OK', pt:'OK', fr:'OK', ru:'OK', ja:'OK'},
+  tb_cancel: {es:'Cancelar', en:'Cancel', pt:'Cancelar', fr:'Annuler', ru:'Отмена', ja:'キャンセル'},
+  tb_back:   {es:'Atrás', en:'Back', pt:'Voltar', fr:'Précédent', ru:'Назад', ja:'戻る'},
+  tb_fwd:    {es:'Adelante', en:'Forward', pt:'Avançar', fr:'Suivant', ru:'Вперёд', ja:'進む'},
+  tb_home:   {es:'Inicio', en:'Home', pt:'Início', fr:'Accueil', ru:'Домой', ja:'ホーム'},
+  tb_fav:    {es:'Favoritos', en:'Favorites', pt:'Favoritos', fr:'Favoris', ru:'Избранное', ja:'お気に入り'},
+  tb_hist:   {es:'Historial', en:'History', pt:'Histórico', fr:'Historique', ru:'Журнал', ja:'履歴'},
+  tb_print:  {es:'Imprimir', en:'Print', pt:'Imprimir', fr:'Imprimer', ru:'Печать', ja:'印刷'},
+  tb_sort:   {es:'Ordenar', en:'Sort', pt:'Ordenar', fr:'Trier', ru:'Сортировка', ja:'並べ替え'},
+  tb_filter: {es:'Filtrar', en:'Filter', pt:'Filtrar', fr:'Filtrer', ru:'Фильтр', ja:'フィルタ'},
+  tb_play:   {es:'▶', en:'▶', pt:'▶', fr:'▶', ru:'▶', ja:'▶'},
+  tb_pause:  {es:'⏸', en:'⏸', pt:'⏸', fr:'⏸', ru:'⏸', ja:'⏸'},
+  tb_stop:   {es:'⏹', en:'⏹', pt:'⏹', fr:'⏹', ru:'⏹', ja:'⏹'},
+  tb_prev:   {es:'⏮', en:'⏮', pt:'⏮', fr:'⏮', ru:'⏮', ja:'⏮'},
+  tb_next:   {es:'⏭', en:'⏭', pt:'⏭', fr:'⏭', ru:'⏭', ja:'⏭'},
+
+  // ---- Status / Info ----
+  status_ready: {es:'Listo', en:'Ready', pt:'Pronto', fr:'Prêt', ru:'Готово', ja:'準備完了'},
+  status_conn:  {es:'Conectado · 28.800 bps', en:'Connected · 28,800 bps', pt:'Conectado · 28.800 bps', fr:'Connecté · 28 800 bps', ru:'Подключено · 28 800 bps', ja:'接続中 · 28,800 bps'},
+  info_16bit:   {es:'16-bit Edition · 1994', en:'16-bit Edition · 1994', pt:'Edição 16-bit · 1994', fr:'Édition 16 bits · 1994', ru:'16-битная версия · 1994', ja:'16ビット版 · 1994'},
+  info_std:     {es:'Este componente forma parte de la instalación estándar de Windows 94.', en:'This component is part of the standard Windows 94 installation.', pt:'Este componente faz parte da instalação padrão do Windows 94.', fr:'Ce composant fait partie de l\'installation standard de Windows 94.', ru:'Этот компонент входит в стандартную установку Windows 94.', ja:'このコンポーネントは Windows 94 の標準インストールの一部です。'},
+  info_std2:    {es:'Complete los campos y pulse Aceptar para continuar.', en:'Fill in the fields and click OK to continue.', pt:'Preencha os campos e clique em OK para continuar.', fr:'Remplissez les champs et cliquez sur OK pour continuer.', ru:'Заполните поля и нажмите ОК для продолжения.', ja:'フィールドに入力して OK を押してください。'},
+  track_lbl:    {es:'Pista 1', en:'Track 1', pt:'Faixa 1', fr:'Piste 1', ru:'Дорожка 1', ja:'トラック 1'},
+  chat_you:     {es:'Tú', en:'You', pt:'Você', fr:'Vous', ru:'Вы', ja:'あなた'},
+  chat_anon:    {es:'Anónimo94', en:'Anon94', pt:'Anônimo94', fr:'Anonyme94', ru:'Аноним94', ja:'匿名94'},
+  chat_sys:     {es:'Sistema', en:'System', pt:'Sistema', fr:'Système', ru:'Система', ja:'システム'},
+  chat_connect: {es:'Conectado a #windows94 en IRC.', en:'Connected to #windows94 on IRC.', pt:'Conectado a #windows94 no IRC.', fr:'Connecté à #windows94 sur IRC.', ru:'Подключено к #windows94 в IRC.', ja:'IRC の #windows94 に接続しました。'},
+  chat_hello:   {es:'¿Alguien tiene el CD de Windows 95?', en:'Does anyone have the Windows 95 CD?', pt:'Alguém tem o CD do Windows 95?', fr:'Quelqu\'un a le CD de Windows 95 ?', ru:'У кого-нибудь есть CD Windows 95?', ja:'Windows 95 の CD を持っている人はいますか？'},
+  chat_resp1:   {es:'Totalmente de acuerdo.', en:'Totally agree.', pt:'Concordo plenamente.', fr:'Tout à fait d\'accord.', ru:'Полностью согласен.', ja:'まったく同感です。'},
+  chat_resp2:   {es:'¡Qué buenos tiempos!', en:'Those were the days!', pt:'Bons tempos!', fr:'Le bon vieux temps !', ru:'Вот были времена!', ja:'良い時代でした！'},
+  chat_resp3:   {es:'LOL', en:'LOL', pt:'LOL', fr:'MDR', ru:'LOL', ja:'www'},
+  chat_resp4:   {es:'+1', en:'+1', pt:'+1', fr:'+1', ru:'+1', ja:'+1'},
+  chat_resp5:   {es:'¿Y el módem?', en:'What about the modem?', pt:'E o modem?', fr:'Et le modem ?', ru:'А модем?', ja:'モデムは？'},
+  chat_resp6:   {es:'Ja ja ja', en:'Ha ha ha', pt:'Ha ha ha', fr:'Ha ha ha', ru:'Ха ха ха', ja:'ハハハ'},
+  browse_p1:    {es:'Bienvenido a', en:'Welcome to', pt:'Bem-vindo ao', fr:'Bienvenue sur', ru:'Добро пожаловать в', ja:'ようこそ'},
+  browse_p2:    {es:'Esta es una página de demostración que simula un navegador de la era de 1994.', en:'This is a demo page that simulates a 1994-era browser.', pt:'Esta é uma página de demonstração que simula um navegador de 1994.', fr:'Ceci est une page de démonstration qui simule un navigateur de 1994.', ru:'Это демонстрационная страница, имитирующая браузер 1994 года.', ja:'これは 1994 年当時のブラウザを模したデモページです。'},
+  browse_li1:   {es:'Conecte su módem a 28.800 bps', en:'Connect your modem at 28,800 bps', pt:'Conecte seu modem a 28.800 bps', fr:'Connectez votre modem à 28 800 bps', ru:'Подключите модем на 28 800 бит/с', ja:'モデムを 28,800 bps で接続する'},
+  browse_li2:   {es:'Marque su proveedor de servicios', en:'Dial your service provider', pt:'Ligue para seu provedor', fr:'Composez le numéro de votre fournisseur', ru:'Позвоните провайдеру', ja:'プロバイダーにダイヤルする'},
+  browse_li3:   {es:'Espere el handshake del módem', en:'Wait for the modem handshake', pt:'Aguarde o handshake do modem', fr:'Attendez la négociation du modem', ru:'Дождитесь рукопожатия модема', ja:'モデムのハンドシェイクを待つ'},
+  browse_li4:   {es:'¡Disfrute de la autopista de la información!', en:'Enjoy the Information Superhighway!', pt:'Aproveite a Autoestrada da Informação!', fr:'Profitez de l\'autoroute de l\'information !', ru:'Наслаждайтесь информационной магистралью!', ja:'情報スーパーハイウェイを楽しもう！'},
+  browse_last:  {es:'Última actualización: 1994-08-24', en:'Last updated: 1994-08-24', pt:'Última atualização: 1994-08-24', fr:'Dernière mise à jour : 1994-08-24', ru:'Последнее обновление: 1994-08-24', ja:'最終更新日：1994-08-24'},
+  game_score:   {es:'Puntos', en:'Score', pt:'Pontos', fr:'Score', ru:'Очки', ja:'得点'},
+  game_click:   {es:'clic para sumar', en:'click to add', pt:'clique para somar', fr:'cliquez pour ajouter', ru:'клик для добавления', ja:'クリックで追加'},
+  game_track:   {es:'Pista 1', en:'Track 1', pt:'Faixa 1', fr:'Piste 1', ru:'Дорожка 1', ja:'トラック 1'},
+
+  // ---- Context menus ----
+  ctx_open:        {es:'Abrir', en:'Open', pt:'Abrir', fr:'Ouvrir', ru:'Открыть', ja:'開く'},
+  ctx_shortcut:    {es:'Crear acceso directo', en:'Create shortcut', pt:'Criar atalho', fr:'Créer un raccourci', ru:'Создать ярлык', ja:'ショートカットの作成'},
+  ctx_rename:      {es:'Cambiar nombre', en:'Rename', pt:'Renomear', fr:'Renommer', ru:'Переименовать', ja:'名前の変更'},
+  ctx_delete:      {es:'Eliminar', en:'Delete', pt:'Excluir', fr:'Supprimer', ru:'Удалить', ja:'削除'},
+  ctx_props:       {es:'Propiedades', en:'Properties', pt:'Propriedades', fr:'Propriétés', ru:'Свойства', ja:'プロパティ'},
+  ctx_organize:    {es:'Organizar iconos', en:'Arrange icons', pt:'Organizar ícones', fr:'Réorganiser les icônes', ru:'Упорядочить значки', ja:'アイコンの整列'},
+  ctx_align:       {es:'Alinear automáticamente', en:'Auto arrange', pt:'Alinhar automaticamente', fr:'Aligner automatiquement', ru:'Выровнять автоматически', ja:'自動整列'},
+  ctx_refresh:     {es:'Actualizar', en:'Refresh', pt:'Atualizar', fr:'Actualiser', ru:'Обновить', ja:'更新'},
+  ctx_paste:       {es:'Pegar', en:'Paste', pt:'Colar', fr:'Coller', ru:'Вставить', ja:'貼り付け'},
+  ctx_paste_short: {es:'Pegar acceso directo', en:'Paste shortcut', pt:'Colar atalho', fr:'Coller le raccourci', ru:'Вставить ярлык', ja:'ショートカットの貼り付け'},
+  ctx_new:         {es:'Nuevo', en:'New', pt:'Novo', fr:'Nouveau', ru:'Создать', ja:'新規作成'},
+  ctx_taskmgr:     {es:'Administrador de tareas', en:'Task Manager', pt:'Gerenciador de Tarefas', fr:'Gestionnaire des tâches', ru:'Диспетчер задач', ja:'タスクマネージャ'},
+  ctx_cascade:     {es:'Cascada', en:'Cascade', pt:'Cascata', fr:'Cascade', ru:'Каскадом', ja:'重ねて表示'},
+  ctx_mosaic_h:    {es:'Mosaico horizontal', en:'Tile horizontally', pt:'Mosaico horizontal', fr:'Mosaïque horizontale', ru:'Сверху вниз', ja:'横に並べて表示'},
+  ctx_mosaic_v:    {es:'Mosaico vertical', en:'Tile vertically', pt:'Mosaico vertical', fr:'Mosaïque verticale', ru:'Слева направо', ja:'縦に並べて表示'},
+  ctx_min_all:     {es:'Minimizar todas', en:'Minimize all', pt:'Minimizar todas', fr:'Réduire tout', ru:'Свернуть все', ja:'すべて最小化'},
+  ctx_close_all:   {es:'Cerrar todas', en:'Close all', pt:'Fechar todas', fr:'Fermer tout', ru:'Закрыть все', ja:'すべて閉じる'},
+  ctx_restore:     {es:'Restaurar', en:'Restore', pt:'Restaurar', fr:'Restaurer', ru:'Восстановить', ja:'元のサイズに戻す'},
+  ctx_minimize:    {es:'Minimizar', en:'Minimize', pt:'Minimizar', fr:'Réduire', ru:'Свернуть', ja:'最小化'},
+  ctx_maximize:    {es:'Maximizar', en:'Maximize', pt:'Maximizar', fr:'Agrandir', ru:'Развернуть', ja:'最大化'},
+  ctx_move:        {es:'Mover', en:'Move', pt:'Mover', fr:'Déplacer', ru:'Переместить', ja:'移動'},
+  ctx_size:        {es:'Tamaño', en:'Size', pt:'Tamanho', fr:'Taille', ru:'Размер', ja:'サイズ'},
+  ctx_close:       {es:'Cerrar', en:'Close', pt:'Fechar', fr:'Fermer', ru:'Закрыть', ja:'閉じる'},
+  ctx_name_prompt: {es:'Nuevo nombre:', en:'New name:', pt:'Novo nome:', fr:'Nouveau nom :', ru:'Новое имя:', ja:'新しい名前:'},
+  ctx_del_confirm: {es:'¿Eliminar este icono del escritorio?', en:'Delete this desktop icon?', pt:'Excluir este ícone da área de trabalho?', fr:'Supprimer cette icône du bureau ?', ru:'Удалить этот значок с рабочего стола?', ja:'このデスクトップアイコンを削除しますか？'},
+
+  // ---- Login screen ----
+  login_click:    {es:'Haga clic en un usuario para iniciar sesión', en:'Click a user to log on', pt:'Clique em um usuário para entrar', fr:'Cliquez sur un utilisateur pour vous connecter', ru:'Щёлкните пользователя для входа', ja:'ユーザーをクリックしてログオン'},
+  login_shutdown: {es:'Apagar equipo', en:'Shut Down', pt:'Desligar', fr:'Arrêter', ru:'Завершение работы', ja:'シャットダウン'},
+  login_hint:     {es:'Presione Ctrl + Alt + Supr para iniciar sesión · Windows 2000 / 95 Style', en:'Press Ctrl + Alt + Del to log on · Windows 2000 / 95 Style', pt:'Pressione Ctrl + Alt + Del para entrar · Estilo Windows 2000 / 95', fr:'Appuyez sur Ctrl + Alt + Suppr pour vous connecter · Style Windows 2000 / 95', ru:'Нажмите Ctrl + Alt + Del для входа · Стиль Windows 2000 / 95', ja:'Ctrl + Alt + Del でログオン · Windows 2000 / 95 スタイル'},
+  login_user_lbl: {es:'Usuario:', en:'User name:', pt:'Usuário:', fr:'Nom d\'utilisateur :', ru:'Имя пользователя:', ja:'ユーザー名:'},
+  login_pass_lbl: {es:'Contraseña:', en:'Password:', pt:'Senha:', fr:'Mot de passe :', ru:'Пароль:', ja:'パスワード:'},
+  login_save:     {es:'Guardar esta contraseña en la lista', en:'Save this password in your password list', pt:'Salvar esta senha na lista', fr:'Enregistrer ce mot de passe dans la liste', ru:'Сохранить пароль в списке', ja:'パスワードリストに保存する'},
+  login_net_title:{es:'Escriba la contraseña de red', en:'Enter Network Password', pt:'Digite a Senha de Rede', fr:'Entrez le mot de passe réseau', ru:'Введите сетевой пароль', ja:'ネットワークパスワードの入力'},
+  login_admin:    {es:'Administrador', en:'Administrator', pt:'Administrador', fr:'Administrateur', ru:'Администратор', ja:'管理者'},
+  login_admin_t:  {es:'Administrador del equipo', en:'Computer administrator', pt:'Administrador do computador', fr:'Administrateur de l\'ordinateur', ru:'Администратор компьютера', ja:'コンピュータの管理者'},
+  login_guest:    {es:'Invitado', en:'Guest', pt:'Convidado', fr:'Invité', ru:'Гость', ja:'ゲスト'},
+  login_guest_t:  {es:'Usuario limitado', en:'Limited user', pt:'Usuário limitado', fr:'Utilisateur limité', ru:'Ограниченная учётная запись', ja:'制限付きユーザー'},
+  login_user:     {es:'Usuario', en:'User', pt:'Usuário', fr:'Utilisateur', ru:'Пользователь', ja:'ユーザー'},
+  login_user_t:   {es:'Usuario estándar', en:'Standard user', pt:'Usuário padrão', fr:'Utilisateur standard', ru:'Обычная учётная запись', ja:'標準ユーザー'},
+
+  // ---- Windows 94 window titles (extra) ----
+  tb_props:    {es:'Propiedades', en:'Properties', pt:'Propriedades', fr:'Propriétés', ru:'Свойства', ja:'プロパティ'}
+};
+
+let lang = (()=>{
+  const saved = localStorage.getItem('w94_lang');
+  if(saved && T[saved]) return saved;
+  const n = (navigator.language||'en').slice(0,2).toLowerCase();
+  return T[n] ? n : 'es';
+})();
+
+function t(k){
+  // Primero buscar en T (traducciones base)
+  const d = T[lang]||T.en;
+  if(d && d[k] !== undefined) return d[k];
+  // Luego en TRANSLATIONS extendida
+  const tr = TRANSLATIONS[k];
+  if(tr) return tr[lang] || tr.en || tr.es || k;
+  // Fallback final
+  return (T.en[k] !== undefined ? T.en[k] : k);
+}
+
+function applyI18n(root){
+  root = root || document;
+  root.querySelectorAll('[data-i18n]').forEach(el=>{ el.textContent = t(el.dataset.i18n); });
+  root.querySelectorAll('[data-i18n-title]').forEach(el=>{ el.title = t(el.dataset.i18nTitle); });
+}
+
+function setLang(code){
+  if(!T[code]) return;
+  lang = code;
+  localStorage.setItem('w94_lang', code);
+  document.documentElement.lang = code;
+  applyI18n();
+  refreshDesktopIcons();
+  refreshTaskbar();
+  buildStartMenu();
+  updateClock();
+}
+
+/* =========================================================
+   2. PIXEL ICONS
+   ========================================================= */
+function makeIcon(fn){
+  const c = document.createElement('canvas');
+  c.width = 32; c.height = 32;
+  const g = c.getContext('2d');
+  g.setTransform(2,0,0,2,0,0);
+  fn(g);
+  return c.toDataURL();
+}
+
+const ICONS = {};
+
+ICONS.computer = makeIcon(g=>{
+  g.fillStyle='#000';      g.fillRect(1,1,14,10);
+  g.fillStyle='#c0c0c0';   g.fillRect(2,2,12,8);
+  g.fillStyle='#008080';   g.fillRect(3,3,10,6);
+  g.fillStyle='#00ffff';   g.fillRect(4,4,4,1);
+  g.fillStyle='#ffffff';   g.fillRect(4,7,6,1);
+  g.fillStyle='#000';      g.fillRect(6,11,4,1);
+  g.fillStyle='#c0c0c0';   g.fillRect(5,12,6,1);
+  g.fillStyle='#000';      g.fillRect(3,14,10,1);
+  g.fillStyle='#c0c0c0';   g.fillRect(4,13,8,1);
+});
+
+ICONS.folder = makeIcon(g=>{
+  g.fillStyle='#000';      g.fillRect(1,2,7,2);
+  g.fillStyle='#ffd75e';   g.fillRect(2,2,5,1);
+  g.fillStyle='#000';      g.fillRect(1,3,14,11);
+  g.fillStyle='#ffd75e';   g.fillRect(2,4,12,9);
+  g.fillStyle='#e0a800';   g.fillRect(2,5,12,1);
+  g.fillStyle='#fff4c2';   g.fillRect(2,4,12,1);
+});
+
+ICONS.notepad = makeIcon(g=>{
+  g.fillStyle='#000';      g.fillRect(2,1,12,14);
+  g.fillStyle='#fff';      g.fillRect(3,2,10,12);
+  g.fillStyle='#000080';   g.fillRect(3,2,10,2);
+  g.fillStyle='#808080';   g.fillRect(4,6,8,1);
+  g.fillRect(4,8,8,1);     g.fillRect(4,10,6,1); g.fillRect(4,12,7,1);
+});
+
+ICONS.calc = makeIcon(g=>{
+  g.fillStyle='#000';      g.fillRect(2,1,12,14);
+  g.fillStyle='#c0c0c0';   g.fillRect(3,2,10,12);
+  g.fillStyle='#008000';   g.fillRect(4,3,8,3);
+  g.fillStyle='#000';
+  for(let r=0;r<3;r++) for(let c=0;c<3;c++) g.fillRect(4+c*3,7+r*3,2,2);
+  g.fillStyle='#808080';   g.fillRect(13,7,1,8);
+});
+
+ICONS.paint = makeIcon(g=>{
+  g.fillStyle='#000';      g.fillRect(1,2,14,12);
+  g.fillStyle='#c0c0c0';   g.fillRect(2,3,12,10);
+  g.fillStyle='#ff0000';   g.fillRect(3,4,3,3);
+  g.fillStyle='#0000ff';   g.fillRect(7,4,3,3);
+  g.fillStyle='#ffff00';   g.fillRect(11,4,2,3);
+  g.fillStyle='#00a000';   g.fillRect(3,8,3,3);
+  g.fillStyle='#ff00ff';   g.fillRect(7,8,3,3);
+  g.fillStyle='#000';      g.fillRect(11,8,2,3);
+  g.fillStyle='#808080';   g.fillRect(3,12,10,1);
+});
+
+ICONS.mine = makeIcon(g=>{
+  g.fillStyle='#000';
+  g.fillRect(5,5,6,1); g.fillRect(4,6,8,1);
+  g.fillRect(3,7,10,5); g.fillRect(4,12,8,1); g.fillRect(5,13,6,1);
+  g.fillStyle='#606060';   g.fillRect(7,2,1,3);
+  g.fillStyle='#ff0000';   g.fillRect(8,1,2,2);
+  g.fillStyle='#ffffff';   g.fillRect(5,7,2,2);
+});
+
+ICONS.cmd = makeIcon(g=>{
+  g.fillStyle='#000';      g.fillRect(1,2,14,12);
+  g.fillStyle='#c0c0c0';
+  g.fillRect(3,5,3,1); g.fillRect(7,5,3,1);
+  g.fillRect(3,8,2,1); g.fillRect(6,8,4,1);
+  g.fillRect(3,11,5,1);
+});
+
+ICONS.settings = makeIcon(g=>{
+  g.fillStyle='#000';      g.fillRect(1,1,14,14);
+  g.fillStyle='#c0c0c0';   g.fillRect(2,2,12,12);
+  g.fillStyle='#000080';   g.fillRect(2,2,12,2);
+  g.fillStyle='#808080';   g.fillRect(4,6,8,1); g.fillRect(4,10,8,1);
+  g.fillStyle='#000';      g.fillRect(6,5,2,3); g.fillRect(10,9,2,3);
+});
+
+ICONS.clock = makeIcon(g=>{
+  g.fillStyle='#000';      g.fillRect(1,1,14,14);
+  g.fillStyle='#fff';      g.fillRect(2,2,12,12);
+  g.fillStyle='#000';
+  g.fillRect(7,4,1,5); g.fillRect(8,8,4,1);
+  g.fillStyle='#808080';   g.fillRect(2,2,12,1);
+});
+
+ICONS.flag = makeIcon(g=>{
+  g.fillStyle='#ff3b30';   g.fillRect(1,3,6,4);
+  g.fillStyle='#34c759';   g.fillRect(8,4,6,4);
+  g.fillStyle='#0a84ff';   g.fillRect(1,8,6,4);
+  g.fillStyle='#ffcc00';   g.fillRect(8,9,6,4);
+  g.fillStyle='#000';      g.fillRect(1,2,1,13);
+});
+
+ICONS.shutdown = makeIcon(g=>{
+  g.fillStyle='#000';      g.fillRect(2,3,12,11);
+  g.fillStyle='#c0c0c0';   g.fillRect(3,4,10,9);
+  g.fillStyle='#ff0000';   g.fillRect(7,1,2,6);
+  g.fillRect(5,3,1,2);     g.fillRect(10,3,1,2);
+});
+
+ICONS.help = makeIcon(g=>{
+  g.fillStyle='#000';      g.fillRect(2,1,12,14);
+  g.fillStyle='#ffff00';   g.fillRect(3,2,10,12);
+  g.fillStyle='#000';
+  g.fillRect(6,4,4,1); g.fillRect(9,5,1,2); g.fillRect(7,7,3,1); g.fillRect(7,8,1,2);
+  g.fillRect(7,11,1,1);
+});
+
+ICONS.txt = makeIcon(g=>{
+  g.fillStyle='#000';      g.fillRect(3,1,10,14);
+  g.fillStyle='#fff';      g.fillRect(4,2,8,12);
+  g.fillStyle='#808080';
+  g.fillRect(5,4,6,1); g.fillRect(5,6,6,1); g.fillRect(5,8,6,1); g.fillRect(5,10,4,1);
+});
+
+/* =========================================================
+   3. VIRTUAL FILE SYSTEM
+   ========================================================= */
+const FS = {
+  name:'C:', type:'dir', children:{
+    'Documentos':{type:'dir',children:{
+      'bienvenida.txt':{type:'file',content:
+`=========================================
+   Windows 94 - Bienvenido / Welcome
+=========================================
+
+Gracias por usar Windows 94.
+
+* Arrastra las ventanas por la barra de título.
+* Haz doble clic en los iconos del escritorio.
+* Cambia el idioma desde el Panel de control.
+* Prueba el Buscaminas, Paint y la Calculadora.
+
+Consejo: en el Símbolo del sistema escribe "help"
+para ver todos los comandos disponibles.
+
+Diviértete :)
+`},
+      'notas.txt':{type:'file',content:"Mis notas:\n\n- Comprar disquetes de 3,5\"\n- Instalar Windows 94\n- Llamar a soporte técnico\n"}
+    }},
+    'Imagenes':{type:'dir',children:{}},
+    'Windows':{type:'dir',children:{
+      'sistema.ini':{type:'file',content:"[boot]\nshell=progman.exe\nlanguaje=auto\n"}
+    }},
+    'Programas':{type:'dir',children:{}}
+  }
+};
+
+function fsNode(path){
+  let n = FS;
+  for(const p of path){
+    if(!n.children || !n.children[p]) return null;
+    n = n.children[p];
+  }
+  return n;
+}
+function fsPathLabel(path){
+  if(path.length === 0) return 'C:\\';
+  return 'C:\\' + path.join('\\');
+}
+
+/* =========================================================
+   4. SOUND
+   ========================================================= */
+let audioCtx = null;
+function beep(freq, dur, type){
+  try{
+    if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.type = type || 'square';
+    o.frequency.value = freq;
+    g.gain.value = 0.03;
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start();
+    g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + (dur||0.05));
+    o.stop(audioCtx.currentTime + (dur||0.05));
+  }catch(e){}
+}
+function clickSnd(){ beep(880, 0.03); }
+function openSnd(){ beep(660, 0.06); setTimeout(()=>beep(990,0.06), 60); }
+
+/* =========================================================
+   5. WINDOW MANAGER
+   ========================================================= */
+const winLayer = document.getElementById('winLayer');
+let zTop = 10;
+const openWins = {};
+
+function openApp(id, opts){
+  if(openWins[id]){ restoreWin(id); focusWin(id); return openWins[id]; }
+
+  const app = APPS[id];
+  if(!app) return null;
+
+  const el = document.createElement('div');
+  el.className = 'window';
+
+  const w = Math.min(app.w, window.innerWidth - 16);
+  const h = Math.min(app.h, window.innerHeight - 70);
+  const n = Object.keys(openWins).length;
+  const left = Math.max(6, Math.round((window.innerWidth - w)/2) + (n%6)*24 - 60);
+  const top  = Math.max(6, Math.round((window.innerHeight - 30 - h)/2) + (n%6)*22 - 40);
+
+  el.style.width = w + 'px';
+  el.style.height = h + 'px';
+  el.style.left = left + 'px';
+  el.style.top = top + 'px';
+  el.style.zIndex = ++zTop;
+
+  el.innerHTML =
+    '<div class="titlebar">' +
+      '<img class="tb-icon" src="' + ICONS[app.icon] + '">' +
+      '<div class="tb-title">' + t(app.title) + '</div>' +
+      '<div class="tb-buttons">' +
+        '<button class="tbtn" data-act="min" title="—">_</button>' +
+        '<button class="tbtn" data-act="max" title="□">□</button>' +
+        '<button class="tbtn" data-act="close" title="✕">✕</button>' +
+      '</div>' +
+    '</div>' +
+    '<div class="win-body"></div>' +
+    '<div class="resize-handle"></div>';
+
+  winLayer.appendChild(el);
+
+  const winObj = {
+    id: id,
+    app: app,
+    el: el,
+    body: el.querySelector('.win-body'),
+    titleEl: el.querySelector('.tb-title'),
+    minimized: false,
+    maximized: false,
+    opts: opts || {}
+  };
+  openWins[id] = winObj;
+
+  /* --- Buttons --- */
+  el.querySelectorAll('.tbtn').forEach(b=>{
+    b.addEventListener('mousedown', ev=>ev.stopPropagation());
+    b.addEventListener('click', ev=>{
+      ev.stopPropagation();
+      const a = b.dataset.act;
+      if(a === 'close') closeWin(id);
+      else if(a === 'min') minimizeWin(id);
+      else if(a === 'max') toggleMax(id);
+    });
+  });
+
+  /* --- Drag --- */
+  const tb = el.querySelector('.titlebar');
+  let drag = null;
+  tb.addEventListener('mousedown', ev=>{
+    if(ev.target.closest('.tbtn')) return;
+    focusWin(id);
+    if(winObj.maximized) return;
+    drag = {x: ev.clientX, y: ev.clientY, l: el.offsetLeft, t: el.offsetTop};
+    ev.preventDefault();
+  });
+  window.addEventListener('mousemove', ev=>{
+    if(!drag) return;
+    const nl = Math.max(-el.offsetWidth + 60, Math.min(window.innerWidth - 40, drag.l + ev.clientX - drag.x));
+    const nt = Math.max(0, Math.min(window.innerHeight - 60, drag.t + ev.clientY - drag.y));
+    el.style.left = nl + 'px';
+    el.style.top = nt + 'px';
+  });
+  window.addEventListener('mouseup', ()=>{ drag = null; });
+
+  /* --- Resize --- */
+  const rh = el.querySelector('.resize-handle');
+  let rz = null;
+  rh.addEventListener('mousedown', ev=>{
+    ev.preventDefault(); ev.stopPropagation();
+    rz = {x: ev.clientX, y: ev.clientY, w: el.offsetWidth, h: el.offsetHeight};
+  });
+  window.addEventListener('mousemove', ev=>{
+    if(!rz) return;
+    el.style.width = Math.max(240, rz.w + ev.clientX - rz.x) + 'px';
+    el.style.height = Math.max(150, rz.h + ev.clientY - rz.y) + 'px';
+  });
+  window.addEventListener('mouseup', ()=>{ rz = null; });
+
+  el.addEventListener('mousedown', ()=>focusWin(id));
+
+  /* --- Build content --- */
+  try { app.build(winObj.body, winObj); } catch(e){ console.error(e); }
+
+  focusWin(id);
+  refreshTaskbar();
+  openSnd();
+  return winObj;
+}
+
+function closeWin(id){
+  const w = openWins[id];
+  if(!w) return;
+  w.el.remove();
+  delete openWins[id];
+  refreshTaskbar();
+  beep(440, 0.04);
+}
+
+function minimizeWin(id){
+  const w = openWins[id];
+  if(!w) return;
+  w.minimized = true;
+  w.el.style.display = 'none';
+  refreshTaskbar();
+}
+
+function restoreWin(id){
+  const w = openWins[id];
+  if(!w) return;
+  w.minimized = false;
+  w.el.style.display = 'flex';
+  refreshTaskbar();
+}
+
+function focusWin(id){
+  const w = openWins[id];
+  if(!w) return;
+  Object.values(openWins).forEach(o=>o.el.classList.add('inactive'));
+  w.el.classList.remove('inactive');
+  w.el.style.zIndex = ++zTop;
+  refreshTaskbar();
+}
+
+function toggleMax(id){
+  const w = openWins[id];
+  if(!w) return;
+  if(w.maximized){
+    w.el.style.left = w._l; w.el.style.top = w._t;
+    w.el.style.width = w._w; w.el.style.height = w._h;
+    w.maximized = false;
+  } else {
+    w._l = w.el.style.left; w._t = w.el.style.top;
+    w._w = w.el.style.width; w._h = w.el.style.height;
+    w.el.style.left = '0px'; w.el.style.top = '0px';
+    w.el.style.width = window.innerWidth + 'px';
+    w.el.style.height = (window.innerHeight - 30) + 'px';
+    w.maximized = true;
+  }
+}
+
+function refreshTaskbar(){
+  const tl = document.getElementById('taskList');
+  tl.innerHTML = '';
+  Object.values(openWins).forEach(w=>{
+    const b = document.createElement('button');
+    b.className = 'task-btn' + (w.el.classList.contains('inactive') ? '' : ' on');
+    b.innerHTML = '<img src="' + ICONS[w.app.icon] + '"><span>' + t(w.app.title) + '</span>';
+    b.addEventListener('click', ()=>{
+      if(w.minimized) { restoreWin(w.id); focusWin(w.id); }
+      else if(!w.el.classList.contains('inactive')) minimizeWin(w.id);
+      else focusWin(w.id);
+    });
+    tl.appendChild(b);
+  });
+}
+
+/* =========================================================
+   6. MENU BAR
+   ========================================================= */
+let activeDropdown = null;
+function closeDropdowns(){
+  if(activeDropdown){ activeDropdown.remove(); activeDropdown = null; }
+}
+document.addEventListener('mousedown', ()=>closeDropdowns());
+
+function makeMenuBar(winObj, defs){
+  const bar = document.createElement('div');
+  bar.className = 'menubar';
+  defs.forEach(def=>{
+    const item = document.createElement('div');
+    item.className = 'menu-title';
+    item.dataset.i18n = def.key;
+    item.textContent = t(def.key);
+    bar.appendChild(item);
+
+    item.addEventListener('mousedown', ev=>{
+      ev.stopPropagation();
+      if(activeDropdown && activeDropdown._owner === item){ closeDropdowns(); return; }
+      closeDropdowns();
+      const dd = document.createElement('div');
+      dd.className = 'dropdown';
+      dd._owner = item;
+      def.items.forEach(it=>{
+        if(it.sep){
+          const s = document.createElement('div');
+          s.className = 'dd-sep';
+          dd.appendChild(s);
+          return;
+        }
+        const e = document.createElement('div');
+        e.className = 'dd-item';
+        e.dataset.i18n = it.key;
+        e.textContent = t(it.key);
+        e.addEventListener('mousedown', ev2=>ev2.stopPropagation());
+        e.addEventListener('click', ()=>{ closeDropdowns(); if(it.fn) it.fn(); });
+        dd.appendChild(e);
+      });
+      winObj.el.appendChild(dd);
+      const wr = winObj.el.getBoundingClientRect();
+      const ir = item.getBoundingClientRect();
+      dd.style.left = (ir.left - wr.left) + 'px';
+      dd.style.top = (ir.bottom - wr.top) + 'px';
+      activeDropdown = dd;
+    });
+  });
+  return bar;
+}
+
+/* =========================================================
+   7. MODAL DIALOGS
+   ========================================================= */
+function showModal(winObj, titleKey, buildBody, buttons){
+  const ov = document.createElement('div');
+  ov.className = 'modal';
+  const dlg = document.createElement('div');
+  dlg.className = 'dialog';
+  const tb = document.createElement('div');
+  tb.className = 'dlg-title';
+  tb.textContent = t(titleKey);
+  const bd = document.createElement('div');
+  bd.className = 'dlg-body';
+  const bt = document.createElement('div');
+  bt.className = 'dlg-buttons';
+
+  const close = ()=>{ ov.remove(); };
+  buildBody(bd, close);
+
+  (buttons || [{key:'ok'}]).forEach(b=>{
+    const btn = document.createElement('button');
+    btn.className = 'btn';
+    btn.textContent = t(b.key);
+    btn.addEventListener('click', ()=>{ if(b.fn) b.fn(); close(); });
+    bt.appendChild(btn);
+  });
+
+  dlg.appendChild(tb); dlg.appendChild(bd); dlg.appendChild(bt);
+  ov.appendChild(dlg);
+  winObj.el.appendChild(ov);
+  return ov;
+}
+
+function aboutBox(winObj, appTitleKey){
+  showModal(winObj, 'aboutF', (body)=>{
+    const d = document.createElement('div');
+    d.className = 'about-box';
+    d.innerHTML = '<img src="' + ICONS.flag + '" style="width:48px;height:48px">' +
+      '<div><b>Windows 94</b><br>' + t('version') + '<br>' + t('info_16bit') + '</div>';
+    body.appendChild(d);
+  }, [{key:'ok'}]);
+}
+
+/* =========================================================
+   8. APPLICATIONS
+   ========================================================= */
+
+/* ---------- 8.1 NOTEPAD ---------- */
+function buildNotepad(body, winObj){
+  let currentFile = winObj.opts.file || null;
+
+  const ta = document.createElement('textarea');
+  ta.className = 'notepad-area';
+  ta.spellcheck = false;
+
+  const setTitle = (name)=>{
+    winObj.titleEl.textContent = name ? (name + ' - ' + t('app_notepad')) : t('app_notepad');
+  };
+
+  const bar = makeMenuBar(winObj, [
+    {key:'file', items:[
+      {key:'newF', fn:()=>{ ta.value=''; currentFile=null; setTitle(null); }},
+      {key:'openF', fn:()=> openFileDialog()},
+      {key:'saveF', fn:()=> saveFileDialog()},
+      {sep:true},
+      {key:'exitF', fn:()=> closeWin('notepad')}
+    ]},
+    {key:'edit', items:[
+      {key:'undoF', fn:()=>{ try{ document.execCommand('undo'); }catch(e){} }},
+      {key:'clearF', fn:()=>{ ta.value=''; }}
+    ]},
+    {key:'help', items:[
+      {key:'aboutF', fn:()=> aboutBox(winObj)}
+    ]}
+  ]);
+
+  function openFileDialog(){
+    const docs = fsNode(['Documentos']);
+    showModal(winObj, 'openF', (bd, close)=>{
+      const list = document.createElement('div');
+      list.className = 'dlg-list';
+      const names = Object.keys(docs.children).filter(k=>docs.children[k].type==='file');
+      if(names.length === 0){
+        const e = document.createElement('div'); e.textContent = '—'; list.appendChild(e);
+      }
+      names.forEach(n=>{
+        const it = document.createElement('div');
+        it.innerHTML = '<img src="' + ICONS.txt + '" style="width:16px;height:16px">' + n;
+        it.addEventListener('click', ()=>{
+          ta.value = docs.children[n].content || '';
+          currentFile = n;
+          setTitle(n);
+          close();
+        });
+        list.appendChild(it);
+      });
+      bd.appendChild(list);
+    }, [{key:'cancel'}]);
+  }
+
+  function saveFileDialog(){
+    let input;
+    showModal(winObj, 'saveAs', (bd, close)=>{
+      const lbl = document.createElement('div');
+      lbl.textContent = t('fileName');
+      input = document.createElement('input');
+      input.className = 'dlg-input in';
+      input.value = currentFile || 'nuevo.txt';
+      bd.appendChild(lbl); bd.appendChild(input);
+      setTimeout(()=>input.focus(), 30);
+    }, [
+      {key:'ok', fn:()=>{
+        const name = (input && input.value.trim()) || 'nuevo.txt';
+        const docs = fsNode(['Documentos']);
+        docs.children[name] = {type:'file', content: ta.value};
+        currentFile = name;
+        setTitle(name);
+      }},
+      {key:'cancel'}
+    ]);
+  }
+
+  body.appendChild(bar);
+  body.appendChild(ta);
+
+  if(currentFile){
+    const docs = fsNode(['Documentos']);
+    if(docs.children[currentFile]) ta.value = docs.children[currentFile].content || '';
+    setTitle(currentFile);
+  } else {
+    setTitle(null);
+  }
+  setTimeout(()=>ta.focus(), 50);
+}
+
+/* ---------- 8.2 CALCULATOR ---------- */
+function buildCalc(body, winObj){
+  const wrap = document.createElement('div');
+  wrap.className = 'calc-wrap';
+
+  const disp = document.createElement('div');
+  disp.className = 'calc-disp';
+  disp.textContent = '0';
+
+  const grid = document.createElement('div');
+  grid.className = 'calc-grid';
+
+  let cur = '0', prev = null, op = null, fresh = true;
+
+  const upd = ()=>{ disp.textContent = cur.length > 14 ? parseFloat(cur).toExponential(6) : cur; };
+
+  function num(n){
+    if(fresh){ cur = (n === '.' ? '0.' : n); fresh = false; }
+    else {
+      if(n === '.' && cur.includes('.')) return;
+      if(cur === '0' && n !== '.') cur = n;
+      else cur += n;
+    }
+    upd();
+  }
+  function setOp(o){
+    if(op && !fresh) calc();
+    prev = parseFloat(cur);
+    op = o;
+    fresh = true;
+  }
+  function calc(){
+    if(op === null || prev === null) return;
+    const b = parseFloat(cur);
+    let r = 0;
+    switch(op){
+      case '+': r = prev + b; break;
+      case '-': r = prev - b; break;
+      case '*': r = prev * b; break;
+      case '/': r = b === 0 ? NaN : prev / b; break;
+      case '%': r = prev % b; break;
+    }
+    cur = isFinite(r) ? String(Math.round(r * 1e10) / 1e10) : t('calcError');
+    prev = null; op = null; fresh = true;
+    upd();
+  }
+  function clearAll(){ cur = '0'; prev = null; op = null; fresh = true; upd(); }
+
+  const layout = [
+    ['C','CE','%','/'],
+    ['7','8','9','*'],
+    ['4','5','6','-'],
+    ['1','2','3','+'],
+    ['±','0','.','=']
+  ];
+
+  layout.forEach(row=>{
+    row.forEach(k=>{
+      const b = document.createElement('button');
+      b.textContent = k;
+      if(['/','*','-','+','%'].includes(k)) b.classList.add('op');
+      if(k === '=') b.classList.add('eq');
+      b.addEventListener('click', ()=>{
+        clickSnd();
+        if(/[0-9.]/.test(k)) num(k);
+        else if(k === 'C') clearAll();
+        else if(k === 'CE'){ cur = '0'; fresh = true; upd(); }
+        else if(k === '±'){ cur = String(-parseFloat(cur)); upd(); }
+        else if(k === '=') calc();
+        else setOp(k);
+      });
+      grid.appendChild(b);
+    });
+  });
+
+  wrap.appendChild(disp);
+  wrap.appendChild(grid);
+  body.appendChild(wrap);
+}
+
+/* ---------- 8.3 PAINT ---------- */
+function buildPaint(body, winObj){
+  const wrap = document.createElement('div');
+  wrap.className = 'paint-wrap';
+
+  const tools = document.createElement('div');
+  tools.className = 'paint-tools';
+
+  const area = document.createElement('div');
+  area.className = 'paint-canvas-area';
+
+  const canvas = document.createElement('canvas');
+  canvas.width = 480; canvas.height = 320;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.imageSmoothingEnabled = false;
+
+  area.appendChild(canvas);
+
+  let tool = 'brush';
+  let color = '#000000';
+  let size = 2;
+  let drawing = false;
+  let startX = 0, startY = 0, snapshot = null;
+
+  const colors = ['#000000','#808080','#c0c0c0','#ffffff','#800000','#ff0000',
+                  '#808000','#ffff00','#008000','#00ff00','#000080','#0000ff',
+                  '#800080','#ff00ff','#008080','#00ffff'];
+
+  const toolDefs = [
+    {k:'brush', label:'brush'},
+    {k:'eraser', label:'eraser'},
+    {k:'line', label:'line'},
+    {k:'rect', label:'rect'},
+    {k:'fill', label:'fill'}
+  ];
+
+  toolDefs.forEach(td=>{
+    const b = document.createElement('button');
+    b.textContent = t(td.label);
+    b.dataset.i18n = td.label;
+    if(td.k === tool) b.classList.add('on');
+    b.addEventListener('click', ()=>{
+      tool = td.k;
+      tools.querySelectorAll('button[data-i18n]').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+    });
+    tools.appendChild(b);
+  });
+
+  const sep = document.createElement('span');
+  sep.style.cssText = 'width:1px;height:20px;background:#808080;margin:0 4px';
+  tools.appendChild(sep);
+
+  colors.forEach(c=>{
+    const s = document.createElement('div');
+    s.className = 'swatch' + (c === color ? ' on' : '');
+    s.style.background = c;
+    s.addEventListener('click', ()=>{
+      color = c;
+      tools.querySelectorAll('.swatch').forEach(x=>x.classList.remove('on'));
+      s.classList.add('on');
+    });
+    tools.appendChild(s);
+  });
+
+  const sep2 = document.createElement('span');
+  sep2.style.cssText = 'width:1px;height:20px;background:#808080;margin:0 4px';
+  tools.appendChild(sep2);
+
+  [1,2,4,8].forEach(sz=>{
+    const b = document.createElement('button');
+    b.textContent = sz + 'px';
+    if(sz === size) b.classList.add('on');
+    b.addEventListener('click', ()=>{
+      size = sz;
+      tools.querySelectorAll('button').forEach(x=>{ if(x.textContent.endsWith('px')) x.classList.remove('on'); });
+      b.classList.add('on');
+    });
+    tools.appendChild(b);
+  });
+
+  const clearBtn = document.createElement('button');
+  clearBtn.textContent = t('clear');
+  clearBtn.dataset.i18n = 'clear';
+  clearBtn.addEventListener('click', ()=>{
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  });
+  tools.appendChild(clearBtn);
+
+  function pos(ev){
+    const r = canvas.getBoundingClientRect();
+    return {
+      x: Math.round((ev.clientX - r.left) * canvas.width / r.width),
+      y: Math.round((ev.clientY - r.top) * canvas.height / r.height)
+    };
+  }
+
+  function floodFill(x, y, fillColor){
+    const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const d = img.data;
+    const idx = (x + y * canvas.width) * 4;
+    const tr = d[idx], tg = d[idx+1], tb = d[idx+2];
+    const tmp = document.createElement('canvas');
+    tmp.width = 1; tmp.height = 1;
+    const tg2 = tmp.getContext('2d');
+    tg2.fillStyle = fillColor;
+    tg2.fillRect(0,0,1,1);
+    const fd = tg2.getImageData(0,0,1,1).data;
+    const fr = fd[0], fg = fd[1], fb = fd[2];
+    if(tr === fr && tg === fg && tb === fb) return;
+    const stack = [[x, y]];
+    while(stack.length){
+      const [cx, cy] = stack.pop();
+      if(cx < 0 || cy < 0 || cx >= canvas.width || cy >= canvas.height) continue;
+      const i = (cx + cy * canvas.width) * 4;
+      if(d[i] !== tr || d[i+1] !== tg || d[i+2] !== tb) continue;
+      d[i] = fr; d[i+1] = fg; d[i+2] = fb; d[i+3] = 255;
+      stack.push([cx+1, cy], [cx-1, cy], [cx, cy+1], [cx, cy-1]);
+    }
+    ctx.putImageData(img, 0, 0);
+  }
+
+  canvas.addEventListener('mousedown', ev=>{
+    ev.preventDefault();
+    const p = pos(ev);
+    startX = p.x; startY = p.y;
+
+    if(tool === 'fill'){
+      floodFill(p.x, p.y, color);
+      return;
+    }
+    drawing = true;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    if(tool === 'line' || tool === 'rect'){
+      snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    } else {
+      ctx.beginPath();
+      ctx.moveTo(p.x, p.y);
+      ctx.strokeStyle = (tool === 'eraser') ? '#ffffff' : color;
+      ctx.lineWidth = (tool === 'eraser') ? size * 3 : size;
+      ctx.lineTo(p.x + 0.1, p.y + 0.1);
+      ctx.stroke();
+    }
+  });
+
+  canvas.addEventListener('mousemove', ev=>{
+    if(!drawing) return;
+    const p = pos(ev);
+    if(tool === 'line' || tool === 'rect'){
+      ctx.putImageData(snapshot, 0, 0);
+      ctx.beginPath();
+      ctx.strokeStyle = (tool === 'eraser') ? '#ffffff' : color;
+      ctx.lineWidth = size;
+      if(tool === 'line'){
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(p.x, p.y);
+      } else {
+        ctx.rect(startX, startY, p.x - startX, p.y - startY);
+      }
+      ctx.stroke();
+    } else {
+      ctx.lineTo(p.x, p.y);
+      ctx.stroke();
+    }
+  });
+
+  window.addEventListener('mouseup', ()=>{
+    if(!drawing) return;
+    drawing = false;
+    snapshot = null;
+  });
+
+  wrap.appendChild(tools);
+  wrap.appendChild(area);
+  body.appendChild(wrap);
+}
+
+/* ---------- 8.4 MINESWEEPER ---------- */
+function buildMines(body, winObj){
+  const wrap = document.createElement('div');
+  wrap.className = 'mines-wrap';
+
+  const head = document.createElement('div');
+  head.className = 'mines-head';
+  const counter = document.createElement('div');
+  counter.className = 'led';
+  const face = document.createElement('button');
+  face.className = 'face';
+  face.textContent = '🙂';
+  const timerEl = document.createElement('div');
+  timerEl.className = 'led';
+  head.appendChild(counter); head.appendChild(face); head.appendChild(timerEl);
+
+  const gridEl = document.createElement('div');
+  gridEl.className = 'mines-grid';
+
+  let cols = 9, rows = 9, mineCount = 10;
+  let cells = [], opened = 0, flags = 0, over = false, started = false;
+  let timerId = null, seconds = 0;
+
+  function pad(n){ return String(Math.max(0, Math.min(999, n))).padStart(3, '0'); }
+
+  function init(){
+    if(timerId) clearInterval(timerId);
+    timerId = null; seconds = 0;
+    over = false; started = false; opened = 0; flags = 0;
+    face.textContent = '🙂';
+    gridEl.innerHTML = '';
+    gridEl.style.gridTemplateColumns = 'repeat(' + cols + ', 18px)';
+    cells = [];
+    for(let y = 0; y < rows; y++){
+      const row = [];
+      for(let x = 0; x < cols; x++){
+        const c = {x:x, y:y, mine:false, open:false, flag:false, n:0, el:null};
+        const d = document.createElement('div');
+        d.className = 'cell';
+        d.addEventListener('mousedown', ev=>{
+          ev.preventDefault();
+          if(over) return;
+          if(ev.button === 2){ toggleFlag(c); }
+          else { reveal(c); }
+        });
+        d.addEventListener('contextmenu', ev=>ev.preventDefault());
+        c.el = d;
+        gridEl.appendChild(d);
+        row.push(c);
+      }
+      cells.push(row);
+    }
+    counter.textContent = pad(mineCount);
+    timerEl.textContent = pad(0);
+  }
+
+  function placeMines(sx, sy){
+    let placed = 0;
+    while(placed < mineCount){
+      const x = Math.floor(Math.random() * cols);
+      const y = Math.floor(Math.random() * rows);
+      if(cells[y][x].mine) continue;
+      if(Math.abs(x - sx) <= 1 && Math.abs(y - sy) <= 1) continue;
+      cells[y][x].mine = true;
+      placed++;
+    }
+    for(let y = 0; y < rows; y++){
+      for(let x = 0; x < cols; x++){
+        if(cells[y][x].mine) continue;
+        let n = 0;
+        for(let dy = -1; dy <= 1; dy++){
+          for(let dx = -1; dx <= 1; dx++){
+            const nx = x + dx, ny = y + dy;
+            if(nx < 0 || ny < 0 || nx >= cols || ny >= rows) continue;
+            if(cells[ny][nx].mine) n++;
+          }
+        }
+        cells[y][x].n = n;
+      }
+    }
+  }
+
+  function startTimer(){
+    if(timerId) return;
+    timerId = setInterval(()=>{
+      seconds++;
+      timerEl.textContent = pad(seconds);
+    }, 1000);
+  }
+
+  function toggleFlag(c){
+    if(c.open) return;
+    c.flag = !c.flag;
+    c.el.textContent = c.flag ? '🚩' : '';
+    flags += c.flag ? 1 : -1;
+    counter.textContent = pad(mineCount - flags);
+  }
+
+  function reveal(c){
+    if(c.open || c.flag || over) return;
+    if(!started){ started = true; placeMines(c.x, c.y); startTimer(); }
+
+    c.open = true;
+    c.el.classList.add('open');
+    opened++;
+
+    if(c.mine){
+      c.el.classList.add('mine');
+      c.el.textContent = '💥';
+      gameOver(false);
+      return;
+    }
+    if(c.n > 0){
+      c.el.textContent = c.n;
+      c.el.classList.add('c' + c.n);
+    } else {
+      for(let dy = -1; dy <= 1; dy++){
+        for(let dx = -1; dx <= 1; dx++){
+          const nx = c.x + dx, ny = c.y + dy;
+          if(nx < 0 || ny < 0 || nx >= cols || ny >= rows) continue;
+          if(!cells[ny][nx].open) reveal(cells[ny][nx]);
+        }
+      }
+    }
+    if(opened === cols * rows - mineCount) gameOver(true);
+  }
+
+  function gameOver(win){
+    over = true;
+    if(timerId){ clearInterval(timerId); timerId = null; }
+    face.textContent = win ? '😎' : '😵';
+    if(!win){
+      cells.forEach(row=>row.forEach(c=>{
+        if(c.mine && !c.flag){ c.el.classList.add('open', 'mine'); c.el.textContent = '💣'; }
+      }));
+    }
+  }
+
+  face.addEventListener('click', init);
+
+  wrap.appendChild(head);
+  wrap.appendChild(gridEl);
+  body.appendChild(wrap);
+  init();
+}
+
+/* ---------- 8.5 EXPLORER ---------- */
+function buildExplorer(body, winObj){
+  let path = winObj.opts.path || [];
+
+  const wrap = document.createElement('div');
+  wrap.className = 'exp-wrap';
+
+  const bar = document.createElement('div');
+  bar.className = 'exp-bar';
+
+  const upBtn = document.createElement('button');
+  upBtn.textContent = '↑';
+  upBtn.title = t('up');
+  const pathEl = document.createElement('div');
+  pathEl.className = 'exp-path';
+
+  const newBtn = document.createElement('button');
+  newBtn.textContent = '＋';
+  newBtn.title = t('newFld');
+
+  const delBtn = document.createElement('button');
+  delBtn.textContent = '✕';
+  delBtn.title = t('del');
+
+  bar.appendChild(upBtn);
+  bar.appendChild(newBtn);
+  bar.appendChild(delBtn);
+  bar.appendChild(pathEl);
+
+  const list = document.createElement('div');
+  list.className = 'exp-list';
+
+  const status = document.createElement('div');
+  status.className = 'exp-status';
+
+  let selected = null;
+
+  function render(){
+    const node = fsNode(path);
+    if(!node){ path = []; return render(); }
+    pathEl.textContent = fsPathLabel(path);
+    list.innerHTML = '';
+    selected = null;
+
+    const names = Object.keys(node.children || {});
+    names.sort((a,b)=>{
+      const A = node.children[a], B = node.children[b];
+      if(A.type !== B.type) return A.type === 'dir' ? -1 : 1;
+      return a.localeCompare(b);
+    });
+
+    names.forEach(n=>{
+      const child = node.children[n];
+      const it = document.createElement('div');
+      it.className = 'exp-item';
+      it.innerHTML = '<img src="' + (child.type === 'dir' ? ICONS.folder : ICONS.txt) + '"><span>' + n + '</span>';
+      it.addEventListener('click', ()=>{
+        list.querySelectorAll('.exp-item').forEach(x=>x.classList.remove('sel'));
+        it.classList.add('sel');
+        selected = n;
+      });
+      it.addEventListener('dblclick', ()=>{
+        if(child.type === 'dir'){
+          path = path.concat([n]);
+          render();
+        } else {
+          openApp('notepad', {file:n});
+        }
+      });
+      list.appendChild(it);
+    });
+
+    status.textContent = names.length + ' ' + t('items');
+  }
+
+  upBtn.addEventListener('click', ()=>{
+    if(path.length > 0){ path.pop(); render(); }
+  });
+
+  newBtn.addEventListener('click', ()=>{
+    let input;
+    showModal(winObj, 'newFolder', (bd, close)=>{
+      const l = document.createElement('div'); l.textContent = t('folderName');
+      input = document.createElement('input');
+      input.className = 'dlg-input in';
+      input.value = t('newFolder');
+      bd.appendChild(l); bd.appendChild(input);
+      setTimeout(()=>input.focus(), 30);
+    }, [
+      {key:'ok', fn:()=>{
+        const name = (input && input.value.trim()) || 'Nueva carpeta';
+        const node = fsNode(path);
+        if(node && node.children && !node.children[name]){
+          node.children[name] = {type:'dir', children:{}};
+          render();
+        }
+      }},
+      {key:'cancel'}
+    ]);
+  });
+
+  delBtn.addEventListener('click', ()=>{
+    if(!selected) return;
+    showModal(winObj, 'del', (bd)=>{
+      const p = document.createElement('p');
+      p.textContent = t('confirmDelete') + ' "' + selected + '"';
+      bd.appendChild(p);
+    }, [
+      {key:'yes', fn:()=>{
+        const node = fsNode(path);
+        if(node && node.children[selected]){
+          delete node.children[selected];
+          render();
+        }
+      }},
+      {key:'no'}
+    ]);
+  });
+
+  wrap.appendChild(bar);
+  wrap.appendChild(list);
+  wrap.appendChild(status);
+  body.appendChild(wrap);
+  render();
+
+  winObj._renderExplorer = render;
+}
+
+/* ---------- 8.6 COMMAND PROMPT ---------- */
+function buildCmd(body, winObj){
+  const wrap = document.createElement('div');
+  wrap.className = 'cmd-wrap';
+
+  const out = document.createElement('div');
+  out.className = 'cmd-out';
+
+  const line = document.createElement('div');
+  line.className = 'cmd-line';
+  const prompt = document.createElement('span');
+  const input = document.createElement('input');
+  input.spellcheck = false;
+  line.appendChild(prompt);
+  line.appendChild(input);
+
+  let cwd = [];
+
+  function print(txt){
+    const d = document.createElement('div');
+    d.textContent = txt;
+    out.appendChild(d);
+    out.scrollTop = out.scrollHeight;
+  }
+
+  function updatePrompt(){
+    prompt.textContent = 'C:\\' + (cwd.length ? cwd.join('\\') + '\\' : '') + '>';
+  }
+
+  function run(cmdLine){
+    const parts = cmdLine.trim().split(/\s+/);
+    const cmd = (parts[0] || '').toLowerCase();
+    const args = parts.slice(1);
+    const node = fsNode(cwd);
+
+    switch(cmd){
+      case '':
+        break;
+      case 'help':
+        print(t('cmdHelp'));
+        break;
+      case 'ver':
+        print(t('cmdWelcome'));
+        break;
+      case 'dir': {
+        const names = Object.keys(node.children || {});
+        print(' Directorio de C:\\' + (cwd.length ? cwd.join('\\') : ''));
+        print('');
+        if(names.length === 0) print('  <' + t('items') + ': 0>');
+        names.forEach(n=>{
+          const c = node.children[n];
+          const tag = c.type === 'dir' ? '<DIR>      ' : String((c.content||'').length).padStart(6) + '  ';
+          print('  ' + tag + n);
+        });
+        print('');
+        break;
+      }
+      case 'cd': {
+        if(!args[0] || args[0] === '.') break;
+        if(args[0] === '..'){
+          if(cwd.length) cwd.pop();
+          break;
+        }
+        if(args[0] === '\\' || args[0] === '/'){
+          cwd = [];
+          break;
+        }
+        const target = node.children[args[0]];
+        if(target && target.type === 'dir') cwd.push(args[0]);
+        else print(t('cmdNotFound') + ' ' + args[0]);
+        break;
+      }
+      case 'echo':
+        print(args.join(' '));
+        break;
+      case 'cls':
+        out.innerHTML = '';
+        break;
+      case 'date':
+        print(new Date().toLocaleDateString(lang));
+        break;
+      case 'time':
+        print(new Date().toLocaleTimeString(lang));
+        break;
+      case 'lang': {
+        const code = (args[0] || '').toLowerCase();
+        if(T[code]){ setLang(code); print('OK -> ' + code); }
+        else print('lang: es | en | pt | fr | ru | ja');
+        break;
+      }
+      case 'open': {
+        const appId = (args[0] || '').toLowerCase();
+        if(APPS[appId]){ openApp(appId); print('OK'); }
+        else print(t('cmdNotFound') + ' ' + appId);
+        break;
+      }
+      case 'exit':
+        closeWin('cmd');
+        break;
+      default:
+        print(t('cmdNotFound') + ' ' + parts[0]);
+    }
+    updatePrompt();
+  }
+
+  input.addEventListener('keydown', ev=>{
+    if(ev.key === 'Enter'){
+      const v = input.value;
+      print(prompt.textContent + ' ' + v);
+      input.value = '';
+      run(v);
+    }
+  });
+
+  wrap.addEventListener('click', ()=>input.focus());
+
+  print(t('cmdWelcome'));
+  print('');
+  print(t('cmdHelp'));
+  print('');
+
+  wrap.appendChild(out);
+  wrap.appendChild(line);
+  body.appendChild(wrap);
+  updatePrompt();
+  setTimeout(()=>input.focus(), 60);
+}
+
+/* ---------- 8.7 CONTROL PANEL ---------- */
+const WALLPAPERS = [
+  {name:'Teal',   color:'#008080', pat:false},
+  {name:'Azul',   color:'#1e3a8a', pat:true},
+  {name:'Verde',  color:'#166534', pat:false},
+  {name:'Gris',   color:'#4b5563', pat:true},
+  {name:'Morado', color:'#4c1d95', pat:false},
+  {name:'Rojo',   color:'#7f1d1d', pat:true},
+  {name:'Negro',  color:'#111111', pat:false},
+  {name:'Rosa',   color:'#9d174d', pat:true}
+];
+
+function applyWallpaper(idx){
+  const w = WALLPAPERS[idx] || WALLPAPERS[0];
+  const d = document.getElementById('desktop');
+  d.style.background = w.color;
+  d.classList.toggle('pat', w.pat);
+  localStorage.setItem('w94_wall', idx);
+}
+
+function buildSettings(body, winObj){
+  const wrap = document.createElement('div');
+  wrap.className = 'set-wrap';
+
+  /* --- Language --- */
+  const g1 = document.createElement('div');
+  g1.className = 'set-group';
+  g1.innerHTML = '<h3>' + t('language') + '</h3>';
+  const lg = document.createElement('div');
+  lg.className = 'lang-grid';
+  LANGS.forEach(l=>{
+    const b = document.createElement('button');
+    b.textContent = l.name;
+    if(l.code === lang) b.classList.add('on');
+    b.addEventListener('click', ()=>{
+      setLang(l.code);
+      g1.querySelector('h3').textContent = t('language');
+      g2.querySelector('h3').textContent = t('wallpaper');
+      g3.querySelector('h3').textContent = t('about');
+    });
+    lg.appendChild(b);
+  });
+  g1.appendChild(lg);
+
+  /* --- Wallpaper --- */
+  const g2 = document.createElement('div');
+  g2.className = 'set-group';
+  g2.innerHTML = '<h3>' + t('wallpaper') + '</h3>';
+  const wg = document.createElement('div');
+  wg.className = 'wall-grid';
+  const curWall = parseInt(localStorage.getItem('w94_wall') || '0', 10);
+  WALLPAPERS.forEach((wp, i)=>{
+    const d = document.createElement('div');
+    d.className = 'wall' + (i === curWall ? ' on' : '');
+    d.style.background = wp.color;
+    d.title = wp.name;
+    d.addEventListener('click', ()=>{
+      applyWallpaper(i);
+      wg.querySelectorAll('.wall').forEach(x=>x.classList.remove('on'));
+      d.classList.add('on');
+    });
+    wg.appendChild(d);
+  });
+  g2.appendChild(wg);
+
+  /* --- About --- */
+  const g3 = document.createElement('div');
+  g3.className = 'set-group';
+  g3.innerHTML = '<h3>' + t('about') + '</h3>';
+  const ab = document.createElement('div');
+  ab.className = 'about-box';
+  ab.innerHTML = '<img src="' + ICONS.flag + '" style="width:40px;height:40px">' +
+    '<div><b>Windows 94</b><br><span>' + t('version') + '</span><br>' + t('info_16bit') + '</div>';
+  g3.appendChild(ab);
+
+  wrap.appendChild(g1);
+  wrap.appendChild(g2);
+  wrap.appendChild(g3);
+  body.appendChild(wrap);
+}
+
+/* ---------- 8.8 CLOCK ---------- */
+function buildClock(body, winObj){
+  const wrap = document.createElement('div');
+  wrap.className = 'clock-wrap';
+
+  const face = document.createElement('div');
+  face.className = 'clock-face';
+  face.innerHTML = '<div class="h"></div><div class="m"></div><div class="s"></div>';
+
+  const digital = document.createElement('div');
+  digital.className = 'clock-digital';
+
+  const dateEl = document.createElement('div');
+  dateEl.className = 'clock-date';
+
+  wrap.appendChild(face);
+  wrap.appendChild(digital);
+  wrap.appendChild(dateEl);
+  body.appendChild(wrap);
+
+  const h = face.querySelector('.h');
+  const m = face.querySelector('.m');
+  const s = face.querySelector('.s');
+
+  function tick(){
+    const d = new Date();
+    const sec = d.getSeconds();
+    const min = d.getMinutes();
+    const hr = d.getHours() % 12;
+    s.style.transform = 'rotate(' + (sec * 6) + 'deg)';
+    m.style.transform = 'rotate(' + (min * 6 + sec * 0.1) + 'deg)';
+    h.style.transform = 'rotate(' + (hr * 30 + min * 0.5) + 'deg)';
+    digital.textContent = d.toLocaleTimeString(lang, {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+    dateEl.textContent = d.toLocaleDateString(lang, {weekday:'long', year:'numeric', month:'long', day:'numeric'});
+  }
+  tick();
+  const id = setInterval(tick, 1000);
+  winObj._clockId = id;
+  winObj.el.addEventListener('remove', ()=>clearInterval(id));
+}
+
+/* =========================================================
+   9. APP REGISTRY
+   ========================================================= */
+const APPS = {
+  computer:   {title:'app_computer',   icon:'computer', w:620, h:420, build:buildExplorer},
+  explorer:   {title:'app_explorer',   icon:'folder',   w:620, h:420, build:buildExplorer},
+  notepad:    {title:'app_notepad',    icon:'notepad',  w:580, h:420, build:buildNotepad},
+  calculator: {title:'app_calculator', icon:'calc',     w:300, h:360, build:buildCalc},
+  paint:      {title:'app_paint',      icon:'paint',    w:640, h:480, build:buildPaint},
+  mines:      {title:'app_mines',      icon:'mine',     w:340, h:420, build:buildMines},
+  cmd:        {title:'app_cmd',        icon:'cmd',      w:580, h:380, build:buildCmd},
+  settings:   {title:'app_settings',   icon:'settings', w:500, h:430, build:buildSettings},
+  clock:      {title:'app_clock',      icon:'clock',    w:320, h:300, build:buildClock}
+};
+
+/* =========================================================
+   10. DESKTOP ICONS (draggable + openable)
+   ========================================================= */
+const DESKTOP_ICON_LIST = [
+  'computer','explorer','notepad','calculator','paint','mines','cmd','settings','clock'
+];
+
+let iconDrag = null;
+let lastIconClick = {id:null, time:0};
+
+function refreshDesktopIcons(){
+  const area = document.getElementById('iconArea');
+  area.innerHTML = '';
+  const saved = (()=>{
+    try { return JSON.parse(localStorage.getItem('w94_iconpos') || '{}'); }
+    catch(e){ return {}; }
+  })();
+
+  DESKTOP_ICON_LIST.forEach((id, i)=>{
+    const app = APPS[id];
+    if(!app) return;
+    const d = document.createElement('div');
+    d.className = 'dicon';
+    d.innerHTML = '<img src="' + ICONS[app.icon] + '"><span>' + t(app.title) + '</span>';
+    d.dataset.appId = id;
+
+    const col = Math.floor(i / 8);
+    const row = i % 8;
+    const pos = saved[id] || {x: col * 84, y: row * 84};
+    d.style.left = pos.x + 'px';
+    d.style.top  = pos.y + 'px';
+
+    /* --- CLIC SIMPLE: seleccionar + detectar doble clic manual --- */
+    d.addEventListener('click', ev=>{
+      ev.stopPropagation();
+      area.querySelectorAll('.dicon').forEach(x=>x.classList.remove('sel'));
+      d.classList.add('sel');
+
+      const now = Date.now();
+      if(lastIconClick.id === id && (now - lastIconClick.time) < 450){
+        // DOBLE CLIC detectado manualmente
+        if(id === 'computer') openApp('explorer', {path:[]});
+        else openApp(id);
+        lastIconClick = {id:null, time:0};
+      } else {
+        lastIconClick = {id: id, time: now};
+      }
+    });
+
+    /* --- Mousedown: iniciar arrastre --- */
+    d.addEventListener('mousedown', ev=>{
+      if(ev.button !== 0) return;
+      ev.stopPropagation();
+      area.querySelectorAll('.dicon').forEach(x=>x.classList.remove('sel'));
+      d.classList.add('sel');
+      iconDrag = {
+        el: d,
+        id: id,
+        startX: ev.clientX,
+        startY: ev.clientY,
+        origX: parseInt(d.style.left, 10) || 0,
+        origY: parseInt(d.style.top, 10) || 0,
+        moved: false
+      };
+    });
+
+    /* --- Clic derecho: menú contextual --- */
+    d.addEventListener('contextmenu', ev=>{
+      ev.preventDefault();
+      ev.stopPropagation();
+      area.querySelectorAll('.dicon').forEach(x=>x.classList.remove('sel'));
+      d.classList.add('sel');
+      showContextMenu(ev.clientX, ev.clientY, [
+        {label:t('ctx_open'), bold:true, fn:()=>{
+          if(id === 'computer') openApp('explorer', {path:[]});
+          else openApp(id);
+        }},
+        {sep:true},
+        {label:t('ctx_shortcut'), fn:()=>{ beep(700, 0.04); }},
+        {label:t('ctx_rename'), fn:()=>{
+          const nuevo = prompt(t('ctx_name_prompt'), t(app.title));
+          if(nuevo && nuevo.trim()){
+            const span = d.querySelector('span');
+            if(span) span.textContent = nuevo.trim();
+          }
+        }},
+        {label:t('ctx_delete'), fn:()=>{
+          if(confirm(t('ctx_del_confirm'))){
+            d.remove();
+          }
+        }},
+        {sep:true},
+        {label:t('ctx_props'), fn:()=>{
+          alert(t(app.title) + '\n' + t('version') + '\n' + t('info_16bit'));
+        }}
+      ]);
+    });
+
+    /* --- Táctil --- */
+    if('ontouchstart' in window){
+      d.addEventListener('touchend', ev=>{
+        if(iconDrag && iconDrag.moved) return;
+        ev.preventDefault();
+        if(id === 'computer') openApp('explorer', {path:[]});
+        else openApp(id);
+      });
+    }
+
+    area.appendChild(d);
+  });
+}
+
+/* --- Arrastre de iconos: eventos globales --- */
+window.addEventListener('mousemove', ev=>{
+  if(!iconDrag) return;
+  const dx = ev.clientX - iconDrag.startX;
+  const dy = ev.clientY - iconDrag.startY;
+  if(!iconDrag.moved && (Math.abs(dx) > 3 || Math.abs(dy) > 3)) iconDrag.moved = true;
+  if(!iconDrag.moved) return;
+  const area = document.getElementById('iconArea');
+  const maxX = area.clientWidth - 78;
+  const maxY = area.clientHeight - 74;
+  const nx = Math.max(0, Math.min(maxX, iconDrag.origX + dx));
+  const ny = Math.max(0, Math.min(maxY, iconDrag.origY + dy));
+  iconDrag.el.style.left = nx + 'px';
+  iconDrag.el.style.top  = ny + 'px';
+  iconDrag.el.classList.add('dragging');
+});
+window.addEventListener('mouseup', ()=>{
+  if(!iconDrag) return;
+  if(iconDrag.moved){
+    let saved = {};
+    try { saved = JSON.parse(localStorage.getItem('w94_iconpos') || '{}'); } catch(e){}
+    saved[iconDrag.id] = {
+      x: parseInt(iconDrag.el.style.left, 10) || 0,
+      y: parseInt(iconDrag.el.style.top, 10) || 0
+    };
+    localStorage.setItem('w94_iconpos', JSON.stringify(saved));
+  }
+  iconDrag.el.classList.remove('dragging');
+  iconDrag = null;
+});
+
+/* =========================================================
+   11. START MENU
+   ========================================================= */
+function buildStartMenu(){
+  const list = document.getElementById('smList');
+  list.innerHTML = '';
+
+  /* Programas con submenú */
+  const prog = document.createElement('div');
+  prog.className = 'sm-item';
+  prog.innerHTML = '<img src="' + ICONS.folder + '"><span>' + t('programs') + '</span><b class="arrow">▶</b>';
+
+  const sub = document.createElement('div');
+  sub.id = 'smSub';
+  DESKTOP_ICON_LIST.forEach(id=>{
+    const app = APPS[id];
+    const it = document.createElement('div');
+    it.className = 'sm-item';
+    it.innerHTML = '<img src="' + ICONS[app.icon] + '"><span>' + t(app.title) + '</span>';
+    it.addEventListener('click', ()=>{
+      closeStart();
+      if(id === 'computer') openApp('explorer', {path:[]});
+      else openApp(id);
+    });
+    sub.appendChild(it);
+  });
+
+  prog.addEventListener('mouseenter', ()=>{ sub.classList.add('open'); });
+  prog.addEventListener('click', ()=>{ sub.classList.toggle('open'); });
+  list.addEventListener('mouseleave', ()=>sub.classList.remove('open'));
+
+  list.appendChild(prog);
+  list.appendChild(sub);
+
+  const sep1 = document.createElement('div');
+  sep1.className = 'sm-sep';
+  list.appendChild(sep1);
+
+  /* Documentos */
+  const docs = document.createElement('div');
+  docs.className = 'sm-item';
+  docs.innerHTML = '<img src="' + ICONS.txt + '"><span>' + t('documents') + '</span>';
+  docs.addEventListener('click', ()=>{ closeStart(); openApp('explorer', {path:['Documentos']}); });
+  list.appendChild(docs);
+
+  /* Configuración */
+  const cfg = document.createElement('div');
+  cfg.className = 'sm-item';
+  cfg.innerHTML = '<img src="' + ICONS.settings + '"><span>' + t('settingsM') + '</span>';
+  cfg.addEventListener('click', ()=>{ closeStart(); openApp('settings'); });
+  list.appendChild(cfg);
+
+  /* Buscar */
+  const find = document.createElement('div');
+  find.className = 'sm-item';
+  find.innerHTML = '<img src="' + ICONS.help + '"><span>' + t('find') + '</span>';
+  find.addEventListener('click', ()=>{ closeStart(); openApp('explorer'); });
+  list.appendChild(find);
+
+  /* Ayuda */
+  const help = document.createElement('div');
+  help.className = 'sm-item';
+  help.innerHTML = '<img src="' + ICONS.help + '"><span>' + t('helpM') + '</span>';
+  help.addEventListener('click', ()=>{ closeStart(); openApp('cmd'); });
+  list.appendChild(help);
+
+  const sep2 = document.createElement('div');
+  sep2.className = 'sm-sep';
+  list.appendChild(sep2);
+
+  /* Apagar */
+  const off = document.createElement('div');
+  off.className = 'sm-item';
+  off.innerHTML = '<img src="' + ICONS.shutdown + '"><span>' + t('shutdownM') + '</span>';
+  off.addEventListener('click', ()=>{ closeStart(); shutdownDialog(); });
+  list.appendChild(off);
+}
+
+function openStart(){
+  document.getElementById('startMenu').classList.add('open');
+  document.getElementById('startBtn').classList.add('on');
+}
+function closeStart(){
+  document.getElementById('startMenu').classList.remove('open');
+  document.getElementById('startBtn').classList.remove('on');
+  const s = document.getElementById('smSub');
+  if(s) s.classList.remove('open');
+}
+
+document.getElementById('startBtn').addEventListener('click', ev=>{
+  ev.stopPropagation();
+  clickSnd();
+  const m = document.getElementById('startMenu');
+  if(m.classList.contains('open')) closeStart(); else openStart();
+});
+document.addEventListener('mousedown', ev=>{
+  if(!ev.target.closest('#startMenu') && !ev.target.closest('#startBtn')) closeStart();
+});
+
+/* =========================================================
+   12. SHUTDOWN
+   ========================================================= */
+function shutdownDialog(){
+  const ov = document.createElement('div');
+  ov.className = 'modal';
+  ov.style.position = 'fixed';
+  ov.style.zIndex = '9000';
+
+  const dlg = document.createElement('div');
+  dlg.className = 'dialog';
+  dlg.innerHTML =
+    '<div class="dlg-title">' + t('shutdownTitle') + '</div>' +
+    '<div class="dlg-body"><p>' + t('shutdownMsg') + '</p></div>' +
+    '<div class="dlg-buttons"></div>';
+
+  const btns = dlg.querySelector('.dlg-buttons');
+  const yes = document.createElement('button');
+  yes.className = 'btn';
+  yes.textContent = t('yes');
+  yes.addEventListener('click', ()=>{
+    ov.remove();
+    document.getElementById('shutdownScreen').classList.add('show');
+    beep(440, 0.15, 'sine');
+    setTimeout(()=>beep(330, 0.25, 'sine'), 160);
+    setTimeout(()=>beep(220, 0.4, 'sine'), 380);
+  });
+  const no = document.createElement('button');
+  no.className = 'btn';
+  no.textContent = t('no');
+  no.addEventListener('click', ()=>ov.remove());
+
+  btns.appendChild(yes);
+  btns.appendChild(no);
+  ov.appendChild(dlg);
+  document.body.appendChild(ov);
+}
+
+/* =========================================================
+   13. TASKBAR CLOCK / LANGUAGE BUTTON
+   ========================================================= */
+function updateClock(){
+  const d = new Date();
+  const localeMap = {es:'es-ES', en:'en-US', pt:'pt-BR', fr:'fr-FR', ru:'ru-RU', ja:'ja-JP'};
+  document.getElementById('clockEl').textContent =
+    d.toLocaleTimeString(localeMap[lang] || 'en-US', {hour:'2-digit', minute:'2-digit'});
+}
+setInterval(updateClock, 1000);
+
+document.getElementById('langBtn').addEventListener('click', ()=>{
+  const idx = LANGS.findIndex(l=>l.code === lang);
+  const next = LANGS[(idx + 1) % LANGS.length];
+  setLang(next.code);
+  beep(760, 0.05);
+});
+
+/* =========================================================
+   14. INICIALIZACIÓN
+   ========================================================= */
+function init(){
+  document.documentElement.lang = lang;
+  applyI18n();
+
+  document.getElementById('startIcon').src = ICONS.flag;
+
+  const current = LANGS.find(l=>l.code === lang);
+  document.getElementById('langBtn').textContent = current ? current.short : 'EN';
+
+  const savedWall = parseInt(localStorage.getItem('w94_wall') || '0', 10);
+  applyWallpaper(savedWall);
+
+  refreshDesktopIcons();
+  buildStartMenu();
+  updateClock();
+  refreshTaskbar();
+}
+
+/* --- Boot sequence --- */
+let bootPct = 0;
+const bootFill = document.getElementById('bootFill');
+const bootTimer = setInterval(()=>{
+  bootPct += Math.random() * 14 + 6;
+  if(bootPct >= 100){
+    bootPct = 100;
+    clearInterval(bootTimer);
+    setTimeout(endBoot, 450);
+  }
+  bootFill.style.width = bootPct + '%';
+}, 170);
+
+function endBoot(){
+  const b = document.getElementById('boot');
+  b.classList.add('hide');
+  setTimeout(()=>{ b.style.display = 'none'; }, 550);
+  openSnd();
+}
+
+init();
+
+/* Cambio de idioma → refrescar menús abiertos */
+const _setLang = setLang;
+setLang = function(code){
+  _setLang(code);
+  const cur = LANGS.find(l=>l.code === code);
+  document.getElementById('langBtn').textContent = cur ? cur.short : 'EN';
+  /* Refrescar títulos de ventanas abiertas */
+  Object.values(openWins).forEach(w=>{
+    w.titleEl.textContent = t(w.app.title);
+  });
+  /* Refrescar menú contextual activo */
+  closeContextMenu();
+  /* Refrescar textos del login si está visible */
+  updateLoginTexts();
+  /* Refrescar barra de tareas */
+  refreshTaskbar();
+  /* Refrescar menú inicio */
+  buildStartMenu();
+  /* Refrescar iconos del escritorio (con títulos nuevos) */
+  refreshDesktopIcons();
+};
+</script>
+
+<script>
+/* ==========================================================================
+   ==========================================================================
+   AMPLIACIÓN: LOGIN (WIN2000 + WIN95), MENÚS CONTEXTUALES, 100 APPS,
+   ICONOS ARRASTRABLES + APERTURA CON DOBLE CLIC, i18n TOTAL
+   ==========================================================================
+   ========================================================================== */
+
+/* ==========================================================================
+   A. GENERADOR DE ICONOS EXTRA
+   ========================================================================== */
+function mkIcon(bg, fg, shape){
+  return makeIcon(g=>{
+    g.fillStyle='#000'; g.fillRect(1,1,14,14);
+    g.fillStyle=bg; g.fillRect(2,2,12,12);
+    g.fillStyle=fg;
+    switch(shape){
+      case 'circle':
+        g.beginPath(); g.arc(8,8,4.5,0,Math.PI*2); g.fill(); break;
+      case 'square':
+        g.fillRect(4,4,8,8); break;
+      case 'tri':
+        g.beginPath(); g.moveTo(8,3); g.lineTo(13,12); g.lineTo(3,12); g.closePath(); g.fill(); break;
+      case 'diamond':
+        g.beginPath(); g.moveTo(8,2); g.lineTo(14,8); g.lineTo(8,14); g.lineTo(2,8); g.closePath(); g.fill(); break;
+      case 'plus':
+        g.fillRect(7,3,2,10); g.fillRect(3,7,10,2); break;
+      case 'star': {
+        g.beginPath();
+        for(let i=0;i<10;i++){
+          const a = -Math.PI/2 + i*Math.PI/5;
+          const r = i%2 ? 2.5 : 6;
+          const x = 8 + Math.cos(a)*r, y = 8 + Math.sin(a)*r;
+          if(i===0) g.moveTo(x,y); else g.lineTo(x,y);
+        }
+        g.closePath(); g.fill();
+        break;
+      }
+      case 'bars':
+        g.fillRect(4,4,8,2); g.fillRect(4,7,8,2); g.fillRect(4,10,8,2); break;
+      case 'grid':
+        for(let i=0;i<3;i++) for(let j=0;j<3;j++) g.fillRect(3+j*4,3+i*4,3,3); break;
+      case 'heart':
+        g.fillRect(4,5,3,3); g.fillRect(9,5,3,3);
+        g.fillRect(3,7,10,3); g.fillRect(5,10,6,2); g.fillRect(7,12,2,1); break;
+      case 'note':
+        g.fillRect(5,3,3,8); g.fillRect(5,10,2,2); g.fillRect(10,3,2,6); break;
+      case 'music':
+        g.fillRect(5,4,2,7); g.fillRect(9,3,2,8);
+        g.fillRect(5,10,2,2); g.fillRect(9,10,2,2); break;
+      case 'globe':
+        g.beginPath(); g.arc(8,8,5,0,Math.PI*2); g.fill();
+        g.fillStyle=bg; g.fillRect(7,3,2,10); g.fillRect(3,7,10,2); break;
+      case 'shield':
+        g.beginPath(); g.moveTo(8,2); g.lineTo(13,4); g.lineTo(13,9);
+        g.lineTo(8,13); g.lineTo(3,9); g.lineTo(3,4); g.closePath(); g.fill(); break;
+      case 'wrench':
+        g.fillRect(3,7,8,2); g.fillRect(9,5,4,6); g.fillRect(2,6,3,4); break;
+      case 'disk':
+        g.fillRect(3,3,10,10); g.fillStyle=bg; g.fillRect(5,3,6,3); g.fillRect(5,9,6,3); break;
+      case 'window':
+        g.fillRect(3,3,10,10); g.fillStyle=bg; g.fillRect(4,4,4,4); g.fillRect(8,4,4,4);
+        g.fillRect(4,8,4,4); g.fillRect(8,8,4,4); break;
+      default:
+        g.fillRect(4,4,8,8);
+    }
+  });
+}
+
+/* ==========================================================================
+   B. SHELL GENÉRICO PARA APPS
+   ========================================================================== */
+function appShell(body, opts){
+  const wrap = document.createElement('div');
+  wrap.className = 'app-shell';
+
+  if(opts.toolbar){
+    const tb = document.createElement('div');
+    tb.className = 'app-toolbar';
+    opts.toolbar.forEach(it=>{
+      if(it.sep){
+        const s = document.createElement('span');
+        s.style.cssText='width:1px;height:18px;background:#808080;margin:0 3px';
+        tb.appendChild(s); return;
+      }
+      const b = document.createElement('button');
+      b.className = 'app-toolbtn';
+      b.textContent = it.label;
+      if(it.onClick) b.addEventListener('click', it.onClick);
+      tb.appendChild(b);
+    });
+    wrap.appendChild(tb);
+  }
+
+  const content = document.createElement('div');
+  content.className = 'app-content';
+  if(typeof opts.content === 'string') content.innerHTML = opts.content;
+  else if(opts.content) content.appendChild(opts.content);
+  wrap.appendChild(content);
+
+  if(opts.status){
+    const st = document.createElement('div');
+    st.className = 'app-status';
+    st.textContent = opts.status;
+    wrap.appendChild(st);
+  }
+
+  body.appendChild(wrap);
+  return {content: content, status: null};
+}
+
+/* ==========================================================================
+   C. BUILDERS GENÉRICOS (TODOS USAN t())
+   ========================================================================== */
+function bText(body, winObj){
+  const ta = document.createElement('textarea');
+  ta.className = 'notepad-area';
+  ta.spellcheck = false;
+  ta.value = winObj.opts.text || '';
+  body.appendChild(ta);
+  setTimeout(()=>ta.focus(), 50);
+}
+
+function bInfo(body, winObj){
+  const name = t(winObj.app.title);
+  appShell(body, {
+    toolbar:[{label:t('tb_ok')},{label:t('tb_cancel')}],
+    content:
+      '<div style="text-align:center;padding:24px 16px">' +
+        '<img src="' + ICONS[winObj.app.icon] + '" style="width:48px;height:48px;image-rendering:pixelated">' +
+        '<h2 style="font-size:15px;color:#000080;margin:12px 0 6px">' + name + '</h2>' +
+        '<p style="line-height:1.7;color:#333;font-size:12px">Windows 94 · ' + t('version') + '<br>' + t('info_16bit') + '</p>' +
+        '<p style="margin-top:14px;font-size:11px;color:#666">' + t('info_std') + '</p>' +
+      '</div>',
+    status: name + ' — ' + t('status_ready')
+  });
+}
+
+function bList(items){
+  return function(body, winObj){
+    const wrap = document.createElement('div');
+    wrap.className = 'app-shell';
+    const tb = document.createElement('div');
+    tb.className = 'app-toolbar';
+    [t('tb_new'), t('tb_edit'), t('tb_delete'), t('tb_refresh')].forEach(l=>{
+      const b = document.createElement('button');
+      b.className = 'app-toolbtn';
+      b.textContent = l;
+      tb.appendChild(b);
+    });
+    wrap.appendChild(tb);
+    const list = document.createElement('div');
+    list.className = 'app-content';
+    list.style.padding = '0';
+    items.forEach(it=>{
+      const r = document.createElement('div');
+      r.style.cssText = 'padding:6px 12px;border-bottom:1px solid #ececec;cursor:default;font-size:12px';
+      r.textContent = it;
+      r.addEventListener('mouseenter', ()=>{ r.style.background='#000080'; r.style.color='#fff'; });
+      r.addEventListener('mouseleave', ()=>{ r.style.background=''; r.style.color=''; });
+      list.appendChild(r);
+    });
+    wrap.appendChild(list);
+    const st = document.createElement('div');
+    st.className = 'app-status';
+    st.textContent = items.length + ' ' + t('items');
+    wrap.appendChild(st);
+    body.appendChild(wrap);
+  };
+}
+
+function bGame(color){
+  return function(body, winObj){
+    const cv = document.createElement('canvas');
+    cv.width = 420; cv.height = 280;
+    cv.style.cssText = 'display:block;margin:10px auto;background:#000;box-shadow:inset 0 0 0 2px #808080;cursor:pointer';
+    body.appendChild(cv);
+    const g = cv.getContext('2d');
+    const dots = Array.from({length:9}, ()=>({
+      x: Math.random()*cv.width, y: Math.random()*cv.height,
+      vx:(Math.random()-.5)*3, vy:(Math.random()-.5)*3,
+      r: 6 + Math.random()*10
+    }));
+    let alive = true;
+    let score = 0;
+    cv.addEventListener('click', ()=>{ score += 1; });
+    function loop(){
+      if(!alive) return;
+      g.fillStyle='#000'; g.fillRect(0,0,cv.width,cv.height);
+      g.strokeStyle = 'rgba(255,255,255,.15)';
+      for(let i=0;i<cv.width;i+=20){ g.beginPath(); g.moveTo(i,0); g.lineTo(i,cv.height); g.stroke(); }
+      for(let j=0;j<cv.height;j+=20){ g.beginPath(); g.moveTo(0,j); g.lineTo(cv.width,j); g.stroke(); }
+      dots.forEach(d=>{
+        d.x += d.vx; d.y += d.vy;
+        if(d.x < d.r || d.x > cv.width - d.r) d.vx *= -1;
+        if(d.y < d.r || d.y > cv.height - d.r) d.vy *= -1;
+        g.fillStyle = color;
+        g.beginPath(); g.arc(d.x, d.y, d.r, 0, Math.PI*2); g.fill();
+        g.fillStyle = 'rgba(255,255,255,.35)';
+        g.beginPath(); g.arc(d.x - d.r*0.3, d.y - d.r*0.3, d.r*0.35, 0, Math.PI*2); g.fill();
+      });
+      g.fillStyle='#fff'; g.font='12px monospace';
+      g.fillText(t(winObj.app.title) + '  ·  ' + t('game_score') + ': ' + score + '  ·  ' + t('game_click'), 8, 18);
+      requestAnimationFrame(loop);
+    }
+    winObj.el.addEventListener('remove', ()=>{ alive = false; });
+    loop();
+  };
+}
+
+function bCards(body, winObj){
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'flex:1;padding:14px;background:linear-gradient(160deg,#0a6e0a,#064a06);overflow:auto;display:flex;flex-direction:column;gap:12px';
+  const suits = ['♠','♥','♦','♣'];
+  const vals = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+  for(let row=0; row<3; row++){
+    const r = document.createElement('div');
+    r.style.cssText = 'display:flex;gap:8px;flex-wrap:wrap';
+    for(let i=0;i<8;i++){
+      const red = Math.random() < 0.5;
+      const s = suits[Math.floor(Math.random()*4)];
+      const v = vals[Math.floor(Math.random()*13)];
+      const c = document.createElement('div');
+      c.style.cssText =
+        'width:48px;height:68px;background:#fff;border-radius:4px;' +
+        'box-shadow:0 2px 4px rgba(0,0,0,.45);display:flex;flex-direction:column;' +
+        'justify-content:space-between;padding:4px;font-weight:bold;font-size:13px;' +
+        'cursor:pointer;color:' + (red ? '#c00' : '#000') + ';transition:transform .1s';
+      c.innerHTML = '<div>' + v + s + '</div><div style="align-self:flex-end;transform:rotate(180deg)">' + v + s + '</div>';
+      let up = false;
+      c.addEventListener('click', ()=>{
+        up = !up;
+        c.style.transform = up ? 'translateY(-8px)' : '';
+      });
+      r.appendChild(c);
+    }
+    wrap.appendChild(r);
+  }
+  body.appendChild(wrap);
+}
+
+function bMedia(body, winObj){
+  let playing = false;
+  let pos = 35;
+  const content = document.createElement('div');
+  content.innerHTML =
+    '<div style="text-align:center;padding:14px">' +
+      '<div id="mpScreen" style="height:70px;background:linear-gradient(90deg,#000,#0a246a,#000);' +
+        'display:flex;align-items:center;justify-content:center;color:#0f0;' +
+        'font-family:monospace;font-size:20px;letter-spacing:6px;margin-bottom:14px;overflow:hidden">' +
+        '♪ ♫ ♪ ♫ ♪</div>' +
+      '<div style="height:14px;background:#c0c0c0;box-shadow:inset 1px 1px 0 #808080;padding:2px;margin-bottom:6px">' +
+        '<div id="mpBar" style="width:35%;height:100%;background:linear-gradient(90deg,#000080,#1084d0)"></div>' +
+      '</div>' +
+      '<div style="font-size:11px;color:#333" id="mpTime">01:23 / 03:45</div>' +
+      '<div style="margin-top:12px;font-size:12px;font-weight:bold;color:#000080">' + t(winObj.app.title) + ' — ' + t('track_lbl') + '</div>' +
+    '</div>';
+  appShell(body, {
+    toolbar:[
+      {label:t('tb_prev')},
+      {label:t('tb_play'), onClick:()=>{ playing = !playing; }},
+      {label:t('tb_pause'), onClick:()=>{ playing = false; }},
+      {label:t('tb_stop'), onClick:()=>{ playing = false; pos = 0; }},
+      {label:t('tb_next')}
+    ],
+    content: content,
+    status: t('status_ready')
+  });
+  const bar = content.querySelector('#mpBar');
+  const time = content.querySelector('#mpTime');
+  const screen = content.querySelector('#mpScreen');
+  let tick = 0;
+  const id = setInterval(()=>{
+    tick++;
+    if(playing){
+      pos = (pos + 0.6) % 100;
+      bar.style.width = pos + '%';
+      const cur = Math.floor(pos * 2.25);
+      const mm = String(Math.floor(cur/60)).padStart(2,'0');
+      const ss = String(cur%60).padStart(2,'0');
+      time.textContent = mm + ':' + ss + ' / 03:45';
+      screen.textContent = (tick % 2) ? '♪ ♫ ♪ ♫ ♪' : '♫ ♪ ♫ ♪ ♫';
+    }
+  }, 100);
+  winObj.el.addEventListener('remove', ()=>clearInterval(id));
+}
+
+function bBrowser(body, winObj){
+  const content = document.createElement('div');
+  content.innerHTML =
+    '<div style="font-family:Times New Roman,serif;padding:8px">' +
+      '<h1 style="font-size:20px;color:#000080;border-bottom:2px solid #000080;padding-bottom:6px;margin-bottom:10px">' +
+        t(winObj.app.title) +
+      '</h1>' +
+      '<p style="line-height:1.7;font-size:13px;margin-bottom:10px">' +
+        t('browse_p1') + ' <b>Windows 94 ' + t(winObj.app.title) + '</b>. ' + t('browse_p2') +
+      '</p>' +
+      '<ul style="margin-left:20px;line-height:1.8;font-size:12px">' +
+        '<li>' + t('browse_li1') + '</li>' +
+        '<li>' + t('browse_li2') + '</li>' +
+        '<li>' + t('browse_li3') + '</li>' +
+        '<li>' + t('browse_li4') + '</li>' +
+      '</ul>' +
+      '<p style="margin-top:14px;font-size:11px;color:#666">' + t('browse_last') + '</p>' +
+    '</div>';
+  appShell(body, {
+    toolbar:[
+      {label:'◀'},{label:'▶'},{label:'⟳'},{label:'🏠'},
+      {label:t('tb_fav')},{label:t('tb_hist')},{label:t('tb_print')}
+    ],
+    content: content,
+    status: t('status_ready')
+  });
+}
+
+function bChat(body, winObj){
+  const content = document.createElement('div');
+  content.style.cssText = 'display:flex;flex-direction:column;height:100%;gap:6px';
+  const log = document.createElement('div');
+  log.style.cssText = 'flex:1;overflow:auto;background:#fff;padding:8px;font-size:12px;line-height:1.6';
+  const inp = document.createElement('div');
+  inp.style.cssText = 'display:flex;gap:6px';
+  const input = document.createElement('input');
+  input.className = 'dlg-input in';
+  input.placeholder = '...';
+  const send = document.createElement('button');
+  send.className = 'btn';
+  send.textContent = t('tb_ok');
+  inp.appendChild(input); inp.appendChild(send);
+
+  function add(who, msg){
+    const d = document.createElement('div');
+    d.innerHTML = '<b style="color:' + (who===t('chat_you') ? '#000080' : '#a00000') + '">' + who + ':</b> ' + msg;
+    log.appendChild(d);
+    log.scrollTop = log.scrollHeight;
+  }
+  add(t('chat_sys'), t('chat_connect'));
+  add(t('chat_anon'), t('chat_hello'));
+
+  function submit(){
+    const v = input.value.trim();
+    if(!v) return;
+    add(t('chat_you'), v);
+    input.value = '';
+    setTimeout(()=>{
+      const resp = [t('chat_resp1'), t('chat_resp2'), t('chat_resp3'), t('chat_resp4'), t('chat_resp5'), t('chat_resp6')];
+      add(t('chat_anon'), resp[Math.floor(Math.random()*resp.length)]);
+    }, 600 + Math.random()*800);
+  }
+  send.addEventListener('click', submit);
+  input.addEventListener('keydown', e=>{ if(e.key==='Enter') submit(); });
+
+  content.appendChild(log);
+  content.appendChild(inp);
+  appShell(body, {content: content, status: t('status_conn')});
+}
+
+function bTable(body, winObj){
+  const content = document.createElement('div');
+  let html = '<table style="border-collapse:collapse;width:100%;font-size:12px">';
+  html += '<tr style="background:#000080;color:#fff">' +
+          '<th style="border:1px solid #808080;padding:4px 8px;text-align:left">#</th>' +
+          '<th style="border:1px solid #808080;padding:4px 8px;text-align:left">Item</th>' +
+          '<th style="border:1px solid #808080;padding:4px 8px;text-align:left">Value</th>' +
+          '</tr>';
+  for(let i=1;i<=20;i++){
+    const bg = i%2 ? '#fff' : '#f0f0f0';
+    html += '<tr style="background:' + bg + '">' +
+            '<td style="border:1px solid #c0c0c0;padding:3px 8px">' + i + '</td>' +
+            '<td style="border:1px solid #c0c0c0;padding:3px 8px">Row ' + i + '</td>' +
+            '<td style="border:1px solid #c0c0c0;padding:3px 8px">' + (i*37 % 1000) + '</td>' +
+            '</tr>';
+  }
+  html += '</table>';
+  content.innerHTML = html;
+  appShell(body, {
+    toolbar:[{label:t('tb_new')},{label:t('tb_open')},{label:t('tb_save')},{sep:true},{label:t('tb_sort')},{label:t('tb_filter')}],
+    content: content,
+    status: '20 ' + t('items') + ' · 3'
+  });
+}
+
+/* ==========================================================================
+   D. REGISTRO DE 91 APPS NUEVAS  (9 originales + 91 = 100)
+   ========================================================================== */
+
+/* --- Iconos para las nuevas apps --- */
+const NEW_ICON_SPECS = {
+  solitaire:['#0a6e0a','diamond'], freecell:['#0a6e0a','grid'], hearts:['#a00000','heart'],
+  spider:['#0a6e0a','square'], pinball:['#800080','circle'], tetris:['#0a6e0a','grid'],
+  snake:['#006400','square'], pong:['#000080','circle'], chess:['#3a3a3a','star'],
+  checkers:['#800000','circle'], sudoku:['#000080','grid'], g2048:['#c07000','square'],
+  tictactoe:['#000080','grid'], memory:['#a04000','diamond'], hangman:['#333333','star'],
+  breakout:['#005050','square'], asteroids:['#202020','diamond'], invaders:['#004000','square'],
+  pacman:['#c0a000','circle'], simon:['#a00000','circle'], dice:['#ffffff','square'],
+  coinflip:['#c0a000','circle'], lottery:['#800080','star'], bingo:['#0a6e0a','circle'],
+  blackjack:['#0a0a0a','diamond'],
+  calendar:['#ffffff','grid'], contacts:['#000080','note'], taskmgr:['#3a3a3a','bars'],
+  defrag:['#000080','grid'], regedit:['#800000','bars'], devmgr:['#3a3a3a','grid'],
+  charmap:['#800080','star'], clipboard:['#c0a000','note'], scicalc:['#000080','plus'],
+  converter:['#008080','grid'], stopwatch:['#a00000','circle'], timer:['#a08000','circle'],
+  alarm:['#a00000','circle'], weather:['#3a6ea5','circle'], stickies:['#f0e000','note'],
+  magnifier:['#808080','circle'], osk:['#3a3a3a','grid'], volume:['#006400','tri'],
+  recorder:['#800000','circle'], camera:['#202020','circle'], sysinfo:['#000080','bars'],
+  scandisk:['#3a3a3a','disk'], format:['#a00000','disk'], chkdsk:['#3a3a3a','disk'],
+  backup:['#000080','disk'],
+  mediaplayer:['#0a246a','music'], cdplayer:['#3a3a3a','circle'], midi:['#3a3a3a','music'],
+  radio:['#800000','circle'], mixer:['#3a3a3a','bars'], equalizer:['#006400','bars'],
+  visualizer:['#4c1d95','bars'], imageview:['#c07000','square'], slideshow:['#0a246a','square'],
+  soundrec:['#800000','music'],
+  iexplore:['#0a246a','globe'], outlook:['#000080','note'], chat:['#006400','note'],
+  email:['#000080','note'], ftp:['#3a3a3a','globe'], news:['#800000','note'],
+  browser:['#0a246a','globe'], download:['#006400','tri'], netmeeting:['#000080','circle'],
+  telnet:['#202020','globe'],
+  wordpad:['#000080','note'], spreadsheet:['#006400','grid'], presentation:['#a04000','square'],
+  database:['#3a3a3a','disk'], project:['#000080','grid'], finance:['#006400','bars'],
+  invoice:['#ffffff','note'], budget:['#006400','plus'], journal:['#800080','note'],
+  todo:['#000080','bars'], planner:['#a04000','grid'], addressbook:['#000080','note'],
+  fileman:['#c0a000','folder'], command:['#000000','bars'], helpview:['#ffff00','star'],
+  rundlg:['#000080','plus'], findfiles:['#000080','circle'], welcome:['#0a246a','window'],
+  aboutwin:['#0a246a','window'], tips:['#ffff00','star'], readme:['#ffffff','note']
+};
+Object.keys(NEW_ICON_SPECS).forEach(k=>{
+  const s = NEW_ICON_SPECS[k];
+  ICONS[k] = mkIcon(s[0], '#fff', s[1]);
+});
+
+/* --- Apps nuevas --- */
+const NEW_APPS = {
+  /* ---------- JUEGOS (25) ---------- */
+  solitaire:    {w:620,h:440, f:bCards},
+  freecell:     {w:620,h:440, f:bCards},
+  hearts:       {w:620,h:440, f:bCards},
+  spider:       {w:620,h:440, f:bCards},
+  pinball:      {w:520,h:420, f:bGame('#ff00ff')},
+  tetris:       {w:420,h:480, f:bGame('#00c000')},
+  snake:        {w:480,h:380, f:bGame('#00c000')},
+  pong:         {w:520,h:400, f:bGame('#00ffff')},
+  chess:        {w:520,h:520, f:bGame('#cccccc')},
+  checkers:     {w:520,h:520, f:bGame('#a00000')},
+  sudoku:       {w:520,h:520, f:bTable},
+  g2048:        {w:480,h:520, f:bGame('#e8a030')},
+  tictactoe:    {w:420,h:420, f:bGame('#00a0ff')},
+  memory:       {w:520,h:440, f:bCards},
+  hangman:      {w:520,h:420, f:bInfo},
+  breakout:     {w:520,h:420, f:bGame('#ff8000')},
+  asteroids:    {w:520,h:420, f:bGame('#ffffff')},
+  invaders:     {w:520,h:420, f:bGame('#00ff80')},
+  pacman:       {w:520,h:420, f:bGame('#ffe000')},
+  simon:        {w:420,h:420, f:bGame('#ff0000')},
+  dice:         {w:420,h:340, f:bGame('#ffffff')},
+  coinflip:     {w:420,h:340, f:bGame('#ffe000')},
+  lottery:      {w:420,h:380, f:bGame('#a000ff')},
+  bingo:        {w:520,h:460, f:bTable},
+  blackjack:    {w:620,h:440, f:bCards},
+
+  /* ---------- ACCESORIOS / UTILIDADES (25) ---------- */
+  calendar:     {w:520,h:440, f:bTable},
+  contacts:     {w:520,h:420, f:bList(['Ana López','Carlos Ruiz','Marta Díaz','Pedro Gil','Sofía Soler'])},
+  taskmgr:      {w:520,h:400, f:bTable},
+  defrag:       {w:520,h:400, f:bInfo},
+  regedit:      {w:560,h:420, f:bTable},
+  devmgr:       {w:520,h:440, f:bTable},
+  charmap:      {w:520,h:440, f:bTable},
+  clipboard:    {w:520,h:380, f:bInfo},
+  scicalc:      {w:340,h:440, f:buildCalc},
+  converter:    {w:480,h:400, f:bTable},
+  stopwatch:    {w:380,h:300, f:bInfo},
+  timer:        {w:380,h:300, f:bInfo},
+  alarm:        {w:380,h:320, f:bInfo},
+  weather:      {w:520,h:400, f:bInfo},
+  stickies:     {w:420,h:360, f:bText},
+  magnifier:    {w:480,h:380, f:bInfo},
+  osk:          {w:620,h:280, f:bInfo},
+  volume:       {w:380,h:320, f:bInfo},
+  recorder:     {w:420,h:340, f:bInfo},
+  camera:       {w:520,h:440, f:bInfo},
+  sysinfo:      {w:560,h:440, f:bTable},
+  scandisk:     {w:480,h:380, f:bInfo},
+  format:       {w:420,h:320, f:bInfo},
+  chkdsk:       {w:480,h:360, f:bInfo},
+  backup:       {w:520,h:400, f:bInfo},
+
+  /* ---------- MULTIMEDIA (10) ---------- */
+  mediaplayer:  {w:520,h:400, f:bMedia},
+  cdplayer:     {w:480,h:380, f:bMedia},
+  midi:         {w:480,h:360, f:bMedia},
+  radio:        {w:460,h:360, f:bMedia},
+  mixer:        {w:480,h:380, f:bInfo},
+  equalizer:    {w:520,h:380, f:bInfo},
+  visualizer:   {w:560,h:400, f:bGame('#00ffcc')},
+  imageview:    {w:560,h:440, f:bInfo},
+  slideshow:    {w:560,h:440, f:bInfo},
+  soundrec:     {w:480,h:360, f:bInfo},
+
+  /* ---------- INTERNET (10) ---------- */
+  iexplore:     {w:700,h:500, f:bBrowser},
+  outlook:      {w:700,h:480, f:bBrowser},
+  chat:         {w:560,h:460, f:bChat},
+  email:        {w:620,h:460, f:bBrowser},
+  ftp:          {w:600,h:420, f:bBrowser},
+  news:         {w:620,h:440, f:bBrowser},
+  browser:      {w:680,h:480, f:bBrowser},
+  download:     {w:560,h:400, f:bList(['windows95.iso','winamp.exe','netscape.exe','icq.exe'])},
+  netmeeting:   {w:600,h:440, f:bBrowser},
+  telnet:       {w:560,h:400, f:bBrowser},
+
+  /* ---------- OFICINA (12) ---------- */
+  wordpad:      {w:620,h:460, f:bText},
+  spreadsheet:  {w:640,h:460, f:bTable},
+  presentation: {w:620,h:460, f:bInfo},
+  database:     {w:620,h:460, f:bTable},
+  project:      {w:620,h:460, f:bTable},
+  finance:      {w:620,h:440, f:bTable},
+  invoice:      {w:620,h:460, f:bInfo},
+  budget:       {w:620,h:440, f:bTable},
+  journal:      {w:520,h:420, f:bText},
+  todo:         {w:520,h:420, f:bList(['Comprar disquetes','Instalar Windows 94','Llamar a soporte','Actualizar controladores'])},
+  planner:      {w:620,h:460, f:bTable},
+  addressbook:  {w:520,h:420, f:bList(['Ana López','Carlos Ruiz','Marta Díaz'])},
+
+  /* ---------- SISTEMA (9) ---------- */
+  fileman:      {w:620,h:440, f:buildExplorer},
+  command:      {w:580,h:380, f:buildCmd},
+  helpview:     {w:560,h:440, f:bInfo},
+  rundlg:       {w:440,h:220, f:bInfo},
+  findfiles:    {w:560,h:420, f:bList(['bienvenida.txt','notas.txt','sistema.ini'])},
+  welcome:      {w:520,h:400, f:bInfo},
+  aboutwin:     {w:480,h:340, f:bInfo},
+  tips:         {w:520,h:380, f:bInfo},
+  readme:       {w:560,h:440, f:bText}
+};
+
+Object.keys(NEW_APPS).forEach(id=>{
+  const a = NEW_APPS[id];
+  APPS[id] = {
+    title: 'app_' + id,
+    icon: id,
+    w: a.w,
+    h: a.h,
+    build: a.f
+  };
+});
+
+/* ==========================================================================
+   E. MENÚS CONTEXTUALES
+   ========================================================================== */
+let ctxMenu = null;
+function closeContextMenu(){
+  if(ctxMenu){ ctxMenu.remove(); ctxMenu = null; }
+}
+function showContextMenu(x, y, items){
+  closeContextMenu();
+  const menu = document.createElement('div');
+  menu.className = 'ctx-menu';
+  items.forEach(it=>{
+    if(it.sep){
+      const s = document.createElement('div');
+      s.className = 'ctx-sep';
+      menu.appendChild(s);
+      return;
+    }
+    const e = document.createElement('div');
+    e.className = 'ctx-item' + (it.disabled ? ' disabled' : '');
+    if(it.bold) e.innerHTML = '<b>' + it.label + '</b>';
+    else e.textContent = it.label;
+    if(it.sub) e.innerHTML += '<i>▶</i>';
+    e.addEventListener('mousedown', ev=>ev.stopPropagation());
+    e.addEventListener('click', ev=>{
+      ev.stopPropagation();
+      closeContextMenu();
+      if(it.fn) it.fn();
+    });
+    menu.appendChild(e);
+  });
+  document.body.appendChild(menu);
+  const r = menu.getBoundingClientRect();
+  let nx = x, ny = y;
+  if(r.right > window.innerWidth - 4) nx = Math.max(4, window.innerWidth - r.width - 4);
+  if(r.bottom > window.innerHeight - 4) ny = Math.max(4, window.innerHeight - r.height - 4);
+  menu.style.left = nx + 'px';
+  menu.style.top = ny + 'px';
+  ctxMenu = menu;
+}
+
+document.addEventListener('mousedown', ev=>{
+  if(ctxMenu && !ev.target.closest('.ctx-menu')) closeContextMenu();
+});
+window.addEventListener('blur', closeContextMenu);
+window.addEventListener('resize', closeContextMenu);
+
+document.addEventListener('contextmenu', ev=>{
+  if(ev.target.closest('input, textarea')) return;
+  ev.preventDefault();
+});
+
+/* ==========================================================================
+   F. MENÚ CONTEXTUAL DEL ESCRITORIO
+   ========================================================================== */
+document.getElementById('desktop').addEventListener('contextmenu', ev=>{
+  if(ev.target.closest('.dicon')) return;
+  if(ev.target.closest('.window')) return;
+  ev.preventDefault();
+  showContextMenu(ev.clientX, ev.clientY, [
+    {label:t('ctx_organize'), fn:()=>{
+      localStorage.removeItem('w94_iconpos');
+      refreshDesktopIcons();
+    }},
+    {label:t('ctx_align'), fn:()=>{ refreshDesktopIcons(); }},
+    {label:t('ctx_refresh'), fn:()=>{ refreshDesktopIcons(); beep(600,0.03); }},
+    {sep:true},
+    {label:t('ctx_paste'), disabled:true},
+    {label:t('ctx_paste_short'), disabled:true},
+    {sep:true},
+    {label:t('ctx_new'), fn:()=>{}},
+    {sep:true},
+    {label:t('ctx_props'), fn:()=>{ openApp('settings'); }}
+  ]);
+});
+
+/* ==========================================================================
+   G. MENÚ CONTEXTUAL DE LA BARRA DE TAREAS
+   ========================================================================== */
+document.getElementById('taskbar').addEventListener('contextmenu', ev=>{
+  ev.preventDefault();
+  ev.stopPropagation();
+  showContextMenu(ev.clientX, ev.clientY, [
+    {label:t('ctx_taskmgr'), fn:()=>openApp('taskmgr')},
+    {sep:true},
+    {label:t('ctx_cascade'), fn:()=>{
+      let i = 0;
+      Object.values(openWins).forEach(w=>{
+        if(w.minimized) restoreWin(w.id);
+        w.el.style.left = (20 + i*22) + 'px';
+        w.el.style.top  = (20 + i*22) + 'px';
+        w.el.style.width = Math.min(640, window.innerWidth - 60) + 'px';
+        w.el.style.height = Math.min(420, window.innerHeight - 90) + 'px';
+        i++;
+      });
+    }},
+    {label:t('ctx_mosaic_h'), fn:()=>{
+      const wins = Object.values(openWins);
+      const n = wins.length || 1;
+      const h = Math.floor((window.innerHeight - 30) / n);
+      wins.forEach((w, i)=>{
+        if(w.minimized) restoreWin(w.id);
+        w.el.style.left = '0px';
+        w.el.style.top  = (i*h) + 'px';
+        w.el.style.width = window.innerWidth + 'px';
+        w.el.style.height = h + 'px';
+      });
+    }},
+    {label:t('ctx_mosaic_v'), fn:()=>{
+      const wins = Object.values(openWins);
+      const n = wins.length || 1;
+      const wdt = Math.floor(window.innerWidth / n);
+      wins.forEach((w, i)=>{
+        if(w.minimized) restoreWin(w.id);
+        w.el.style.left = (i*wdt) + 'px';
+        w.el.style.top  = '0px';
+        w.el.style.width = wdt + 'px';
+        w.el.style.height = (window.innerHeight - 30) + 'px';
+      });
+    }},
+    {label:t('ctx_min_all'), fn:()=>{
+      Object.values(openWins).forEach(w=>minimizeWin(w.id));
+    }},
+    {label:t('ctx_close_all'), fn:()=>{
+      Object.keys(openWins).forEach(id=>closeWin(id));
+    }},
+    {sep:true},
+    {label:t('ctx_props'), fn:()=>openApp('settings')}
+  ]);
+});
+
+/* ==========================================================================
+   H. MENÚ CONTEXTUAL DE LAS VENTANAS
+   ========================================================================== */
+winLayer.addEventListener('contextmenu', ev=>{
+  const tb = ev.target.closest('.titlebar');
+  if(!tb) return;
+  ev.preventDefault();
+  ev.stopPropagation();
+  const winEl = tb.closest('.window');
+  const w = Object.values(openWins).find(o=>o.el === winEl);
+  if(!w) return;
+  showContextMenu(ev.clientX, ev.clientY, [
+    {label:t('ctx_restore'), fn:()=>{ if(w.maximized) toggleMax(w.id); restoreWin(w.id); }},
+    {label:t('ctx_minimize'), fn:()=>minimizeWin(w.id)},
+    {label:t('ctx_maximize'), fn:()=>{ if(!w.maximized) toggleMax(w.id); }},
+    {sep:true},
+    {label:t('ctx_move'), disabled:true},
+    {label:t('ctx_size'), disabled:true},
+    {sep:true},
+    {label:t('ctx_close') + '    Alt+F4', bold:true, fn:()=>closeWin(w.id)}
+  ]);
+});
+
+/* ==========================================================================
+   I. PANTALLA DE LOGIN
+   ========================================================================== */
+const LOGIN_USERS = [
+  {key:'admin', av:'A'},
+  {key:'guest', av:'I'},
+  {key:'user',  av:'U'}
+];
+
+function buildLoginUsers(){
+  const el = document.getElementById('loginUsers');
+  el.innerHTML = '';
+  LOGIN_USERS.forEach(u=>{
+    const d = document.createElement('div');
+    d.className = 'login-user';
+    d.innerHTML =
+      '<div class="login-user-av">' + u.av + '</div>' +
+      '<div><div class="login-user-name">' + t('login_' + u.key) + '</div>' +
+      '<div class="login-user-type">' + t('login_' + u.key + '_t') + '</div></div>';
+    d.addEventListener('click', ()=>showPasswordDialog(t('login_' + u.key)));
+    el.appendChild(d);
+  });
+}
+
+function updateLoginTexts(){
+  document.getElementById('loginPrompt').textContent = t('login_click');
+  document.getElementById('loginShutdownBtn').textContent = t('login_shutdown');
+  document.getElementById('loginHint').textContent = t('login_hint');
+  document.getElementById('loginW95Title').textContent = t('login_net_title');
+  document.getElementById('loginUserLbl').textContent = t('login_user_lbl');
+  document.getElementById('loginPassLbl').textContent = t('login_pass_lbl');
+  document.getElementById('loginSaveLbl').textContent = t('login_save');
+  document.getElementById('loginOK').textContent = t('tb_ok');
+  document.getElementById('loginCancel').textContent = t('tb_cancel');
+  buildLoginUsers();
+}
+
+function showPasswordDialog(user){
+  const dlg = document.getElementById('loginW95');
+  dlg.classList.add('show');
+  document.getElementById('loginUser').value = user;
+  const pass = document.getElementById('loginPass');
+  pass.value = '';
+  setTimeout(()=>pass.focus(), 60);
+  beep(700, 0.05);
+}
+
+function hidePasswordDialog(){
+  document.getElementById('loginW95').classList.remove('show');
+}
+
+function showLogin(){
+  updateLoginTexts();
+  document.getElementById('loginScreen').classList.add('show');
+}
+
+function hideLogin(){
+  document.getElementById('loginScreen').classList.remove('show');
+  hidePasswordDialog();
+  beep(880, 0.08);
+  setTimeout(()=>beep(1320, 0.12), 90);
+}
+
+document.getElementById('loginOK').addEventListener('click', ()=>hideLogin());
+document.getElementById('loginCancel').addEventListener('click', ()=>hidePasswordDialog());
+document.getElementById('loginClose').addEventListener('click', ()=>hidePasswordDialog());
+document.getElementById('loginPass').addEventListener('keydown', ev=>{
+  if(ev.key === 'Enter') hideLogin();
+  if(ev.key === 'Escape') hidePasswordDialog();
+});
+
+document.getElementById('loginShutdownBtn').addEventListener('click', ()=>{
+  document.getElementById('shutdownScreen').classList.add('show');
+  beep(440, 0.15, 'sine');
+  setTimeout(()=>beep(330, 0.25, 'sine'), 160);
+  setTimeout(()=>beep(220, 0.4, 'sine'), 380);
+});
+
+document.addEventListener('keydown', ev=>{
+  if(ev.ctrlKey && ev.altKey && (ev.key === 'Delete' || ev.key === 'Supr')){
+    if(!document.getElementById('loginScreen').classList.contains('show')){
+      showLogin();
+    } else {
+      showPasswordDialog(t('login_admin'));
+    }
+    ev.preventDefault();
+  }
+});
+
+/* Enganchar el login al final del arranque */
+const _origEndBoot = endBoot;
+endBoot = function(){
+  _origEndBoot();
+  setTimeout(showLogin, 700);
+};
+
+/* ==========================================================================
+   J. MENÚ INICIO CON CATEGORÍAS (100 APPS)
+   ========================================================================== */
+const START_CATEGORIES = [
+  {key:'cat_acc',    apps:['notepad','calculator','paint','clock','charmap','clipboard','magnifier','osk','scicalc','converter','stopwatch','timer','alarm','stickies','recorder','camera','weather','calendar','contacts','journal','todo','addressbook','readme','tips','helpview']},
+  {key:'cat_games',  apps:['solitaire','freecell','hearts','spider','pinball','tetris','snake','pong','chess','checkers','sudoku','g2048','tictactoe','memory','hangman','breakout','asteroids','invaders','pacman','simon','dice','coinflip','lottery','bingo','blackjack','mines']},
+  {key:'cat_net',    apps:['iexplore','outlook','chat','email','ftp','news','browser','download','netmeeting','telnet']},
+  {key:'cat_media',  apps:['mediaplayer','cdplayer','midi','radio','mixer','equalizer','visualizer','imageview','slideshow','soundrec','volume']},
+  {key:'cat_sys',    apps:['computer','explorer','cmd','command','settings','taskmgr','defrag','regedit','devmgr','sysinfo','scandisk','format','chkdsk','backup','fileman','rundlg','findfiles','welcome','aboutwin']},
+  {key:'cat_office', apps:['wordpad','spreadsheet','presentation','database','project','finance','invoice','budget','planner']}
+];
+
+buildStartMenu = function(){
+  const list = document.getElementById('smList');
+  list.innerHTML = '';
+
+  /* Programas → submenú con categorías y TODAS las apps */
+  const prog = document.createElement('div');
+  prog.className = 'sm-item';
+  prog.innerHTML = '<img src="' + ICONS.folder + '"><span>' + t('programs') + '</span><b class="arrow">▶</b>';
+
+  const sub = document.createElement('div');
+  sub.id = 'smSub';
+
+  START_CATEGORIES.forEach(cat=>{
+    const catEl = document.createElement('div');
+    catEl.className = 'sm-cat';
+    catEl.textContent = t(cat.key);
+    sub.appendChild(catEl);
+    cat.apps.forEach(id=>{
+      const app = APPS[id];
+      if(!app) return;
+      const it = document.createElement('div');
+      it.className = 'sm-item';
+      it.innerHTML = '<img src="' + ICONS[app.icon] + '"><span>' + t(app.title) + '</span>';
+      it.addEventListener('click', ()=>{
+        closeStart();
+        if(id === 'computer') openApp('explorer', {path:[]});
+        else openApp(id);
+      });
+      sub.appendChild(it);
+    });
+  });
+
+  prog.addEventListener('mouseenter', ()=>{ sub.classList.add('open'); });
+  prog.addEventListener('click', (e)=>{ e.stopPropagation(); sub.classList.toggle('open'); });
+  list.addEventListener('mouseleave', ()=>sub.classList.remove('open'));
+
+  list.appendChild(prog);
+  list.appendChild(sub);
+
+  const sep1 = document.createElement('div');
+  sep1.className = 'sm-sep';
+  list.appendChild(sep1);
+
+  const docs = document.createElement('div');
+  docs.className = 'sm-item';
+  docs.innerHTML = '<img src="' + ICONS.folder + '"><span>' + t('documents') + '</span>';
+  docs.addEventListener('click', ()=>{ closeStart(); openApp('explorer', {path:['Documentos']}); });
+  list.appendChild(docs);
+
+  const cfg = document.createElement('div');
+  cfg.className = 'sm-item';
+  cfg.innerHTML = '<img src="' + ICONS.settings + '"><span>' + t('settingsM') + '</span>';
+  cfg.addEventListener('click', ()=>{ closeStart(); openApp('settings'); });
+  list.appendChild(cfg);
+
+  const find = document.createElement('div');
+  find.className = 'sm-item';
+  find.innerHTML = '<img src="' + ICONS.help + '"><span>' + t('find') + '</span>';
+  find.addEventListener('click', ()=>{ closeStart(); openApp('explorer'); });
+  list.appendChild(find);
+
+  const run = document.createElement('div');
+  run.className = 'sm-item';
+  run.innerHTML = '<img src="' + ICONS.cmd + '"><span>' + t('runM') + '</span>';
+  run.addEventListener('click', ()=>{ closeStart(); openApp('rundlg'); });
+  list.appendChild(run);
+
+  const help = document.createElement('div');
+  help.className = 'sm-item';
+  help.innerHTML = '<img src="' + ICONS.help + '"><span>' + t('helpM') + '</span>';
+  help.addEventListener('click', ()=>{ closeStart(); openApp('helpview'); });
+  list.appendChild(help);
+
+  const sep2 = document.createElement('div');
+  sep2.className = 'sm-sep';
+  list.appendChild(sep2);
+
+  const off = document.createElement('div');
+  off.className = 'sm-item';
+  off.innerHTML = '<img src="' + ICONS.shutdown + '"><span>' + t('shutdownM') + '</span>';
+  off.addEventListener('click', ()=>{ closeStart(); shutdownDialog(); });
+  list.appendChild(off);
+};
+
+/* ==========================================================================
+   K. RE-RENDER FINAL Y OVERRIDE DE setLang PARA RECONSTRUIR VENTANAS
+   ========================================================================== */
+refreshDesktopIcons();
+buildStartMenu();
+
+/* Override final de setLang: reconstruir TODO, incluyendo ventanas abiertas */
+const _setLang2 = setLang;
+setLang = function(code){
+  _setLang2(code);
+  // Reconstruir todas las ventanas abiertas con el nuevo idioma
+  Object.values(openWins).forEach(w=>{
+    try {
+      w.body.innerHTML = '';
+      w.app.build(w.body, w);
+      w.titleEl.textContent = t(w.app.title);
+    } catch(e){ console.error(e); }
+  });
+  // Actualizar barra de tareas con nuevos títulos
+  refreshTaskbar();
+  // Actualizar menú inicio
+  buildStartMenu();
+  // Actualizar textos de login si está visible
+  updateLoginTexts();
+  // Cerrar menú contextual por si acaso
+  closeContextMenu();
+};
+
+console.log('%cWindows 94 · Total de apps registradas: ' + Object.keys(APPS).length,
+  'background:#000080;color:#ffcc00;padding:4px 8px;font-weight:bold');
+</script>
+</body>
+</html>
