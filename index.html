@@ -646,10 +646,8 @@ ja:{
 
 /* =========================================================
    TABLA DE TRADUCCIONES EXTENDIDA
-   (para las 91 apps nuevas + menús + login + toolbars)
    ========================================================= */
 const TRANSLATIONS = {
-  // ---- Juegos ----
   app_solitaire:   {es:'Solitario', en:'Solitaire', pt:'Paciência', fr:'Solitaire', ru:'Косынка', ja:'ソリティア'},
   app_freecell:    {es:'FreeCell', en:'FreeCell', pt:'FreeCell', fr:'FreeCell', ru:'Свободная ячейка', ja:'フリーセル'},
   app_hearts:      {es:'Corazones', en:'Hearts', pt:'Copas', fr:'Cœur', ru:'Червы', ja:'ハーツ'},
@@ -675,7 +673,6 @@ const TRANSLATIONS = {
   app_lottery:     {es:'Lotería', en:'Lottery', pt:'Loteria', fr:'Loterie', ru:'Лотерея', ja:'宝くじ'},
   app_bingo:       {es:'Bingo', en:'Bingo', pt:'Bingo', fr:'Bingo', ru:'Бинго', ja:'ビンゴ'},
   app_blackjack:   {es:'Blackjack', en:'Blackjack', pt:'Blackjack', fr:'Blackjack', ru:'Блэкджек', ja:'ブラックジャック'},
-  // ---- Accesorios ----
   app_calendar:    {es:'Calendario', en:'Calendar', pt:'Calendário', fr:'Calendrier', ru:'Календарь', ja:'カレンダー'},
   app_contacts:    {es:'Contactos', en:'Contacts', pt:'Contatos', fr:'Contacts', ru:'Контакты', ja:'連絡先'},
   app_taskmgr:     {es:'Administrador de tareas', en:'Task Manager', pt:'Gerenciador de Tarefas', fr:'Gestionnaire des tâches', ru:'Диспетчер задач', ja:'タスクマネージャ'},
@@ -701,7 +698,6 @@ const TRANSLATIONS = {
   app_format:      {es:'Formatear', en:'Format', pt:'Formatar', fr:'Formater', ru:'Форматирование', ja:'フォーマット'},
   app_chkdsk:      {es:'Comprobar disco', en:'Check Disk', pt:'Verificar Disco', fr:'Vérifier le disque', ru:'Проверка диска', ja:'ディスクチェック'},
   app_backup:      {es:'Copia de seguridad', en:'Backup', pt:'Backup', fr:'Sauvegarde', ru:'Архивация', ja:'バックアップ'},
-  // ---- Multimedia ----
   app_mediaplayer: {es:'Reproductor multimedia', en:'Media Player', pt:'Reprodutor Multimídia', fr:'Lecteur multimédia', ru:'Проигрыватель', ja:'メディアプレーヤー'},
   app_cdplayer:    {es:'Reproductor de CD', en:'CD Player', pt:'Reprodutor de CD', fr:'Lecteur CD', ru:'CD-плеер', ja:'CDプレーヤー'},
   app_midi:        {es:'Reproductor MIDI', en:'MIDI Player', pt:'Reprodutor MIDI', fr:'Lecteur MIDI', ru:'MIDI-плеер', ja:'MIDIプレーヤー'},
@@ -712,7 +708,6 @@ const TRANSLATIONS = {
   app_imageview:   {es:'Visor de imágenes', en:'Image Viewer', pt:'Visualizador de Imagens', fr:'Visionneuse', ru:'Просмотр изображений', ja:'イメージビューア'},
   app_slideshow:   {es:'Presentación', en:'Slideshow', pt:'Apresentação', fr:'Diaporama', ru:'Слайд-шоу', ja:'スライドショー'},
   app_soundrec:    {es:'Grabación de audio', en:'Audio Recording', pt:'Gravação de Áudio', fr:'Enregistrement audio', ru:'Запись звука', ja:'録音'},
-  // ---- Internet ----
   app_iexplore:    {es:'Internet Explorer', en:'Internet Explorer', pt:'Internet Explorer', fr:'Internet Explorer', ru:'Internet Explorer', ja:'Internet Explorer'},
   app_outlook:     {es:'Outlook Express', en:'Outlook Express', pt:'Outlook Express', fr:'Outlook Express', ru:'Outlook Express', ja:'Outlook Express'},
   app_chat:        {es:'Chat IRC', en:'IRC Chat', pt:'Chat IRC', fr:'Chat IRC', ru:'IRC-чат', ja:'IRCチャット'},
@@ -723,7 +718,6 @@ const TRANSLATIONS = {
   app_download:    {es:'Gestor de descargas', en:'Download Manager', pt:'Gerenciador de Downloads', fr:'Gestionnaire de téléchargement', ru:'Менеджер загрузок', ja:'ダウンロードマネージャ'},
   app_netmeeting:  {es:'NetMeeting', en:'NetMeeting', pt:'NetMeeting', fr:'NetMeeting', ru:'NetMeeting', ja:'NetMeeting'},
   app_telnet:      {es:'Telnet', en:'Telnet', pt:'Telnet', fr:'Telnet', ru:'Telnet', ja:'Telnet'},
-  // ---- Oficina ----
   app_wordpad:     {es:'WordPad', en:'WordPad', pt:'WordPad', fr:'WordPad', ru:'WordPad', ja:'ワードパッド'},
   app_spreadsheet: {es:'Hoja de cálculo', en:'Spreadsheet', pt:'Planilha', fr:'Tableur', ru:'Таблица', ja:'表計算'},
   app_presentation:{es:'Presentaciones', en:'Presentations', pt:'Apresentações', fr:'Présentations', ru:'Презентации', ja:'プレゼンテーション'},
@@ -736,7 +730,6 @@ const TRANSLATIONS = {
   app_todo:        {es:'Lista de tareas', en:'To-Do List', pt:'Lista de Tarefas', fr:'Liste de tâches', ru:'Список задач', ja:'ToDoリスト'},
   app_planner:     {es:'Planificador', en:'Planner', pt:'Planejador', fr:'Planificateur', ru:'Планировщик', ja:'プランナー'},
   app_addressbook: {es:'Libreta de direcciones', en:'Address Book', pt:'Catálogo de Endereços', fr:'Carnet d\'adresses', ru:'Адресная книга', ja:'アドレス帳'},
-  // ---- Sistema ----
   app_fileman:     {es:'Administrador de archivos', en:'File Manager', pt:'Gerenciador de Arquivos', fr:'Gestionnaire de fichiers', ru:'Файловый менеджер', ja:'ファイルマネージャ'},
   app_command:     {es:'Símbolo del sistema 2', en:'Command Prompt 2', pt:'Prompt de Comando 2', fr:'Invite 2', ru:'Командная строка 2', ja:'コマンドプロンプト2'},
   app_helpview:    {es:'Visor de ayuda', en:'Help Viewer', pt:'Visualizador de Ajuda', fr:'Visionneuse d\'aide', ru:'Просмотр справки', ja:'ヘルプビューア'},
@@ -746,16 +739,12 @@ const TRANSLATIONS = {
   app_aboutwin:    {es:'Acerca de Windows 94', en:'About Windows 94', pt:'Sobre o Windows 94', fr:'À propos de Windows 94', ru:'О Windows 94', ja:'Windows 94 について'},
   app_tips:        {es:'Consejos del día', en:'Tip of the Day', pt:'Dica do Dia', fr:'Astuce du jour', ru:'Совет дня', ja:'今日のヒント'},
   app_readme:      {es:'Léame', en:'Readme', pt:'Leia-me', fr:'Lisez-moi', ru:'Прочти меня', ja:'Readme'},
-
-  // ---- Categorías ----
   cat_acc:   {es:'Accesorios', en:'Accessories', pt:'Acessórios', fr:'Accessoires', ru:'Стандартные', ja:'アクセサリ'},
   cat_games: {es:'Juegos', en:'Games', pt:'Jogos', fr:'Jeux', ru:'Игры', ja:'ゲーム'},
   cat_net:   {es:'Internet', en:'Internet', pt:'Internet', fr:'Internet', ru:'Интернет', ja:'インターネット'},
   cat_media: {es:'Multimedia', en:'Multimedia', pt:'Multimídia', fr:'Multimédia', ru:'Мультимедиа', ja:'マルチメディア'},
   cat_sys:   {es:'Sistema', en:'System', pt:'Sistema', fr:'Système', ru:'Система', ja:'システム'},
   cat_office:{es:'Oficina', en:'Office', pt:'Escritório', fr:'Bureau', ru:'Офис', ja:'オフィス'},
-
-  // ---- Toolbar buttons ----
   tb_new:    {es:'Nuevo', en:'New', pt:'Novo', fr:'Nouveau', ru:'Создать', ja:'新規'},
   tb_open:   {es:'Abrir', en:'Open', pt:'Abrir', fr:'Ouvrir', ru:'Открыть', ja:'開く'},
   tb_save:   {es:'Guardar', en:'Save', pt:'Salvar', fr:'Enregistrer', ru:'Сохранить', ja:'保存'},
@@ -777,8 +766,6 @@ const TRANSLATIONS = {
   tb_stop:   {es:'⏹', en:'⏹', pt:'⏹', fr:'⏹', ru:'⏹', ja:'⏹'},
   tb_prev:   {es:'⏮', en:'⏮', pt:'⏮', fr:'⏮', ru:'⏮', ja:'⏮'},
   tb_next:   {es:'⏭', en:'⏭', pt:'⏭', fr:'⏭', ru:'⏭', ja:'⏭'},
-
-  // ---- Status / Info ----
   status_ready: {es:'Listo', en:'Ready', pt:'Pronto', fr:'Prêt', ru:'Готово', ja:'準備完了'},
   status_conn:  {es:'Conectado · 28.800 bps', en:'Connected · 28,800 bps', pt:'Conectado · 28.800 bps', fr:'Connecté · 28 800 bps', ru:'Подключено · 28 800 bps', ja:'接続中 · 28,800 bps'},
   info_16bit:   {es:'16-bit Edition · 1994', en:'16-bit Edition · 1994', pt:'Edição 16-bit · 1994', fr:'Édition 16 bits · 1994', ru:'16-битная версия · 1994', ja:'16ビット版 · 1994'},
@@ -806,8 +793,6 @@ const TRANSLATIONS = {
   game_score:   {es:'Puntos', en:'Score', pt:'Pontos', fr:'Score', ru:'Очки', ja:'得点'},
   game_click:   {es:'clic para sumar', en:'click to add', pt:'clique para somar', fr:'cliquez pour ajouter', ru:'клик для добавления', ja:'クリックで追加'},
   game_track:   {es:'Pista 1', en:'Track 1', pt:'Faixa 1', fr:'Piste 1', ru:'Дорожка 1', ja:'トラック 1'},
-
-  // ---- Context menus ----
   ctx_open:        {es:'Abrir', en:'Open', pt:'Abrir', fr:'Ouvrir', ru:'Открыть', ja:'開く'},
   ctx_shortcut:    {es:'Crear acceso directo', en:'Create shortcut', pt:'Criar atalho', fr:'Créer un raccourci', ru:'Создать ярлык', ja:'ショートカットの作成'},
   ctx_rename:      {es:'Cambiar nombre', en:'Rename', pt:'Renomear', fr:'Renommer', ru:'Переименовать', ja:'名前の変更'},
@@ -833,8 +818,6 @@ const TRANSLATIONS = {
   ctx_close:       {es:'Cerrar', en:'Close', pt:'Fechar', fr:'Fermer', ru:'Закрыть', ja:'閉じる'},
   ctx_name_prompt: {es:'Nuevo nombre:', en:'New name:', pt:'Novo nome:', fr:'Nouveau nom :', ru:'Новое имя:', ja:'新しい名前:'},
   ctx_del_confirm: {es:'¿Eliminar este icono del escritorio?', en:'Delete this desktop icon?', pt:'Excluir este ícone da área de trabalho?', fr:'Supprimer cette icône du bureau ?', ru:'Удалить этот значок с рабочего стола?', ja:'このデスクトップアイコンを削除しますか？'},
-
-  // ---- Login screen ----
   login_click:    {es:'Haga clic en un usuario para iniciar sesión', en:'Click a user to log on', pt:'Clique em um usuário para entrar', fr:'Cliquez sur un utilisateur pour vous connecter', ru:'Щёлкните пользователя для входа', ja:'ユーザーをクリックしてログオン'},
   login_shutdown: {es:'Apagar equipo', en:'Shut Down', pt:'Desligar', fr:'Arrêter', ru:'Завершение работы', ja:'シャットダウン'},
   login_hint:     {es:'Presione Ctrl + Alt + Supr para iniciar sesión · Windows 2000 / 95 Style', en:'Press Ctrl + Alt + Del to log on · Windows 2000 / 95 Style', pt:'Pressione Ctrl + Alt + Del para entrar · Estilo Windows 2000 / 95', fr:'Appuyez sur Ctrl + Alt + Suppr pour vous connecter · Style Windows 2000 / 95', ru:'Нажмите Ctrl + Alt + Del для входа · Стиль Windows 2000 / 95', ja:'Ctrl + Alt + Del でログオン · Windows 2000 / 95 スタイル'},
@@ -848,8 +831,6 @@ const TRANSLATIONS = {
   login_guest_t:  {es:'Usuario limitado', en:'Limited user', pt:'Usuário limitado', fr:'Utilisateur limité', ru:'Ограниченная учётная запись', ja:'制限付きユーザー'},
   login_user:     {es:'Usuario', en:'User', pt:'Usuário', fr:'Utilisateur', ru:'Пользователь', ja:'ユーザー'},
   login_user_t:   {es:'Usuario estándar', en:'Standard user', pt:'Usuário padrão', fr:'Utilisateur standard', ru:'Обычная учётная запись', ja:'標準ユーザー'},
-
-  // ---- Windows 94 window titles (extra) ----
   tb_props:    {es:'Propiedades', en:'Properties', pt:'Propriedades', fr:'Propriétés', ru:'Свойства', ja:'プロパティ'}
 };
 
@@ -861,13 +842,10 @@ let lang = (()=>{
 })();
 
 function t(k){
-  // Primero buscar en T (traducciones base)
   const d = T[lang]||T.en;
   if(d && d[k] !== undefined) return d[k];
-  // Luego en TRANSLATIONS extendida
   const tr = TRANSLATIONS[k];
   if(tr) return tr[lang] || tr.en || tr.es || k;
-  // Fallback final
   return (T.en[k] !== undefined ? T.en[k] : k);
 }
 
@@ -1138,7 +1116,6 @@ function openApp(id, opts){
   };
   openWins[id] = winObj;
 
-  /* --- Buttons --- */
   el.querySelectorAll('.tbtn').forEach(b=>{
     b.addEventListener('mousedown', ev=>ev.stopPropagation());
     b.addEventListener('click', ev=>{
@@ -1150,7 +1127,6 @@ function openApp(id, opts){
     });
   });
 
-  /* --- Drag --- */
   const tb = el.querySelector('.titlebar');
   let drag = null;
   tb.addEventListener('mousedown', ev=>{
@@ -1169,7 +1145,6 @@ function openApp(id, opts){
   });
   window.addEventListener('mouseup', ()=>{ drag = null; });
 
-  /* --- Resize --- */
   const rh = el.querySelector('.resize-handle');
   let rz = null;
   rh.addEventListener('mousedown', ev=>{
@@ -1185,7 +1160,6 @@ function openApp(id, opts){
 
   el.addEventListener('mousedown', ()=>focusWin(id));
 
-  /* --- Build content --- */
   try { app.build(winObj.body, winObj); } catch(e){ console.error(e); }
 
   focusWin(id);
@@ -1357,10 +1331,9 @@ function aboutBox(winObj, appTitleKey){
 }
 
 /* =========================================================
-   8. APPLICATIONS
+   8. APPLICATIONS (ORIGINALES)
    ========================================================= */
 
-/* ---------- 8.1 NOTEPAD ---------- */
 function buildNotepad(body, winObj){
   let currentFile = winObj.opts.file || null;
 
@@ -1448,7 +1421,6 @@ function buildNotepad(body, winObj){
   setTimeout(()=>ta.focus(), 50);
 }
 
-/* ---------- 8.2 CALCULATOR ---------- */
 function buildCalc(body, winObj){
   const wrap = document.createElement('div');
   wrap.className = 'calc-wrap';
@@ -1528,7 +1500,6 @@ function buildCalc(body, winObj){
   body.appendChild(wrap);
 }
 
-/* ---------- 8.3 PAINT ---------- */
 function buildPaint(body, winObj){
   const wrap = document.createElement('div');
   wrap.className = 'paint-wrap';
@@ -1710,7 +1681,6 @@ function buildPaint(body, winObj){
   body.appendChild(wrap);
 }
 
-/* ---------- 8.4 MINESWEEPER ---------- */
 function buildMines(body, winObj){
   const wrap = document.createElement('div');
   wrap.className = 'mines-wrap';
@@ -1856,7 +1826,6 @@ function buildMines(body, winObj){
   init();
 }
 
-/* ---------- 8.5 EXPLORER ---------- */
 function buildExplorer(body, winObj){
   let path = winObj.opts.path || [];
 
@@ -1984,7 +1953,6 @@ function buildExplorer(body, winObj){
   winObj._renderExplorer = render;
 }
 
-/* ---------- 8.6 COMMAND PROMPT ---------- */
 function buildCmd(body, winObj){
   const wrap = document.createElement('div');
   wrap.className = 'cmd-wrap';
@@ -2112,7 +2080,6 @@ function buildCmd(body, winObj){
   setTimeout(()=>input.focus(), 60);
 }
 
-/* ---------- 8.7 CONTROL PANEL ---------- */
 const WALLPAPERS = [
   {name:'Teal',   color:'#008080', pat:false},
   {name:'Azul',   color:'#1e3a8a', pat:true},
@@ -2136,7 +2103,6 @@ function buildSettings(body, winObj){
   const wrap = document.createElement('div');
   wrap.className = 'set-wrap';
 
-  /* --- Language --- */
   const g1 = document.createElement('div');
   g1.className = 'set-group';
   g1.innerHTML = '<h3>' + t('language') + '</h3>';
@@ -2156,7 +2122,6 @@ function buildSettings(body, winObj){
   });
   g1.appendChild(lg);
 
-  /* --- Wallpaper --- */
   const g2 = document.createElement('div');
   g2.className = 'set-group';
   g2.innerHTML = '<h3>' + t('wallpaper') + '</h3>';
@@ -2177,7 +2142,6 @@ function buildSettings(body, winObj){
   });
   g2.appendChild(wg);
 
-  /* --- About --- */
   const g3 = document.createElement('div');
   g3.className = 'set-group';
   g3.innerHTML = '<h3>' + t('about') + '</h3>';
@@ -2193,7 +2157,6 @@ function buildSettings(body, winObj){
   body.appendChild(wrap);
 }
 
-/* ---------- 8.8 CLOCK ---------- */
 function buildClock(body, winObj){
   const wrap = document.createElement('div');
   wrap.className = 'clock-wrap';
@@ -2250,7 +2213,7 @@ const APPS = {
 };
 
 /* =========================================================
-   10. DESKTOP ICONS (draggable + openable)
+   10. DESKTOP ICONS
    ========================================================= */
 const DESKTOP_ICON_LIST = [
   'computer','explorer','notepad','calculator','paint','mines','cmd','settings','clock'
@@ -2281,7 +2244,6 @@ function refreshDesktopIcons(){
     d.style.left = pos.x + 'px';
     d.style.top  = pos.y + 'px';
 
-    /* --- CLIC SIMPLE: seleccionar + detectar doble clic manual --- */
     d.addEventListener('click', ev=>{
       ev.stopPropagation();
       area.querySelectorAll('.dicon').forEach(x=>x.classList.remove('sel'));
@@ -2289,7 +2251,6 @@ function refreshDesktopIcons(){
 
       const now = Date.now();
       if(lastIconClick.id === id && (now - lastIconClick.time) < 450){
-        // DOBLE CLIC detectado manualmente
         if(id === 'computer') openApp('explorer', {path:[]});
         else openApp(id);
         lastIconClick = {id:null, time:0};
@@ -2298,7 +2259,6 @@ function refreshDesktopIcons(){
       }
     });
 
-    /* --- Mousedown: iniciar arrastre --- */
     d.addEventListener('mousedown', ev=>{
       if(ev.button !== 0) return;
       ev.stopPropagation();
@@ -2315,7 +2275,6 @@ function refreshDesktopIcons(){
       };
     });
 
-    /* --- Clic derecho: menú contextual --- */
     d.addEventListener('contextmenu', ev=>{
       ev.preventDefault();
       ev.stopPropagation();
@@ -2347,7 +2306,6 @@ function refreshDesktopIcons(){
       ]);
     });
 
-    /* --- Táctil --- */
     if('ontouchstart' in window){
       d.addEventListener('touchend', ev=>{
         if(iconDrag && iconDrag.moved) return;
@@ -2361,7 +2319,6 @@ function refreshDesktopIcons(){
   });
 }
 
-/* --- Arrastre de iconos: eventos globales --- */
 window.addEventListener('mousemove', ev=>{
   if(!iconDrag) return;
   const dx = ev.clientX - iconDrag.startX;
@@ -2399,7 +2356,6 @@ function buildStartMenu(){
   const list = document.getElementById('smList');
   list.innerHTML = '';
 
-  /* Programas con submenú */
   const prog = document.createElement('div');
   prog.className = 'sm-item';
   prog.innerHTML = '<img src="' + ICONS.folder + '"><span>' + t('programs') + '</span><b class="arrow">▶</b>';
@@ -2430,28 +2386,24 @@ function buildStartMenu(){
   sep1.className = 'sm-sep';
   list.appendChild(sep1);
 
-  /* Documentos */
   const docs = document.createElement('div');
   docs.className = 'sm-item';
   docs.innerHTML = '<img src="' + ICONS.txt + '"><span>' + t('documents') + '</span>';
   docs.addEventListener('click', ()=>{ closeStart(); openApp('explorer', {path:['Documentos']}); });
   list.appendChild(docs);
 
-  /* Configuración */
   const cfg = document.createElement('div');
   cfg.className = 'sm-item';
   cfg.innerHTML = '<img src="' + ICONS.settings + '"><span>' + t('settingsM') + '</span>';
   cfg.addEventListener('click', ()=>{ closeStart(); openApp('settings'); });
   list.appendChild(cfg);
 
-  /* Buscar */
   const find = document.createElement('div');
   find.className = 'sm-item';
   find.innerHTML = '<img src="' + ICONS.help + '"><span>' + t('find') + '</span>';
   find.addEventListener('click', ()=>{ closeStart(); openApp('explorer'); });
   list.appendChild(find);
 
-  /* Ayuda */
   const help = document.createElement('div');
   help.className = 'sm-item';
   help.innerHTML = '<img src="' + ICONS.help + '"><span>' + t('helpM') + '</span>';
@@ -2462,7 +2414,6 @@ function buildStartMenu(){
   sep2.className = 'sm-sep';
   list.appendChild(sep2);
 
-  /* Apagar */
   const off = document.createElement('div');
   off.className = 'sm-item';
   off.innerHTML = '<img src="' + ICONS.shutdown + '"><span>' + t('shutdownM') + '</span>';
@@ -2568,7 +2519,6 @@ function init(){
   refreshTaskbar();
 }
 
-/* --- Boot sequence --- */
 let bootPct = 0;
 const bootFill = document.getElementById('bootFill');
 const bootTimer = setInterval(()=>{
@@ -2590,40 +2540,28 @@ function endBoot(){
 
 init();
 
-/* Cambio de idioma → refrescar menús abiertos */
 const _setLang = setLang;
 setLang = function(code){
   _setLang(code);
   const cur = LANGS.find(l=>l.code === code);
   document.getElementById('langBtn').textContent = cur ? cur.short : 'EN';
-  /* Refrescar títulos de ventanas abiertas */
   Object.values(openWins).forEach(w=>{
     w.titleEl.textContent = t(w.app.title);
   });
-  /* Refrescar menú contextual activo */
   closeContextMenu();
-  /* Refrescar textos del login si está visible */
   updateLoginTexts();
-  /* Refrescar barra de tareas */
   refreshTaskbar();
-  /* Refrescar menú inicio */
   buildStartMenu();
-  /* Refrescar iconos del escritorio (con títulos nuevos) */
   refreshDesktopIcons();
 };
 </script>
 
 <script>
 /* ==========================================================================
-   ==========================================================================
    AMPLIACIÓN: LOGIN (WIN2000 + WIN95), MENÚS CONTEXTUALES, 100 APPS,
    ICONOS ARRASTRABLES + APERTURA CON DOBLE CLIC, i18n TOTAL
-   ==========================================================================
    ========================================================================== */
 
-/* ==========================================================================
-   A. GENERADOR DE ICONOS EXTRA
-   ========================================================================== */
 function mkIcon(bg, fg, shape){
   return makeIcon(g=>{
     g.fillStyle='#000'; g.fillRect(1,1,14,14);
@@ -2682,9 +2620,6 @@ function mkIcon(bg, fg, shape){
   });
 }
 
-/* ==========================================================================
-   B. SHELL GENÉRICO PARA APPS
-   ========================================================================== */
 function appShell(body, opts){
   const wrap = document.createElement('div');
   wrap.className = 'app-shell';
@@ -2724,9 +2659,6 @@ function appShell(body, opts){
   return {content: content, status: null};
 }
 
-/* ==========================================================================
-   C. BUILDERS GENÉRICOS (TODOS USAN t())
-   ========================================================================== */
 function bText(body, winObj){
   const ta = document.createElement('textarea');
   ta.className = 'notepad-area';
@@ -2995,11 +2927,6 @@ function bTable(body, winObj){
   });
 }
 
-/* ==========================================================================
-   D. REGISTRO DE 91 APPS NUEVAS  (9 originales + 91 = 100)
-   ========================================================================== */
-
-/* --- Iconos para las nuevas apps --- */
 const NEW_ICON_SPECS = {
   solitaire:['#0a6e0a','diamond'], freecell:['#0a6e0a','grid'], hearts:['#a00000','heart'],
   spider:['#0a6e0a','square'], pinball:['#800080','circle'], tetris:['#0a6e0a','grid'],
@@ -3040,9 +2967,7 @@ Object.keys(NEW_ICON_SPECS).forEach(k=>{
   ICONS[k] = mkIcon(s[0], '#fff', s[1]);
 });
 
-/* --- Apps nuevas --- */
 const NEW_APPS = {
-  /* ---------- JUEGOS (25) ---------- */
   solitaire:    {w:620,h:440, f:bCards},
   freecell:     {w:620,h:440, f:bCards},
   hearts:       {w:620,h:440, f:bCards},
@@ -3068,8 +2993,6 @@ const NEW_APPS = {
   lottery:      {w:420,h:380, f:bGame('#a000ff')},
   bingo:        {w:520,h:460, f:bTable},
   blackjack:    {w:620,h:440, f:bCards},
-
-  /* ---------- ACCESORIOS / UTILIDADES (25) ---------- */
   calendar:     {w:520,h:440, f:bTable},
   contacts:     {w:520,h:420, f:bList(['Ana López','Carlos Ruiz','Marta Díaz','Pedro Gil','Sofía Soler'])},
   taskmgr:      {w:520,h:400, f:bTable},
@@ -3095,8 +3018,6 @@ const NEW_APPS = {
   format:       {w:420,h:320, f:bInfo},
   chkdsk:       {w:480,h:360, f:bInfo},
   backup:       {w:520,h:400, f:bInfo},
-
-  /* ---------- MULTIMEDIA (10) ---------- */
   mediaplayer:  {w:520,h:400, f:bMedia},
   cdplayer:     {w:480,h:380, f:bMedia},
   midi:         {w:480,h:360, f:bMedia},
@@ -3107,8 +3028,6 @@ const NEW_APPS = {
   imageview:    {w:560,h:440, f:bInfo},
   slideshow:    {w:560,h:440, f:bInfo},
   soundrec:     {w:480,h:360, f:bInfo},
-
-  /* ---------- INTERNET (10) ---------- */
   iexplore:     {w:700,h:500, f:bBrowser},
   outlook:      {w:700,h:480, f:bBrowser},
   chat:         {w:560,h:460, f:bChat},
@@ -3119,8 +3038,6 @@ const NEW_APPS = {
   download:     {w:560,h:400, f:bList(['windows95.iso','winamp.exe','netscape.exe','icq.exe'])},
   netmeeting:   {w:600,h:440, f:bBrowser},
   telnet:       {w:560,h:400, f:bBrowser},
-
-  /* ---------- OFICINA (12) ---------- */
   wordpad:      {w:620,h:460, f:bText},
   spreadsheet:  {w:640,h:460, f:bTable},
   presentation: {w:620,h:460, f:bInfo},
@@ -3133,8 +3050,6 @@ const NEW_APPS = {
   todo:         {w:520,h:420, f:bList(['Comprar disquetes','Instalar Windows 94','Llamar a soporte','Actualizar controladores'])},
   planner:      {w:620,h:460, f:bTable},
   addressbook:  {w:520,h:420, f:bList(['Ana López','Carlos Ruiz','Marta Díaz'])},
-
-  /* ---------- SISTEMA (9) ---------- */
   fileman:      {w:620,h:440, f:buildExplorer},
   command:      {w:580,h:380, f:buildCmd},
   helpview:     {w:560,h:440, f:bInfo},
@@ -3157,9 +3072,6 @@ Object.keys(NEW_APPS).forEach(id=>{
   };
 });
 
-/* ==========================================================================
-   E. MENÚS CONTEXTUALES
-   ========================================================================== */
 let ctxMenu = null;
 function closeContextMenu(){
   if(ctxMenu){ ctxMenu.remove(); ctxMenu = null; }
@@ -3209,9 +3121,6 @@ document.addEventListener('contextmenu', ev=>{
   ev.preventDefault();
 });
 
-/* ==========================================================================
-   F. MENÚ CONTEXTUAL DEL ESCRITORIO
-   ========================================================================== */
 document.getElementById('desktop').addEventListener('contextmenu', ev=>{
   if(ev.target.closest('.dicon')) return;
   if(ev.target.closest('.window')) return;
@@ -3233,9 +3142,6 @@ document.getElementById('desktop').addEventListener('contextmenu', ev=>{
   ]);
 });
 
-/* ==========================================================================
-   G. MENÚ CONTEXTUAL DE LA BARRA DE TAREAS
-   ========================================================================== */
 document.getElementById('taskbar').addEventListener('contextmenu', ev=>{
   ev.preventDefault();
   ev.stopPropagation();
@@ -3288,9 +3194,6 @@ document.getElementById('taskbar').addEventListener('contextmenu', ev=>{
   ]);
 });
 
-/* ==========================================================================
-   H. MENÚ CONTEXTUAL DE LAS VENTANAS
-   ========================================================================== */
 winLayer.addEventListener('contextmenu', ev=>{
   const tb = ev.target.closest('.titlebar');
   if(!tb) return;
@@ -3311,9 +3214,6 @@ winLayer.addEventListener('contextmenu', ev=>{
   ]);
 });
 
-/* ==========================================================================
-   I. PANTALLA DE LOGIN
-   ========================================================================== */
 const LOGIN_USERS = [
   {key:'admin', av:'A'},
   {key:'guest', av:'I'},
@@ -3400,16 +3300,12 @@ document.addEventListener('keydown', ev=>{
   }
 });
 
-/* Enganchar el login al final del arranque */
 const _origEndBoot = endBoot;
 endBoot = function(){
   _origEndBoot();
   setTimeout(showLogin, 700);
 };
 
-/* ==========================================================================
-   J. MENÚ INICIO CON CATEGORÍAS (100 APPS)
-   ========================================================================== */
 const START_CATEGORIES = [
   {key:'cat_acc',    apps:['notepad','calculator','paint','clock','charmap','clipboard','magnifier','osk','scicalc','converter','stopwatch','timer','alarm','stickies','recorder','camera','weather','calendar','contacts','journal','todo','addressbook','readme','tips','helpview']},
   {key:'cat_games',  apps:['solitaire','freecell','hearts','spider','pinball','tetris','snake','pong','chess','checkers','sudoku','g2048','tictactoe','memory','hangman','breakout','asteroids','invaders','pacman','simon','dice','coinflip','lottery','bingo','blackjack','mines']},
@@ -3423,7 +3319,6 @@ buildStartMenu = function(){
   const list = document.getElementById('smList');
   list.innerHTML = '';
 
-  /* Programas → submenú con categorías y TODAS las apps */
   const prog = document.createElement('div');
   prog.className = 'sm-item';
   prog.innerHTML = '<img src="' + ICONS.folder + '"><span>' + t('programs') + '</span><b class="arrow">▶</b>';
@@ -3503,17 +3398,12 @@ buildStartMenu = function(){
   list.appendChild(off);
 };
 
-/* ==========================================================================
-   K. RE-RENDER FINAL Y OVERRIDE DE setLang PARA RECONSTRUIR VENTANAS
-   ========================================================================== */
 refreshDesktopIcons();
 buildStartMenu();
 
-/* Override final de setLang: reconstruir TODO, incluyendo ventanas abiertas */
 const _setLang2 = setLang;
 setLang = function(code){
   _setLang2(code);
-  // Reconstruir todas las ventanas abiertas con el nuevo idioma
   Object.values(openWins).forEach(w=>{
     try {
       w.body.innerHTML = '';
@@ -3521,18 +3411,2564 @@ setLang = function(code){
       w.titleEl.textContent = t(w.app.title);
     } catch(e){ console.error(e); }
   });
-  // Actualizar barra de tareas con nuevos títulos
   refreshTaskbar();
-  // Actualizar menú inicio
   buildStartMenu();
-  // Actualizar textos de login si está visible
   updateLoginTexts();
-  // Cerrar menú contextual por si acaso
   closeContextMenu();
 };
 
 console.log('%cWindows 94 · Total de apps registradas: ' + Object.keys(APPS).length,
   'background:#000080;color:#ffcc00;padding:4px 8px;font-weight:bold');
+</script>
+
+<script>
+/* ==========================================================================
+   IMPLEMENTACIONES FUNCIONALES REALES PARA TODAS LAS APLICACIONES
+   Se añaden sin modificar ni borrar nada del código anterior.
+   Cada app hace lo que su nombre promete.
+   ========================================================================== */
+(function(){
+'use strict';
+
+function h(tag, css, html){
+  var e = document.createElement(tag);
+  if(css) e.style.cssText = css;
+  if(html != null) e.innerHTML = html;
+  return e;
+}
+function btn(label, fn, css){
+  var b = h('button',
+    'padding:4px 10px;font-family:inherit;font-size:11px;background:#c0c0c0;border:0;cursor:pointer;'+
+    'box-shadow:inset -1px -1px 0 #000,inset 1px 1px 0 #dfdfdf,inset -2px -2px 0 #808080,inset 2px 2px 0 #fff;'+(css||''),
+    label);
+  if(fn) b.addEventListener('click', fn);
+  return b;
+}
+function toolbar(items){
+  var t = h('div','display:flex;gap:3px;padding:3px 4px;background:#c0c0c0;border-bottom:1px solid #808080;flex-wrap:wrap;flex:0 0 auto');
+  items.forEach(function(it){
+    if(it === 'sep'){ t.appendChild(h('span','width:1px;height:18px;background:#808080;margin:0 3px')); return; }
+    t.appendChild(it);
+  });
+  return t;
+}
+function frame(body, opts){
+  var w = h('div','flex:1;display:flex;flex-direction:column;overflow:hidden');
+  if(opts.toolbar) w.appendChild(opts.toolbar);
+  var content = opts.content;
+  if(typeof content === 'string') content = h('div','', content);
+  if(content){
+    content.style.flex = '1';
+    if(!content.style.overflow) content.style.overflow = 'auto';
+    w.appendChild(content);
+  }
+  if(opts.status){
+    w.appendChild(h('div','padding:3px 8px;font-size:11px;background:#c0c0c0;border-top:1px solid #fff', opts.status));
+  }
+  body.appendChild(w);
+  return {root: w, content: content};
+}
+function alive(winObj){ return !!openWins[winObj.id]; }
+
+function buildTetris(body, winObj){
+  var info = h('div','text-align:center;font-size:12px;padding:6px;background:#c0c0c0;font-family:monospace','Score: 0');
+  body.appendChild(info);
+  var cv = h('canvas','display:block;margin:6px auto;background:#000;image-rendering:pixelated;box-shadow:inset 0 0 0 2px #808080');
+  var COLS=10, ROWS=20, SZ=18;
+  cv.width=COLS*SZ; cv.height=ROWS*SZ;
+  body.appendChild(cv);
+  var g = cv.getContext('2d');
+  var grid = []; for(var y=0;y<ROWS;y++){ var r=[]; for(var x=0;x<COLS;x++) r.push(0); grid.push(r); }
+  var pieces = [
+    {c:'#00ffff', s:[[1,1,1,1]]},
+    {c:'#ffff00', s:[[1,1],[1,1]]},
+    {c:'#ff00ff', s:[[0,1,0],[1,1,1]]},
+    {c:'#00ff00', s:[[0,1,1],[1,1,0]]},
+    {c:'#ff0000', s:[[1,1,0],[0,1,1]]},
+    {c:'#0000ff', s:[[1,0,0],[1,1,1]]},
+    {c:'#ff8000', s:[[0,0,1],[1,1,1]]}
+  ];
+  var cur, px=3, py=0, score=0, over=false, dropT=0, lastT=0;
+  function canMove(dx,dy,shape){
+    shape = shape || cur.s;
+    for(var r=0;r<shape.length;r++) for(var c=0;c<shape[r].length;c++){
+      if(!shape[r][c]) continue;
+      var nx=cur.x+c+dx, ny=cur.y+r+dy;
+      if(nx<0||nx>=COLS||ny>=ROWS) return false;
+      if(ny>=0 && grid[ny][nx]) return false;
+    }
+    return true;
+  }
+  function newPiece(){
+    var p = pieces[Math.floor(Math.random()*pieces.length)];
+    cur = {s: p.s.map(function(r){return r.slice();}), c: p.c, x: 3, y: 0};
+    if(!canMove(0,0)) over = true;
+  }
+  function merge(){
+    cur.s.forEach(function(row,r){ row.forEach(function(v,c){
+      if(v && cur.y+r>=0) grid[cur.y+r][cur.x+c] = cur.c;
+    });});
+  }
+  function rotate(){
+    var s = cur.s;
+    var n = s[0].map(function(_,i){ return s.map(function(r){return r[i];}).reverse(); });
+    if(canMove(0,0,n)) cur.s = n;
+  }
+  function clearLines(){
+    for(var yy=ROWS-1;yy>=0;yy--){
+      var full = true;
+      for(var x=0;x<COLS;x++) if(!grid[yy][x]){ full=false; break; }
+      if(full){ grid.splice(yy,1); grid.unshift(new Array(COLS).fill(0)); score+=100; yy++; }
+    }
+  }
+  function step(){
+    if(canMove(0,1)) cur.y++;
+    else { merge(); clearLines(); newPiece(); }
+  }
+  document.addEventListener('keydown', function(e){
+    if(!alive(winObj) || winObj.el.classList.contains('inactive')) return;
+    if(e.key==='ArrowLeft'){ if(canMove(-1,0)) cur.x--; e.preventDefault(); }
+    else if(e.key==='ArrowRight'){ if(canMove(1,0)) cur.x++; e.preventDefault(); }
+    else if(e.key==='ArrowDown'){ step(); e.preventDefault(); }
+    else if(e.key==='ArrowUp'){ rotate(); e.preventDefault(); }
+    else if(e.key===' '){ while(canMove(0,1)) cur.y++; step(); e.preventDefault(); }
+  });
+  cv.addEventListener('click', function(){
+    if(over){
+      for(var y=0;y<ROWS;y++) for(var x=0;x<COLS;x++) grid[y][x]=0;
+      score=0; over=false; newPiece();
+    }
+  });
+  function draw(){
+    g.fillStyle='#000'; g.fillRect(0,0,cv.width,cv.height);
+    for(var yy=0;yy<ROWS;yy++) for(var x=0;x<COLS;x++){
+      if(grid[yy][x]){ g.fillStyle = grid[yy][x]; g.fillRect(x*SZ, yy*SZ, SZ-1, SZ-1); }
+    }
+    if(cur && !over){
+      cur.s.forEach(function(row,r){ row.forEach(function(v,c){
+        if(v){ g.fillStyle = cur.c; g.fillRect((cur.x+c)*SZ, (cur.y+r)*SZ, SZ-1, SZ-1); }
+      });});
+    }
+    info.textContent = 'Score: '+score + (over ? '  ·  GAME OVER (click to restart)' : '');
+  }
+  function loop(t){
+    if(!alive(winObj)) return;
+    if(t-lastT > 500){ lastT=t; if(!over) step(); }
+    draw();
+    requestAnimationFrame(loop);
+  }
+  newPiece();
+  requestAnimationFrame(loop);
+}
+
+function buildSnake(body, winObj){
+  var cv = h('canvas','display:block;margin:8px auto;background:#000;image-rendering:pixelated;box-shadow:inset 0 0 0 2px #808080');
+  var COLS=20, ROWS=20, SZ=16;
+  cv.width=COLS*SZ; cv.height=ROWS*SZ;
+  body.appendChild(cv);
+  var g = cv.getContext('2d');
+  var dir={x:1,y:0}, snake=[{x:10,y:10}], food={x:15,y:10}, score=0, over=false, speed=140, lastT=0;
+  function placeFood(){
+    do { food = {x: Math.floor(Math.random()*COLS), y: Math.floor(Math.random()*ROWS)}; }
+    while(snake.some(function(s){return s.x===food.x && s.y===food.y;}));
+  }
+  document.addEventListener('keydown', function(e){
+    if(!alive(winObj) || winObj.el.classList.contains('inactive')) return;
+    var k=e.key;
+    if(k==='ArrowUp' && dir.y===0){ dir={x:0,y:-1}; e.preventDefault(); }
+    else if(k==='ArrowDown' && dir.y===0){ dir={x:0,y:1}; e.preventDefault(); }
+    else if(k==='ArrowLeft' && dir.x===0){ dir={x:-1,y:0}; e.preventDefault(); }
+    else if(k==='ArrowRight' && dir.x===0){ dir={x:1,y:0}; e.preventDefault(); }
+  });
+  cv.addEventListener('click', function(){
+    if(over){ dir={x:1,y:0}; snake=[{x:10,y:10}]; score=0; over=false; placeFood(); }
+  });
+  function step(){
+    if(over) return;
+    var head = {x: snake[0].x+dir.x, y: snake[0].y+dir.y};
+    if(head.x<0||head.x>=COLS||head.y<0||head.y>=ROWS || snake.some(function(s){return s.x===head.x && s.y===head.y;})){ over=true; return; }
+    snake.unshift(head);
+    if(head.x===food.x && head.y===food.y){ score+=10; placeFood(); }
+    else snake.pop();
+  }
+  function draw(){
+    g.fillStyle='#0a0a0a'; g.fillRect(0,0,cv.width,cv.height);
+    g.fillStyle='#ff0000'; g.fillRect(food.x*SZ+2, food.y*SZ+2, SZ-4, SZ-4);
+    snake.forEach(function(s,i){
+      g.fillStyle = i===0 ? '#00ff00' : '#00a000';
+      g.fillRect(s.x*SZ+1, s.y*SZ+1, SZ-2, SZ-2);
+    });
+    g.fillStyle='#fff'; g.font='12px monospace';
+    g.fillText('Score: '+score+(over?'  ·  Click to restart':''), 8, 16);
+  }
+  function loop(t){
+    if(!alive(winObj)) return;
+    if(t-lastT > speed){ lastT=t; step(); }
+    draw();
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+}
+
+function buildPong(body, winObj){
+  var cv = h('canvas','display:block;margin:8px auto;background:#000;box-shadow:inset 0 0 0 2px #808080');
+  cv.width=500; cv.height=340;
+  body.appendChild(cv);
+  var g = cv.getContext('2d');
+  var pH=60, pY=140, aY=140, bX=250, bY=170, bVX=3, bVY=2, pS=0, aS=0;
+  cv.addEventListener('mousemove', function(e){
+    var r = cv.getBoundingClientRect();
+    pY = Math.max(0, Math.min(cv.height-pH, (e.clientY-r.top)*cv.height/r.height - pH/2));
+  });
+  function reset(){ bX=250; bY=170; bVX = Math.random()<0.5?3:-3; bVY=2; }
+  function loop(){
+    if(!alive(winObj)) return;
+    if(aY+pH/2 < bY) aY += 3.5; else if(aY+pH/2 > bY) aY -= 3.5;
+    aY = Math.max(0, Math.min(cv.height-pH, aY));
+    bX += bVX; bY += bVY;
+    if(bY<6 || bY>cv.height-6) bVY *= -1;
+    if(bX<16 && bY>pY && bY<pY+pH && bVX<0) bVX *= -1.05;
+    if(bX>cv.width-16 && bY>aY && bY<aY+pH && bVX>0) bVX *= -1.05;
+    if(bX<0){ aS++; reset(); }
+    if(bX>cv.width){ pS++; reset(); }
+    g.fillStyle='#000'; g.fillRect(0,0,cv.width,cv.height);
+    g.setLineDash([6,6]); g.strokeStyle='#fff'; g.beginPath(); g.moveTo(cv.width/2,0); g.lineTo(cv.width/2,cv.height); g.stroke(); g.setLineDash([]);
+    g.fillStyle='#fff';
+    g.fillRect(8,pY,8,pH);
+    g.fillRect(cv.width-16,aY,8,pH);
+    g.beginPath(); g.arc(bX,bY,6,0,Math.PI*2); g.fill();
+    g.font='16px monospace'; g.fillText(pS, cv.width/2-40, 24); g.fillText(aS, cv.width/2+30, 24);
+    requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+function buildBreakout(body, winObj){
+  var cv = h('canvas','display:block;margin:8px auto;background:#000;box-shadow:inset 0 0 0 2px #808080');
+  cv.width=480; cv.height=380;
+  body.appendChild(cv);
+  var g = cv.getContext('2d');
+  var COLS=10, ROWS=5, BWM=44, BHM=16, offX=(cv.width-COLS*BWM)/2;
+  var bricks=[], score=0, lives=3, over=false, won=false;
+  function init(){
+    bricks=[];
+    var cols=['#ff0000','#ff8000','#ffff00','#00ff00','#0000ff'];
+    for(var r=0;r<ROWS;r++) for(var c=0;c<COLS;c++){
+      bricks.push({x: offX+c*BWM, y: 30+r*BHM, w: BWM-2, h: BHM-2, c: cols[r%cols.length], alive:true});
+    }
+  }
+  init();
+  var pad={x:200,y:350,w:80,h:10}, ball={x:240,y:330,vx:3,vy:-3,r:6};
+  cv.addEventListener('mousemove', function(e){
+    var r = cv.getBoundingClientRect();
+    pad.x = Math.max(0, Math.min(cv.width-pad.w, (e.clientX-r.left)*cv.width/r.width - pad.w/2));
+  });
+  cv.addEventListener('click', function(){
+    if(over||won){ score=0; lives=3; over=false; won=false; init(); ball={x:240,y:330,vx:3,vy:-3,r:6}; pad.x=200; }
+  });
+  function loop(){
+    if(!alive(winObj)) return;
+    if(!over && !won){
+      ball.x += ball.vx; ball.y += ball.vy;
+      if(ball.x<ball.r || ball.x>cv.width-ball.r) ball.vx *= -1;
+      if(ball.y<ball.r) ball.vy *= -1;
+      if(ball.y>pad.y && ball.y<pad.y+pad.h && ball.x>pad.x && ball.x<pad.x+pad.w && ball.vy>0){
+        ball.vy = -ball.vy;
+        ball.vx += (ball.x-(pad.x+pad.w/2))/20;
+      }
+      if(ball.y > cv.height){ lives--; ball={x:240,y:330,vx:3,vy:-3,r:6}; if(lives<=0) over=true; }
+      bricks.forEach(function(b){
+        if(!b.alive) return;
+        if(ball.x>b.x && ball.x<b.x+b.w && ball.y>b.y && ball.y<b.y+b.h){
+          b.alive=false; ball.vy *= -1; score += 10;
+        }
+      });
+      if(bricks.every(function(b){return !b.alive;})) won=true;
+    }
+    g.fillStyle='#000'; g.fillRect(0,0,cv.width,cv.height);
+    bricks.forEach(function(b){ if(b.alive){ g.fillStyle=b.c; g.fillRect(b.x,b.y,b.w,b.h); } });
+    g.fillStyle='#c0c0c0'; g.fillRect(pad.x,pad.y,pad.w,pad.h);
+    g.fillStyle='#fff'; g.beginPath(); g.arc(ball.x,ball.y,ball.r,0,Math.PI*2); g.fill();
+    g.font='12px monospace';
+    g.fillText('Score: '+score+'  Lives: '+lives+(over?' GAME OVER (click)':'')+(won?' WIN (click)':''), 8, 16);
+    requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+function build2048(body, winObj){
+  var wrap = h('div','flex:1;padding:14px;display:flex;flex-direction:column;align-items:center;background:#faf8ef');
+  var scoreEl = h('div','font-size:18px;font-weight:bold;margin-bottom:10px;color:#776e65','Score: 0');
+  var gridEl = h('div','display:grid;grid-template-columns:repeat(4,72px);grid-template-rows:repeat(4,72px);gap:8px;background:#bbada0;padding:8px;border-radius:6px');
+  wrap.appendChild(scoreEl); wrap.appendChild(gridEl);
+  body.appendChild(wrap);
+  var grid, score;
+  function addTile(){
+    var empty=[];
+    for(var y=0;y<4;y++) for(var x=0;x<4;x++) if(!grid[y][x]) empty.push([x,y]);
+    if(!empty.length) return;
+    var e = empty[Math.floor(Math.random()*empty.length)];
+    grid[e[1]][e[0]] = Math.random()<0.9 ? 2 : 4;
+  }
+  function reset(){ grid=[0,0,0,0].map(function(){return [0,0,0,0];}); score=0; addTile(); addTile(); draw(); }
+  function draw(){
+    gridEl.innerHTML='';
+    var colors = {0:'#cdc1b4',2:'#eee4da',4:'#ede0c8',8:'#f2b179',16:'#f59563',32:'#f67c5f',64:'#f65e3b',128:'#edcf72',256:'#edcc61',512:'#edc850',1024:'#edc53f',2048:'#edc22e'};
+    for(var y=0;y<4;y++) for(var x=0;x<4;x++){
+      var v = grid[y][x];
+      var c = colors[v] || '#3c3a32';
+      var fg = v<=4 ? '#776e65' : '#f9f6f2';
+      var fs = v>=1024?22:v>=128?26:32;
+      gridEl.appendChild(h('div','background:'+c+';display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:'+fs+'px;color:'+fg+';border-radius:4px', v?String(v):''));
+    }
+    scoreEl.textContent = 'Score: '+score;
+  }
+  function slide(arr){
+    var a = arr.filter(function(v){return v;});
+    for(var i=0;i<a.length-1;i++){ if(a[i]===a[i+1]){ a[i]*=2; score+=a[i]; a.splice(i+1,1); } }
+    while(a.length<4) a.push(0);
+    return a;
+  }
+  function move(dir){
+    var prev = JSON.stringify(grid);
+    if(dir==='left'||dir==='right'){
+      for(var y=0;y<4;y++){
+        var r = grid[y].slice();
+        if(dir==='right') r.reverse();
+        r = slide(r);
+        if(dir==='right') r.reverse();
+        grid[y] = r;
+      }
+    } else {
+      for(var x=0;x<4;x++){
+        var col = [grid[0][x],grid[1][x],grid[2][x],grid[3][x]];
+        if(dir==='down') col.reverse();
+        col = slide(col);
+        if(dir==='down') col.reverse();
+        for(var y2=0;y2<4;y2++) grid[y2][x] = col[y2];
+      }
+    }
+    if(JSON.stringify(grid)!==prev){ addTile(); draw(); }
+  }
+  document.addEventListener('keydown', function(e){
+    if(!alive(winObj) || winObj.el.classList.contains('inactive')) return;
+    if(e.key==='ArrowLeft'){ move('left'); e.preventDefault(); }
+    else if(e.key==='ArrowRight'){ move('right'); e.preventDefault(); }
+    else if(e.key==='ArrowUp'){ move('up'); e.preventDefault(); }
+    else if(e.key==='ArrowDown'){ move('down'); e.preventDefault(); }
+  });
+  reset();
+}
+
+function buildTicTacToe(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:#c0c0c0');
+  var status = h('div','font-size:14px;font-weight:bold','Your turn (X)');
+  var gridEl = h('div','display:grid;grid-template-columns:repeat(3,80px);grid-template-rows:repeat(3,80px);gap:4px;background:#808080;padding:4px');
+  var reset = btn('Reset', function(){ state=['','','','','','','','','']; over=false; status.textContent='Your turn (X)'; draw(); });
+  wrap.appendChild(status); wrap.appendChild(gridEl); wrap.appendChild(reset);
+  body.appendChild(wrap);
+  var state = ['','','','','','','','',''];
+  var over = false;
+  function win(s){
+    var L = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+    for(var i=0;i<L.length;i++){ var a=L[i][0],b=L[i][1],c=L[i][2]; if(s[a]&&s[a]===s[b]&&s[a]===s[c]) return s[a]; }
+    return null;
+  }
+  function ai(){
+    var empt=[]; for(var i=0;i<9;i++) if(!state[i]) empt.push(i);
+    for(var i=0;i<empt.length;i++){ var t2=state.slice(); t2[empt[i]]='O'; if(win(t2)==='O'){ state[empt[i]]='O'; return; } }
+    for(var i=0;i<empt.length;i++){ var t3=state.slice(); t3[empt[i]]='X'; if(win(t3)==='X'){ state[empt[i]]='O'; return; } }
+    if(!state[4]){ state[4]='O'; return; }
+    var corners = [0,2,6,8].filter(function(i){return !state[i];});
+    if(corners.length){ state[corners[Math.floor(Math.random()*corners.length)]]='O'; return; }
+    if(empt.length) state[empt[Math.floor(Math.random()*empt.length)]]='O';
+  }
+  function draw(){
+    gridEl.innerHTML='';
+    state.forEach(function(v,i){
+      var c = h('div','background:#c0c0c0;display:flex;align-items:center;justify-content:center;font-size:44px;font-weight:bold;cursor:pointer;box-shadow:inset -1px -1px 0 #808080,inset 1px 1px 0 #fff;color:'+(v==='X'?'#0000ff':'#ff0000'), v);
+      (function(i){
+        c.addEventListener('click', function(){
+          if(over || state[i]) return;
+          state[i]='X';
+          if(win(state)){ over=true; status.textContent='You win!'; draw(); return; }
+          if(state.every(function(v){return v;})){ over=true; status.textContent='Draw'; draw(); return; }
+          ai();
+          var w = win(state);
+          if(w){ over=true; status.textContent = w==='O'?'AI wins':'You win!'; }
+          else if(state.every(function(v){return v;})){ over=true; status.textContent='Draw'; }
+          else status.textContent='Your turn (X)';
+          draw();
+        });
+      })(i);
+      gridEl.appendChild(c);
+    });
+  }
+  draw();
+}
+
+function buildMemory(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;align-items:center;padding:10px;background:#c0c0c0');
+  var status = h('div','font-size:12px;margin-bottom:8px','Pairs: 0 / 8');
+  var grid = h('div','display:grid;grid-template-columns:repeat(4,64px);grid-template-rows:repeat(4,64px);gap:6px');
+  var reset = btn('New Game', reset);
+  wrap.appendChild(status); wrap.appendChild(grid); wrap.appendChild(reset);
+  body.appendChild(wrap);
+  var symbols, revealed, matched, first, lock;
+  function reset(){
+    symbols = '🍎🍌🍇🍓🍒🍉🍊🥝🍎🍌🍇🍓🍒🍉🍊🥝'.split('').sort(function(){return Math.random()-0.5;});
+    revealed = new Array(16).fill(false);
+    matched = new Array(16).fill(false);
+    first = null; lock = false;
+    status.textContent = 'Pairs: 0 / 8';
+    draw();
+  }
+  function draw(){
+    grid.innerHTML='';
+    for(var i=0;i<16;i++){
+      var v = (revealed[i]||matched[i]) ? symbols[i] : '';
+      var c = h('div','background:'+(matched[i]?'#b0ffb0':revealed[i]?'#fff':'#000080')+';display:flex;align-items:center;justify-content:center;font-size:26px;cursor:pointer;box-shadow:inset -1px -1px 0 #808080,inset 1px 1px 0 #fff', v);
+      (function(idx){ c.addEventListener('click', function(){ flip(idx); }); })(i);
+      grid.appendChild(c);
+    }
+  }
+  function flip(i){
+    if(lock || revealed[i] || matched[i]) return;
+    revealed[i] = true;
+    if(first == null){ first = i; draw(); return; }
+    if(symbols[first] === symbols[i]){
+      matched[first]=true; matched[i]=true;
+      var f = first; first = null;
+      var pairs = matched.filter(function(v){return v;}).length/2;
+      status.textContent = 'Pairs: ' + pairs + ' / 8';
+      draw();
+      if(pairs===8) status.textContent = 'You win!';
+    } else {
+      lock = true; draw();
+      var f2 = first; first = null;
+      setTimeout(function(){ revealed[f2]=false; revealed[i]=false; lock=false; draw(); }, 700);
+    }
+  }
+  reset();
+}
+
+function buildHangman(body, winObj){
+  var words = ['WINDOWS','COMPUTADOR','MODEM','DISQUETE','TECLADO','PANTALLA','RATON','INTERNET','PROGRAMA','SISTEMA','DISCO','MEMORIA'];
+  var word = words[Math.floor(Math.random()*words.length)];
+  var guessed = {}; var mistakes = 0, maxM = 6;
+  var wrap = h('div','flex:1;padding:12px;display:flex;flex-direction:column;align-items:center;gap:10px;background:#c0c0c0');
+  var cv = h('canvas','background:#fff;box-shadow:inset 1px 1px 0 #808080,inset -1px -1px 0 #fff');
+  cv.width=200; cv.height=200;
+  var wordEl = h('div','font-size:24px;font-family:monospace;letter-spacing:6px;font-weight:bold','');
+  var status = h('div','font-size:12px','');
+  var kb = h('div','display:grid;grid-template-columns:repeat(13,1fr);gap:3px;max-width:520px');
+  var reset = btn('New Game', function(){
+    word = words[Math.floor(Math.random()*words.length)];
+    guessed={}; mistakes=0; render();
+  });
+  wrap.appendChild(cv); wrap.appendChild(wordEl); wrap.appendChild(status); wrap.appendChild(kb); wrap.appendChild(reset);
+  body.appendChild(wrap);
+  for(var i=0;i<26;i++){
+    (function(L){
+      var b = btn(L, function(){ guess(L); }, 'padding:3px;min-width:0');
+      b.dataset.letter = L;
+      kb.appendChild(b);
+    })(String.fromCharCode(65+i));
+  }
+  var g = cv.getContext('2d');
+  function guess(L){ if(guessed[L]) return; guessed[L]=true; if(word.indexOf(L)<0) mistakes++; render(); }
+  function render(){
+    wordEl.textContent = word.split('').map(function(c){return guessed[c]?c:'_';}).join(' ');
+    kb.querySelectorAll('button').forEach(function(b){
+      var used = guessed[b.dataset.letter];
+      b.disabled = used;
+      b.style.opacity = used ? '.5' : '1';
+    });
+    g.fillStyle='#fff'; g.fillRect(0,0,cv.width,cv.height);
+    g.strokeStyle='#000'; g.lineWidth=3;
+    g.beginPath(); g.moveTo(20,180); g.lineTo(120,180); g.stroke();
+    g.beginPath(); g.moveTo(40,180); g.lineTo(40,20); g.lineTo(130,20); g.lineTo(130,50); g.stroke();
+    if(mistakes>0){ g.beginPath(); g.arc(130,65,15,0,Math.PI*2); g.stroke(); }
+    if(mistakes>1){ g.beginPath(); g.moveTo(130,80); g.lineTo(130,130); g.stroke(); }
+    if(mistakes>2){ g.beginPath(); g.moveTo(130,90); g.lineTo(105,110); g.stroke(); }
+    if(mistakes>3){ g.beginPath(); g.moveTo(130,90); g.lineTo(155,110); g.stroke(); }
+    if(mistakes>4){ g.beginPath(); g.moveTo(130,130); g.lineTo(110,160); g.stroke(); }
+    if(mistakes>5){ g.beginPath(); g.moveTo(130,130); g.lineTo(150,160); g.stroke(); }
+    var won = word.split('').every(function(c){return guessed[c];});
+    if(won) status.textContent = 'You win! Word: '+word;
+    else if(mistakes>=maxM) status.textContent = 'You lose! Word: '+word;
+    else status.textContent = 'Mistakes: '+mistakes+' / '+maxM;
+  }
+  render();
+}
+
+function buildSimon(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#c0c0c0');
+  var status = h('div','font-size:14px','Press Start');
+  var grid = h('div','display:grid;grid-template-columns:repeat(2,100px);grid-template-rows:repeat(2,100px);gap:8px');
+  var startB = btn('Start', startGame);
+  wrap.appendChild(status); wrap.appendChild(grid); wrap.appendChild(startB);
+  body.appendChild(wrap);
+  var colors = ['#00a000','#ff0000','#ffff00','#0000ff'];
+  var seq=[], input=[], playing=false;
+  var cells = [];
+  colors.forEach(function(c,i){
+    var cell = h('div','background:'+c+';border-radius:6px;cursor:pointer;box-shadow:inset 0 0 0 3px rgba(0,0,0,.3);transition:filter .15s');
+    cell.dataset.i = i;
+    cell.addEventListener('click', function(){ press(i); });
+    grid.appendChild(cell);
+    cells.push(cell);
+  });
+  function startGame(){ seq=[]; input=[]; playing=false; status.textContent='Watch...'; nextRound(); }
+  function nextRound(){
+    seq.push(Math.floor(Math.random()*4));
+    input = [];
+    status.textContent = 'Watch...';
+    var i=0;
+    function show(){
+      if(i>=seq.length){ setTimeout(function(){ status.textContent='Your turn'; playing=true; }, 400); return; }
+      var k = seq[i];
+      cells[k].style.filter = 'brightness(2)';
+      beep([523,392,659,330][k], 0.15);
+      setTimeout(function(){
+        cells[k].style.filter='';
+        setTimeout(function(){ i++; show(); }, 200);
+      }, 400);
+    }
+    show();
+  }
+  function press(i){
+    if(!playing) return;
+    beep([523,392,659,330][i], 0.1);
+    cells[i].style.filter = 'brightness(2)';
+    setTimeout(function(){ cells[i].style.filter=''; }, 150);
+    input.push(i);
+    if(input[input.length-1] !== seq[input.length-1]){
+      playing = false;
+      status.textContent = 'Game over! Level: '+seq.length;
+      beep(150, 0.4);
+      return;
+    }
+    if(input.length === seq.length){
+      playing = false;
+      status.textContent = 'Correct! Next...';
+      setTimeout(nextRound, 800);
+    }
+  }
+}
+
+function buildDice(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:#c0c0c0;padding:20px');
+  var cv = h('canvas','background:#fff;box-shadow:0 4px 8px rgba(0,0,0,.4);border-radius:8px');
+  cv.width=120; cv.height=120;
+  var val = h('div','font-size:20px;font-weight:bold','-');
+  wrap.appendChild(cv); wrap.appendChild(val); wrap.appendChild(btn('Roll', roll));
+  body.appendChild(wrap);
+  var g = cv.getContext('2d');
+  function draw(n){
+    g.fillStyle='#fff'; g.fillRect(0,0,120,120);
+    g.fillStyle='#000';
+    var pos = {1:[[60,60]],2:[[35,35],[85,85]],3:[[35,35],[60,60],[85,85]],4:[[35,35],[85,35],[35,85],[85,85]],5:[[35,35],[85,35],[60,60],[35,85],[85,85]],6:[[35,35],[85,35],[35,60],[85,60],[35,85],[85,85]]}[n] || [];
+    pos.forEach(function(p){ g.beginPath(); g.arc(p[0],p[1],10,0,Math.PI*2); g.fill(); });
+  }
+  function roll(){
+    var ticks=0;
+    var id = setInterval(function(){
+      draw(1+Math.floor(Math.random()*6));
+      ticks++;
+      if(ticks>12){ clearInterval(id); var n=1+Math.floor(Math.random()*6); draw(n); val.textContent='Result: '+n; beep(600,0.05); }
+    }, 60);
+  }
+  draw(1);
+}
+
+function buildCoinFlip(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:#c0c0c0;padding:20px');
+  var cv = h('canvas','background:#ffd700;border-radius:50%;box-shadow:0 4px 8px rgba(0,0,0,.4)');
+  cv.width=140; cv.height=140;
+  var out = h('div','font-size:18px;font-weight:bold','Click to flip');
+  wrap.appendChild(cv); wrap.appendChild(out); wrap.appendChild(btn('Flip', flip));
+  body.appendChild(wrap);
+  var g = cv.getContext('2d');
+  function draw(face){
+    g.fillStyle='#ffd700'; g.beginPath(); g.arc(70,70,68,0,Math.PI*2); g.fill();
+    g.strokeStyle='#b8860b'; g.lineWidth=3; g.beginPath(); g.arc(70,70,68,0,Math.PI*2); g.stroke();
+    g.fillStyle='#8b6914'; g.font='bold 40px serif'; g.textAlign='center'; g.textBaseline='middle';
+    g.fillText(face, 70, 70);
+  }
+  draw('?');
+  function flip(){
+    out.textContent = 'Flipping...';
+    var ticks=0;
+    var id = setInterval(function(){
+      draw(Math.random()<0.5?'H':'T');
+      ticks++;
+      if(ticks>10){
+        clearInterval(id);
+        var r = Math.random()<0.5?'H':'T';
+        draw(r);
+        out.textContent = 'Result: ' + (r==='H'?'Heads':'Tails');
+        beep(700, 0.08);
+      }
+    }, 80);
+  }
+}
+
+function buildLottery(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px;background:#c0c0c0');
+  var balls = h('div','display:flex;gap:8px;flex-wrap:wrap;justify-content:center');
+  wrap.appendChild(balls); wrap.appendChild(btn('Draw 6 numbers', draw));
+  body.appendChild(wrap);
+  function draw(){
+    balls.innerHTML='';
+    var nums = new Set(); while(nums.size<6) nums.add(1+Math.floor(Math.random()*49));
+    var i=0;
+    nums.forEach(function(n){
+      var b = h('div','width:56px;height:56px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:bold;box-shadow:0 2px 6px rgba(0,0,0,.4);color:#000080;opacity:0;transition:opacity .3s',
+        String(n).padStart(2,'0'));
+      balls.appendChild(b);
+      (function(bb, nn){ setTimeout(function(){ bb.style.opacity='1'; beep(400+nn*10, 0.06); }, i*150); })(b, n);
+      i++;
+    });
+  }
+}
+
+function buildBingo(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;align-items:center;padding:10px;background:#c0c0c0;gap:8px');
+  var gridEl = h('div','display:grid;grid-template-columns:repeat(5,50px);grid-template-rows:repeat(6,50px);gap:3px');
+  var calledEl = h('div','font-size:12px;min-height:20px','');
+  wrap.appendChild(gridEl); wrap.appendChild(calledEl); wrap.appendChild(btn('Draw number', drawNum));
+  body.appendChild(wrap);
+  var headers = ['B','I','N','G','O'];
+  headers.forEach(function(hh){
+    gridEl.appendChild(h('div','background:#000080;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold', hh));
+  });
+  var called = new Set();
+  for(var r=0;r<5;r++) for(var c=0;c<5;c++){
+    var min = c*15+1, max = min+14;
+    var n = (r===2&&c===2) ? 'FREE' : min+Math.floor(Math.random()*(max-min+1));
+    var cell = h('div','background:'+(r===2&&c===2?'#ffffa0':'#fff')+';display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:bold;box-shadow:inset 0 0 0 1px #808080;cursor:pointer', String(n));
+    (function(cell, n){
+      cell.addEventListener('click', function(){
+        if(called.has(n) || n==='FREE'){ cell.style.background = cell.style.background==='rgb(255, 200, 200)'?'#fff':'#ffc8c8'; }
+      });
+    })(cell, n);
+    cell.dataset.n = n;
+    gridEl.appendChild(cell);
+  }
+  function drawNum(){
+    var n; do { n = 1+Math.floor(Math.random()*75); } while(called.has(n));
+    called.add(n);
+    calledEl.textContent = 'Last: '+n+' ('+called.size+' called)';
+    gridEl.querySelectorAll('[data-n]').forEach(function(c){
+      if(parseInt(c.dataset.n,10) === n){ c.style.background='#c8ffc8'; c.style.outline='2px solid #008000'; }
+    });
+  }
+}
+
+function buildChess(body, winObj){
+  var wrap = h('div','flex:1;display:flex;align-items:center;justify-content:center;background:#c0c0c0;padding:10px');
+  var board = h('div','display:grid;grid-template-columns:repeat(8,50px);grid-template-rows:repeat(8,50px);box-shadow:0 4px 10px rgba(0,0,0,.4)');
+  wrap.appendChild(board);
+  body.appendChild(wrap);
+  var pieces = ['♜♞♝♛♚♝♞♜','♟♟♟♟♟♟♟♟','        ','        ','        ','        ','♙♙♙♙♙♙♙♙','♖♘♗♕♔♗♘♖'];
+  var selected = null;
+  function draw(){
+    board.innerHTML='';
+    for(var r=0;r<8;r++) for(var c=0;c<8;c++){
+      var light = (r+c)%2===0;
+      var cell = h('div','background:'+(light?'#f0d9b5':'#b58863')+';display:flex;align-items:center;justify-content:center;font-size:36px;cursor:pointer;color:'+(r<2?'#000':'#fff')+';text-shadow:0 0 2px '+(r<2?'#fff':'#000'),
+        pieces[r][c] && pieces[r][c]!==' ' ? pieces[r][c] : '');
+      if(selected && selected.r===r && selected.c===c) cell.style.boxShadow = 'inset 0 0 0 3px yellow';
+      (function(r,c){
+        cell.addEventListener('click', function(){
+          if(selected){
+            if(selected.r===r && selected.c===c){ selected=null; draw(); return; }
+            var from = pieces[selected.r].split('');
+            var to = pieces[r].split('');
+            var p = from[selected.c];
+            from[selected.c]=' ';
+            to[c] = p;
+            pieces[selected.r] = from.join('');
+            pieces[r] = to.join('');
+            selected = null;
+            draw();
+          } else if(pieces[r][c] !== ' '){
+            selected = {r:r, c:c};
+            draw();
+          }
+        });
+      })(r,c);
+      board.appendChild(cell);
+    }
+  }
+  draw();
+}
+
+function buildCheckers(body, winObj){
+  var wrap = h('div','flex:1;display:flex;align-items:center;justify-content:center;background:#c0c0c0;padding:10px');
+  var board = h('div','display:grid;grid-template-columns:repeat(8,50px);grid-template-rows:repeat(8,50px);box-shadow:0 4px 10px rgba(0,0,0,.4)');
+  wrap.appendChild(board);
+  body.appendChild(wrap);
+  var state = [];
+  for(var r=0;r<8;r++){ var row=[]; for(var c=0;c<8;c++){ var v=0; if((r+c)%2===1){ if(r<3) v=1; else if(r>4) v=2; } row.push(v); } state.push(row); }
+  var selected = null;
+  function draw(){
+    board.innerHTML='';
+    for(var r=0;r<8;r++) for(var c=0;c<8;c++){
+      var light=(r+c)%2===0;
+      var cell=h('div','background:'+(light?'#f0d9b5':'#b58863')+';display:flex;align-items:center;justify-content:center;cursor:pointer');
+      if(state[r][c]){
+        cell.appendChild(h('div','width:36px;height:36px;border-radius:50%;background:'+(state[r][c]===1?'#c00000':'#202020')+';box-shadow:0 2px 3px rgba(0,0,0,.5),inset 0 2px 4px rgba(255,255,255,.3);'+(state[r][c]===2?'border:2px solid #ffd700':'')));
+      }
+      if(selected && selected.r===r && selected.c===c) cell.style.boxShadow='inset 0 0 0 3px yellow';
+      (function(r,c){
+        cell.addEventListener('click', function(){
+          if(selected){
+            if(state[r][c]===0 && Math.abs(r-selected.r)<=2){
+              state[r][c] = state[selected.r][selected.c];
+              state[selected.r][selected.c] = 0;
+              if(Math.abs(r-selected.r)===2){
+                var mr = (r+selected.r)/2, mc=(c+selected.c)/2;
+                state[mr][mc] = 0;
+              }
+            }
+            selected=null; draw();
+          } else if(state[r][c]){ selected={r:r,c:c}; draw(); }
+        });
+      })(r,c);
+      board.appendChild(cell);
+    }
+  }
+  draw();
+}
+
+function buildSudoku(body, winObj){
+  var puzzle = [
+    [5,3,0,0,7,0,0,0,0],[6,0,0,1,9,5,0,0,0],[0,9,8,0,0,0,0,6,0],
+    [8,0,0,0,6,0,0,0,3],[4,0,0,8,0,3,0,0,1],[7,0,0,0,2,0,0,0,6],
+    [0,6,0,0,0,0,2,8,0],[0,0,0,4,1,9,0,0,5],[0,0,0,0,8,0,0,7,9]
+  ];
+  var solution = [
+    [5,3,4,6,7,8,9,1,2],[6,7,2,1,9,5,3,4,8],[1,9,8,3,4,2,5,6,7],
+    [8,5,9,7,6,1,4,2,3],[4,2,6,8,5,3,7,9,1],[7,1,3,9,2,4,8,5,6],
+    [9,6,1,5,3,7,2,8,4],[2,8,7,4,1,9,6,3,5],[3,4,5,2,8,6,1,7,9]
+  ];
+  var state = puzzle.map(function(r){return r.slice();});
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#c0c0c0;padding:10px;gap:8px');
+  var gridEl = h('div','display:grid;grid-template-columns:repeat(9,38px);grid-template-rows:repeat(9,38px);box-shadow:0 0 0 3px #000');
+  var status = h('div','font-size:12px','');
+  var row = h('div','display:flex;gap:6px');
+  row.appendChild(btn('Check', function(){
+    var ok=true;
+    for(var r=0;r<9;r++) for(var c=0;c<9;c++) if(state[r][c]!==solution[r][c]) ok=false;
+    status.textContent = ok ? 'Correct!' : 'Not solved yet';
+  }));
+  row.appendChild(btn('Reset', function(){ state = puzzle.map(function(r){return r.slice();}); status.textContent=''; draw(); }));
+  wrap.appendChild(gridEl); wrap.appendChild(status); wrap.appendChild(row);
+  body.appendChild(wrap);
+  function draw(){
+    gridEl.innerHTML='';
+    for(var r=0;r<9;r++) for(var c=0;c<9;c++){
+      var fixed = puzzle[r][c]!==0;
+      var borders = (c%3===2&&c<8?';border-right:2px solid #000':'')+(r%3===2&&r<8?';border-bottom:2px solid #000':'');
+      var cell = h('div','background:'+(fixed?'#e8e8e8':'#fff')+';display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:bold;cursor:'+(fixed?'default':'pointer')+';border:1px solid #808080'+borders,
+        state[r][c]?String(state[r][c]):'');
+      (function(r,c,cell){
+        cell.addEventListener('click', function(){
+          if(fixed) return;
+          var v = prompt('Number 1-9 (or empty to clear):', state[r][c] || '');
+          if(v === null) return;
+          var n = parseInt(v,10);
+          if(n>=1 && n<=9){ state[r][c]=n; draw(); }
+          else if(v===''){ state[r][c]=0; draw(); }
+        });
+      })(r,c,cell);
+      gridEl.appendChild(cell);
+    }
+  }
+  draw();
+}
+
+function buildPinball(body, winObj){
+  var cv = h('canvas','display:block;margin:8px auto;background:#000;box-shadow:inset 0 0 0 2px #808080');
+  cv.width=300; cv.height=420;
+  body.appendChild(cv);
+  var g = cv.getContext('2d');
+  var ball = {x:150, y:50, vx:2, vy:2, r:8};
+  var score = 0;
+  var bumps = [];
+  for(var i=0;i<20;i++) bumps.push({x: 30+Math.random()*240, y: 80+Math.random()*220, r:6, hit:0});
+  var keys = {};
+  document.addEventListener('keydown', function(e){ if(alive(winObj)) keys[e.key]=true; if(['ArrowLeft','ArrowRight'].indexOf(e.key)>=0) e.preventDefault(); });
+  document.addEventListener('keyup', function(e){ keys[e.key]=false; });
+  function loop(){
+    if(!alive(winObj)) return;
+    if(keys['ArrowLeft']) ball.vx -= 0.4;
+    if(keys['ArrowRight']) ball.vx += 0.4;
+    ball.x += ball.vx; ball.y += ball.vy; ball.vy += 0.15;
+    if(ball.x<ball.r){ ball.x=ball.r; ball.vx *= -0.9; }
+    if(ball.x>cv.width-ball.r){ ball.x=cv.width-ball.r; ball.vx *= -0.9; }
+    if(ball.y<ball.r){ ball.y=ball.r; ball.vy *= -0.9; }
+    if(ball.y>cv.height){ score=Math.max(0,score-50); ball={x:150,y:50,vx:2,vy:2,r:8}; }
+    bumps.forEach(function(b){
+      var dx=ball.x-b.x, dy=ball.y-b.y, d=Math.sqrt(dx*dx+dy*dy);
+      if(d<ball.r+b.r){
+        var nx=dx/d, ny=dy/d, dot=ball.vx*nx+ball.vy*ny;
+        ball.vx -= 2*dot*nx; ball.vy -= 2*dot*ny;
+        b.hit = 10; score += 10;
+      }
+      if(b.hit>0) b.hit--;
+    });
+    g.fillStyle='#0a1a3a'; g.fillRect(0,0,cv.width,cv.height);
+    g.fillStyle='#fff'; g.beginPath(); g.arc(ball.x,ball.y,ball.r,0,Math.PI*2); g.fill();
+    bumps.forEach(function(b){ g.fillStyle = b.hit>0 ? '#ffff00' : '#00c0ff'; g.beginPath(); g.arc(b.x,b.y,b.r,0,Math.PI*2); g.fill(); });
+    g.fillStyle='#fff'; g.font='12px monospace';
+    g.fillText('Score: '+score+' · ← → nudge', 8, 20);
+    requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+function buildAsteroids(body, winObj){
+  var cv = h('canvas','display:block;margin:8px auto;background:#000;box-shadow:inset 0 0 0 2px #808080');
+  cv.width=480; cv.height=380;
+  body.appendChild(cv);
+  var g = cv.getContext('2d');
+  var ship = {x:240,y:190,a:-Math.PI/2,vx:0,vy:0};
+  var bullets=[], rocks=[], score=0, over=false;
+  function spawnRocks(){
+    rocks = [];
+    for(var i=0;i<6;i++) rocks.push({x:Math.random()*cv.width, y:Math.random()*cv.height, vx:(Math.random()-.5)*1.5, vy:(Math.random()-.5)*1.5, r: 15+Math.random()*15, hp:2});
+  }
+  spawnRocks();
+  var keys = {};
+  document.addEventListener('keydown', function(e){
+    if(!alive(winObj) || winObj.el.classList.contains('inactive')) return;
+    keys[e.key]=true;
+    if(['ArrowLeft','ArrowRight','ArrowUp',' '].indexOf(e.key)>=0) e.preventDefault();
+    if(e.key===' ' && !over) bullets.push({x: ship.x+Math.cos(ship.a)*14, y: ship.y+Math.sin(ship.a)*14, vx: Math.cos(ship.a)*7, vy: Math.sin(ship.a)*7, life:60});
+  });
+  document.addEventListener('keyup', function(e){ keys[e.key]=false; });
+  cv.addEventListener('click', function(){
+    if(over){ over=false; score=0; ship={x:240,y:190,a:-Math.PI/2,vx:0,vy:0}; bullets=[]; spawnRocks(); }
+  });
+  function loop(){
+    if(!alive(winObj)) return;
+    if(!over){
+      if(keys['ArrowLeft']) ship.a -= 0.08;
+      if(keys['ArrowRight']) ship.a += 0.08;
+      if(keys['ArrowUp']){ ship.vx += Math.cos(ship.a)*0.15; ship.vy += Math.sin(ship.a)*0.15; }
+      ship.x += ship.vx; ship.y += ship.vy; ship.vx*=0.99; ship.vy*=0.99;
+      if(ship.x<0) ship.x=cv.width; if(ship.x>cv.width) ship.x=0;
+      if(ship.y<0) ship.y=cv.height; if(ship.y>cv.height) ship.y=0;
+      bullets.forEach(function(b){ b.x+=b.vx; b.y+=b.vy; b.life--; });
+      bullets = bullets.filter(function(b){ return b.life>0 && b.x>0 && b.x<cv.width && b.y>0 && b.y<cv.height; });
+      rocks.forEach(function(r){ r.x+=r.vx; r.y+=r.vy; if(r.x<0||r.x>cv.width) r.vx*=-1; if(r.y<0||r.y>cv.height) r.vy*=-1; });
+      bullets.forEach(function(b){
+        rocks.forEach(function(r){
+          if(b.life>0 && Math.hypot(b.x-r.x, b.y-r.y) < r.r){
+            b.life=0; r.hp--;
+            if(r.hp<=0){ score+=20; r.dead=true; }
+          }
+        });
+      });
+      rocks = rocks.filter(function(r){return !r.dead;});
+      if(rocks.length===0) over = true;
+      rocks.forEach(function(r){ if(Math.hypot(ship.x-r.x, ship.y-r.y) < r.r+8) over = true; });
+    }
+    g.fillStyle='#000'; g.fillRect(0,0,cv.width,cv.height);
+    g.save(); g.translate(ship.x, ship.y); g.rotate(ship.a);
+    g.strokeStyle='#fff'; g.lineWidth=2;
+    g.beginPath(); g.moveTo(12,0); g.lineTo(-8,-7); g.lineTo(-8,7); g.closePath(); g.stroke();
+    g.restore();
+    g.fillStyle='#0f0'; bullets.forEach(function(b){ g.fillRect(b.x-1,b.y-1,2,2); });
+    g.strokeStyle='#c0c0c0'; g.lineWidth=2;
+    rocks.forEach(function(r){ g.beginPath(); g.arc(r.x,r.y,r.r,0,Math.PI*2); g.stroke(); });
+    g.fillStyle='#fff'; g.font='12px monospace';
+    g.fillText('Score: '+score+(over?' GAME OVER (click)':''), 8, 18);
+    requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+function buildInvaders(body, winObj){
+  var cv = h('canvas','display:block;margin:8px auto;background:#000;box-shadow:inset 0 0 0 2px #808080');
+  cv.width=480; cv.height=380;
+  body.appendChild(cv);
+  var g = cv.getContext('2d');
+  var shipX=240, bullets=[], enemies=[], eBullets=[], score=0, over=false, dir=1;
+  function reset(){
+    shipX=240; bullets=[]; eBullets=[]; enemies=[]; score=0; over=false; dir=1;
+    for(var r=0;r<4;r++) for(var c=0;c<8;c++) enemies.push({x: 60+c*44, y: 30+r*30, alive:true});
+  }
+  reset();
+  document.addEventListener('keydown', function(e){
+    if(!alive(winObj) || winObj.el.classList.contains('inactive')) return;
+    if(e.key==='ArrowLeft'){ shipX=Math.max(20,shipX-14); e.preventDefault(); }
+    else if(e.key==='ArrowRight'){ shipX=Math.min(cv.width-20,shipX+14); e.preventDefault(); }
+    else if(e.key===' '){ if(!over) bullets.push({x:shipX, y:cv.height-30}); e.preventDefault(); }
+  });
+  cv.addEventListener('click', function(){ if(over) reset(); });
+  function loop(){
+    if(!alive(winObj)) return;
+    if(!over){
+      bullets.forEach(function(b){ b.y -= 6; });
+      bullets = bullets.filter(function(b){return b.y > -10;});
+      eBullets.forEach(function(b){ b.y += 3; });
+      eBullets = eBullets.filter(function(b){return b.y < cv.height+10;});
+      if(!enemies.some(function(e){return e.alive;})) over = true;
+      var down=false;
+      enemies.forEach(function(e){ if(e.alive){ e.x += dir*1.2; if(e.x>cv.width-20||e.x<20) down=true; } });
+      if(down){ dir*=-1; enemies.forEach(function(e){ if(e.alive) e.y += 10; }); }
+      bullets.forEach(function(b){
+        enemies.forEach(function(e){
+          if(e.alive && Math.abs(e.x-b.x)<14 && Math.abs(e.y-b.y)<14){ e.alive=false; b.y=-100; score+=10; }
+        });
+      });
+      bullets = bullets.filter(function(b){return b.y>-10;});
+      if(Math.random()<0.02){
+        var alive = enemies.filter(function(e){return e.alive;});
+        if(alive.length){ var e = alive[Math.floor(Math.random()*alive.length)]; eBullets.push({x:e.x, y:e.y+10}); }
+      }
+      eBullets.forEach(function(b){ if(Math.abs(b.x-shipX)<15 && b.y > cv.height-40) over=true; });
+      enemies.forEach(function(e){ if(e.alive && e.y > cv.height-40) over=true; });
+    }
+    g.fillStyle='#000'; g.fillRect(0,0,cv.width,cv.height);
+    g.fillStyle='#0f0';
+    enemies.forEach(function(e){ if(e.alive){ g.fillRect(e.x-10,e.y-6,20,12); g.fillRect(e.x-14,e.y-2,4,4); g.fillRect(e.x+10,e.y-2,4,4); } });
+    g.fillStyle='#fff'; bullets.forEach(function(b){ g.fillRect(b.x-1,b.y,3,8); });
+    g.fillStyle='#ff4040'; eBullets.forEach(function(b){ g.fillRect(b.x-1,b.y,3,8); });
+    g.fillStyle='#00ffff';
+    g.beginPath(); g.moveTo(shipX-15,cv.height-20); g.lineTo(shipX+15,cv.height-20); g.lineTo(shipX,cv.height-40); g.closePath(); g.fill();
+    g.fillStyle='#fff'; g.font='12px monospace';
+    g.fillText('Score: '+score+(over?' GAME OVER (click)':''), 8, 18);
+    requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+function buildPacman(body, winObj){
+  var cv = h('canvas','display:block;margin:8px auto;background:#000;box-shadow:inset 0 0 0 2px #808080');
+  var COLS=15, ROWS=13, SZ=24;
+  cv.width=COLS*SZ; cv.height=ROWS*SZ;
+  body.appendChild(cv);
+  var g = cv.getContext('2d');
+  var maze = [
+    '###############','#.............#','#.###.###.###.#','#.............#',
+    '#.###.#.#.###.#','#.....#.#.....#','###.#.#.#.#.###','#.....#.#.....#',
+    '#.###.###.###.#','#.............#','#.###.###.###.#','#.............#',
+    '###############'
+  ];
+  var dots=[]; maze.forEach(function(row,r){ row.split('').forEach(function(ch,c){ if(ch==='.') dots.push({x:c,y:r,alive:true}); }); });
+  var pac = {x:7,y:6,dir:{x:0,y:0}}, score=0, over=false;
+  var ghosts = [{x:2,y:2,vx:1,vy:0},{x:12,y:2,vx:-1,vy:0},{x:2,y:10,vx:1,vy:0},{x:12,y:10,vx:-1,vy:0}];
+  function canWalk(x,y){ return x>=0 && y>=0 && x<COLS && y<ROWS && maze[y][x]!=='#'; }
+  document.addEventListener('keydown', function(e){
+    if(!alive(winObj) || winObj.el.classList.contains('inactive')) return;
+    if(e.key==='ArrowLeft'){ pac.dir={x:-1,y:0}; e.preventDefault(); }
+    else if(e.key==='ArrowRight'){ pac.dir={x:1,y:0}; e.preventDefault(); }
+    else if(e.key==='ArrowUp'){ pac.dir={x:0,y:-1}; e.preventDefault(); }
+    else if(e.key==='ArrowDown'){ pac.dir={x:0,y:1}; e.preventDefault(); }
+  });
+  cv.addEventListener('click', function(){
+    if(over){ pac={x:7,y:6,dir:{x:0,y:0}}; score=0; over=false; dots.forEach(function(d){d.alive=true;}); }
+  });
+  var lastMove = 0;
+  function loop(t){
+    if(!alive(winObj)) return;
+    if(!over && t-lastMove > 180){
+      lastMove = t;
+      var nx = pac.x+pac.dir.x, ny = pac.y+pac.dir.y;
+      if(canWalk(nx,ny)){ pac.x=nx; pac.y=ny; }
+      dots.forEach(function(d){ if(d.alive && d.x===pac.x && d.y===pac.y){ d.alive=false; score+=10; } });
+      if(dots.every(function(d){return !d.alive;})) over = true;
+      ghosts.forEach(function(gg){
+        var dirs = [{x:1,y:0},{x:-1,y:0},{x:0,y:1},{x:0,y:-1}].filter(function(d){ return canWalk(gg.x+d.x, gg.y+d.y) && !(d.x===-gg.vx && d.y===-gg.vy); });
+        if(dirs.length){
+          var d = dirs[Math.floor(Math.random()*dirs.length)];
+          gg.vx = d.x; gg.vy = d.y;
+          gg.x += d.x; gg.y += d.y;
+        }
+        if(gg.x===pac.x && gg.y===pac.y) over = true;
+      });
+    }
+    g.fillStyle='#000'; g.fillRect(0,0,cv.width,cv.height);
+    maze.forEach(function(row,r){ row.split('').forEach(function(ch,c){
+      if(ch==='#'){ g.fillStyle='#0000ff'; g.fillRect(c*SZ,r*SZ,SZ,SZ); g.strokeStyle='#4040ff'; g.strokeRect(c*SZ+1,r*SZ+1,SZ-2,SZ-2); }
+    });});
+    g.fillStyle='#ffff00';
+    dots.forEach(function(d){ if(d.alive){ g.beginPath(); g.arc(d.x*SZ+SZ/2, d.y*SZ+SZ/2, 2, 0, Math.PI*2); g.fill(); } });
+    g.fillStyle='#ffff00';
+    g.beginPath(); g.arc(pac.x*SZ+SZ/2, pac.y*SZ+SZ/2, SZ/2-2, 0.3, Math.PI*2-0.3); g.lineTo(pac.x*SZ+SZ/2, pac.y*SZ+SZ/2); g.fill();
+    ghosts.forEach(function(gh){
+      g.fillStyle='#ff0000';
+      g.beginPath();
+      g.arc(gh.x*SZ+SZ/2, gh.y*SZ+SZ/2-2, SZ/2-4, Math.PI, 0);
+      g.lineTo(gh.x*SZ+SZ-4, gh.y*SZ+SZ/2+4);
+      g.lineTo(gh.x*SZ+SZ/2, gh.y*SZ+SZ/2+2);
+      g.lineTo(gh.x*SZ+4, gh.y*SZ+SZ/2+4);
+      g.closePath(); g.fill();
+    });
+    g.fillStyle='#fff'; g.font='12px monospace';
+    g.fillText('Score: '+score+(over?'  — Click to restart':''), 6, 14);
+    requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+function buildBlackjack(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;gap:10px;padding:14px;background:linear-gradient(160deg,#0a6e0a,#064a06);color:#fff');
+  var dealerEl = h('div','min-height:96px');
+  var playerEl = h('div','min-height:96px');
+  var status = h('div','font-size:16px;font-weight:bold;text-align:center','');
+  var buttons = h('div','display:flex;gap:8px;justify-content:center');
+  wrap.appendChild(h('div','font-size:12px;opacity:.7','DEALER'));
+  wrap.appendChild(dealerEl);
+  wrap.appendChild(h('div','font-size:12px;opacity:.7','PLAYER'));
+  wrap.appendChild(playerEl);
+  wrap.appendChild(status); wrap.appendChild(buttons);
+  body.appendChild(wrap);
+  var deck, pHand, dHand, standing, done;
+  var suits = ['♠','♥','♦','♣'], vals = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+  function newDeck(){ deck=[]; suits.forEach(function(s){ vals.forEach(function(v){ deck.push({s:s,v:v}); }); }); deck.sort(function(){return Math.random()-0.5;}); }
+  function cval(c){ if(c.v==='A') return 11; if(['J','Q','K'].indexOf(c.v)>=0) return 10; return parseInt(c.v,10); }
+  function total(hand){
+    var t=0, aces=0;
+    hand.forEach(function(c){ t += cval(c); if(c.v==='A') aces++; });
+    while(t>21 && aces>0){ t -= 10; aces--; }
+    return t;
+  }
+  function cardEl(c, back){
+    if(back) return h('div','display:inline-flex;width:60px;height:88px;background:linear-gradient(135deg,#a00,#500);border-radius:6px;margin-right:6px;box-shadow:0 2px 4px rgba(0,0,0,.4)','');
+    var red = c.s==='♥'||c.s==='♦';
+    return h('div','display:inline-flex;flex-direction:column;justify-content:space-between;width:60px;height:88px;background:#fff;color:'+(red?'#c00':'#000')+';border-radius:6px;padding:4px;font-weight:bold;font-size:14px;margin-right:6px;box-shadow:0 2px 4px rgba(0,0,0,.4)',
+      '<div>'+c.v+c.s+'</div><div style="align-self:flex-end;transform:rotate(180deg)">'+c.v+c.s+'</div>');
+  }
+  function render(){
+    dealerEl.innerHTML=''; playerEl.innerHTML='';
+    dHand.forEach(function(c,i){ dealerEl.appendChild(cardEl(c, i===1 && !done && !standing)); });
+    pHand.forEach(function(c){ playerEl.appendChild(cardEl(c, false)); });
+  }
+  function deal(){
+    newDeck();
+    pHand = [deck.pop(), deck.pop()];
+    dHand = [deck.pop(), deck.pop()];
+    standing = false; done = false;
+    status.textContent = 'Hit or Stand?';
+    buttons.innerHTML = '';
+    buttons.appendChild(btn('Hit', hit));
+    buttons.appendChild(btn('Stand', stand));
+    render();
+  }
+  function hit(){
+    if(done) return;
+    pHand.push(deck.pop()); render();
+    if(total(pHand) > 21){ done=true; status.textContent='BUST! Dealer wins.'; end(); }
+  }
+  function stand(){
+    if(done) return;
+    standing = true; done = true;
+    while(total(dHand) < 17) dHand.push(deck.pop());
+    render();
+    var p = total(pHand), d = total(dHand);
+    if(d>21) status.textContent = 'Dealer busts — you win!';
+    else if(p>d) status.textContent = 'You win!';
+    else if(p<d) status.textContent = 'Dealer wins';
+    else status.textContent = 'Push';
+    end();
+  }
+  function end(){ buttons.innerHTML=''; buttons.appendChild(btn('New Game', deal)); }
+  deal();
+}
+
+function buildSolitaire(body, winObj){
+  var suits = ['♠','♥','♦','♣'], vals = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+  var deck = [];
+  suits.forEach(function(s){ vals.forEach(function(v){ deck.push({s:s,v:v,up:false,red:(s==='♥'||s==='♦')}); }); });
+  deck.sort(function(){return Math.random()-0.5;});
+  var piles = [[],[],[],[],[],[],[]];
+  for(var i=0;i<7;i++){
+    for(var j=i;j<7;j++){
+      var c = deck.pop(); c.up = (j===i); piles[i].push(c);
+    }
+  }
+  var stock = deck; var waste = [];
+  var wrap = h('div','flex:1;padding:10px;background:linear-gradient(160deg,#0a6e0a,#064a06);display:flex;flex-direction:column;gap:10px;overflow:auto');
+  var topRow = h('div','display:flex;gap:10px');
+  var stockEl = h('div','width:60px;height:88px;background:#222;border-radius:6px;cursor:pointer;box-shadow:inset 0 0 0 2px #000');
+  var wasteEl = h('div','width:60px;height:88px;position:relative');
+  topRow.appendChild(stockEl); topRow.appendChild(wasteEl);
+  var pilesRow = h('div','display:flex;gap:10px');
+  var pileEls = piles.map(function(){ var e = h('div','width:60px;min-height:88px;position:relative'); pilesRow.appendChild(e); return e; });
+  wrap.appendChild(topRow); wrap.appendChild(pilesRow);
+  body.appendChild(wrap);
+  function cardFace(c, down){
+    if(down) return h('div','position:absolute;left:0;width:60px;height:88px;background:linear-gradient(135deg,#a00,#500);border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,.5)','');
+    return h('div','position:absolute;left:0;width:60px;height:88px;background:#fff;border-radius:6px;color:'+(c.red?'#c00':'#000')+';box-shadow:0 1px 3px rgba(0,0,0,.5);padding:4px;font-weight:bold;font-size:13px',
+      '<div>'+c.v+c.s+'</div>');
+  }
+  function renderPile(el, pile){
+    el.innerHTML='';
+    pile.forEach(function(c,i){ var f = cardFace(c, !c.up); f.style.top = (i*22)+'px'; el.appendChild(f); });
+    el.style.minHeight = (88 + Math.max(0,(pile.length-1)*22)) + 'px';
+  }
+  function render(){
+    stockEl.innerHTML = stock.length ? '' : '<div style="color:#aaa;font-size:22px;text-align:center;line-height:88px">↺</div>';
+    wasteEl.innerHTML = '';
+    if(waste.length){ var f = cardFace(waste[waste.length-1], false); f.style.top='0'; wasteEl.appendChild(f); }
+    piles.forEach(function(p,i){ renderPile(pileEls[i], p); });
+  }
+  stockEl.addEventListener('click', function(){
+    if(stock.length === 0){ stock = waste.reverse(); stock.forEach(function(c){c.up=false;}); waste = []; }
+    else { var c = stock.pop(); c.up = true; waste.push(c); }
+    render();
+  });
+  render();
+}
+
+function buildFreeCell(body, winObj){
+  var suits = ['♠','♥','♦','♣'], vals = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+  var deck = [];
+  suits.forEach(function(s){ vals.forEach(function(v){ deck.push({s:s,v:v,red:(s==='♥'||s==='♦')}); }); });
+  deck.sort(function(){return Math.random()-0.5;});
+  var columns = [[],[],[],[],[],[],[],[]];
+  deck.forEach(function(c,i){ columns[i%8].push(c); });
+  var wrap = h('div','flex:1;padding:10px;background:linear-gradient(160deg,#0a6e0a,#064a06);display:flex;flex-direction:column;gap:10px');
+  var topRow = h('div','display:flex;gap:10px');
+  for(var i=0;i<4;i++) topRow.appendChild(h('div','width:60px;height:88px;background:rgba(255,255,255,.15);border-radius:6px;box-shadow:inset 0 0 0 2px rgba(0,0,0,.4)'));
+  var foundations = h('div','display:flex;gap:10px;margin-left:auto');
+  suits.forEach(function(s){ foundations.appendChild(h('div','width:60px;height:88px;background:rgba(255,255,255,.15);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:28px;color:#fff',s)); });
+  topRow.appendChild(foundations);
+  wrap.appendChild(topRow);
+  var cols = h('div','display:flex;gap:10px');
+  columns.forEach(function(col){
+    var el = h('div','width:60px;position:relative');
+    col.forEach(function(c,i){
+      var f = h('div','position:absolute;left:0;width:60px;height:88px;background:#fff;border-radius:6px;color:'+(c.red?'#c00':'#000')+';box-shadow:0 1px 3px rgba(0,0,0,.5);padding:4px;font-weight:bold;font-size:13px',
+        '<div>'+c.v+c.s+'</div>');
+      f.style.top = (i*26)+'px';
+      el.appendChild(f);
+    });
+    el.style.height = (88 + Math.max(0,(col.length-1)*26)) + 'px';
+    cols.appendChild(el);
+  });
+  wrap.appendChild(cols);
+  body.appendChild(wrap);
+}
+
+function buildCardTable(body, winObj){
+  var suits = ['♠','♥','♦','♣'], vals = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+  var deck = [];
+  for(var k=0;k<2;k++) suits.forEach(function(s){ vals.forEach(function(v){ deck.push({s:s,v:v,red:(s==='♥'||s==='♦')}); }); });
+  deck.sort(function(){return Math.random()-0.5;});
+  var wrap = h('div','flex:1;padding:10px;background:linear-gradient(160deg,#0a6e0a,#064a06);display:flex;flex-direction:column;gap:8px;overflow:auto');
+  body.appendChild(wrap);
+  var cols = h('div','display:flex;gap:8px');
+  for(var ci=0;ci<7;ci++){
+    var colEl = h('div','width:56px;position:relative');
+    var col = [];
+    for(var j=0;j<=ci && deck.length;j++) col.push(deck.pop());
+    col.forEach(function(c,i){
+      var up = i === col.length-1;
+      var f = up
+        ? h('div','position:absolute;left:0;width:56px;height:84px;background:#fff;border-radius:5px;color:'+(c.red?'#c00':'#000')+';box-shadow:0 1px 3px rgba(0,0,0,.5);padding:3px;font-weight:bold;font-size:12px','<div>'+c.v+c.s+'</div>')
+        : h('div','position:absolute;left:0;width:56px;height:84px;background:linear-gradient(135deg,#a00,#500);border-radius:5px;box-shadow:0 1px 3px rgba(0,0,0,.5)','');
+      f.style.top = (i*20)+'px';
+      colEl.appendChild(f);
+    });
+    colEl.style.height = (84 + Math.max(0,(col.length-1)*20)) + 'px';
+    cols.appendChild(colEl);
+  }
+  wrap.appendChild(cols);
+  wrap.appendChild(h('div','color:#fff;font-size:12px;margin-top:10px', t(winObj.app.title) + ' · ' + t('info_std2')));
+}
+function buildHearts(body, winObj){ buildCardTable(body, winObj); }
+function buildSpider(body, winObj){ buildCardTable(body, winObj); }
+
+function buildCalendar(body, winObj){
+  var now = new Date();
+  var view = new Date(now.getFullYear(), now.getMonth(), 1);
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#c0c0c0;padding:8px');
+  var head = h('div','display:flex;align-items:center;justify-content:space-between;gap:6px;padding:6px;background:#000080;color:#fff;font-weight:bold');
+  var prevB = btn('◀', function(){ view.setMonth(view.getMonth()-1); draw(); });
+  var nextB = btn('▶', function(){ view.setMonth(view.getMonth()+1); draw(); });
+  var title = h('div','flex:1;text-align:center','');
+  head.appendChild(prevB); head.appendChild(title); head.appendChild(nextB);
+  var grid = h('div','flex:1;display:grid;grid-template-columns:repeat(7,1fr);grid-template-rows:auto repeat(6,1fr);gap:1px;background:#808080;margin-top:8px');
+  wrap.appendChild(head); wrap.appendChild(grid);
+  body.appendChild(wrap);
+  var localeMap = {es:'es-ES',en:'en-US',pt:'pt-BR',fr:'fr-FR',ru:'ru-RU',ja:'ja-JP'};
+  function draw(){
+    grid.innerHTML='';
+    var y = view.getFullYear(), m = view.getMonth();
+    title.textContent = view.toLocaleDateString(localeMap[lang]||'en-US', {month:'long', year:'numeric'});
+    for(var i=0;i<7;i++){
+      grid.appendChild(h('div','background:#c0c0c0;text-align:center;font-weight:bold;padding:4px;font-size:11px',
+        new Date(2024,0,7+i).toLocaleDateString(localeMap[lang]||'en-US', {weekday:'short'})));
+    }
+    var firstDay = new Date(y, m, 1).getDay();
+    var daysInMonth = new Date(y, m+1, 0).getDate();
+    for(var i=0;i<firstDay;i++) grid.appendChild(h('div','background:#efefef'));
+    for(var d=1; d<=daysInMonth; d++){
+      var today = (d===now.getDate() && m===now.getMonth() && y===now.getFullYear());
+      grid.appendChild(h('div','background:'+(today?'#000080':'#fff')+';color:'+(today?'#fff':'#000')+';text-align:center;padding:4px;font-size:12px;font-weight:'+(today?'bold':'normal'), String(d)));
+    }
+  }
+  draw();
+}
+
+function buildContacts(body, winObj){
+  var contacts = [
+    {name:'Ana López', phone:'555-0101', email:'ana@w94.es'},
+    {name:'Carlos Ruiz', phone:'555-0102', email:'carlos@w94.es'},
+    {name:'Marta Díaz', phone:'555-0103', email:'marta@w94.es'}
+  ];
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#c0c0c0');
+  var tb = h('div','display:flex;gap:4px;padding:4px;background:#c0c0c0;border-bottom:1px solid #808080');
+  var list = h('div','flex:1;overflow:auto;background:#fff;box-shadow:inset 1px 1px 0 #808080,inset -1px -1px 0 #fff;margin:4px');
+  wrap.appendChild(tb); wrap.appendChild(list);
+  body.appendChild(wrap);
+  function render(){
+    list.innerHTML='';
+    contacts.forEach(function(c, i){
+      var it = h('div','padding:6px 10px;border-bottom:1px solid #eee;cursor:pointer;font-size:12px',
+        '<b>'+c.name+'</b> · '+c.phone+' · <a style="color:#00c">'+c.email+'</a>');
+      it.addEventListener('click', function(){
+        if(confirm('Delete '+c.name+'?')){ contacts.splice(i,1); render(); }
+      });
+      list.appendChild(it);
+    });
+  }
+  tb.appendChild(btn('Add', function(){
+    var n = prompt('Name:'); if(!n) return;
+    var p = prompt('Phone:') || '';
+    var e = prompt('Email:') || '';
+    contacts.push({name:n, phone:p, email:e});
+    render();
+  }));
+  tb.appendChild(btn('Refresh', render));
+  render();
+}
+
+function buildTaskMgr(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#c0c0c0;font-size:12px');
+  var tab = h('div','padding:4px 8px;background:#c0c0c0;font-weight:bold;border-bottom:1px solid #808080','Applications');
+  var list = h('div','flex:1;overflow:auto;background:#fff;margin:4px;box-shadow:inset 1px 1px 0 #808080,inset -1px -1px 0 #fff');
+  var status = h('div','padding:4px 8px;background:#c0c0c0;border-top:1px solid #fff;display:flex;gap:10px');
+  wrap.appendChild(tab); wrap.appendChild(list); wrap.appendChild(status);
+  body.appendChild(wrap);
+  function render(){
+    list.innerHTML='';
+    var apps = Object.keys(openWins).map(function(id){ return {id:id, name:t(openWins[id].app.title)}; });
+    if(apps.length === 0) list.appendChild(h('div','padding:10px;color:#666','No running apps'));
+    apps.forEach(function(a){
+      list.appendChild(h('div','padding:5px 10px;border-bottom:1px solid #eee','<b>'+a.name+'</b>'));
+    });
+    var cpu = Math.round(5 + Math.random()*30);
+    var mem = (8 + apps.length*3 + Math.random()*4).toFixed(1);
+    status.innerHTML = 'Processes: ' + (apps.length + 30) + '  ·  CPU Usage: ' + cpu + '%  ·  Mem Usage: ' + mem + ' MB';
+  }
+  render();
+  var id = setInterval(function(){ if(!alive(winObj)){ clearInterval(id); return; } render(); }, 1800);
+}
+
+function buildDefrag(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;padding:10px;background:#c0c0c0;gap:8px');
+  var grid = h('div','display:grid;grid-template-columns:repeat(20,1fr);gap:1px;background:#000;padding:4px;height:200px');
+  var status = h('div','font-size:12px','Ready');
+  var startB = btn('Defragment', run);
+  wrap.appendChild(grid); wrap.appendChild(status); wrap.appendChild(startB);
+  body.appendChild(wrap);
+  var cells = [];
+  for(var i=0;i<400;i++){
+    var c = h('div','background:#a0c0ff');
+    grid.appendChild(c); cells.push(c);
+  }
+  var running = false;
+  function run(){
+    if(running) return;
+    running = true;
+    status.textContent = 'Defragmenting...';
+    var i = 0;
+    var id = setInterval(function(){
+      if(!alive(winObj)){ clearInterval(id); return; }
+      if(i >= cells.length){ clearInterval(id); status.textContent = 'Complete.'; running = false; return; }
+      var c = cells[i];
+      if(Math.random() < 0.4){ c.style.background = '#ff4040'; setTimeout(function(){ c.style.background = '#40ff40'; }, 300); }
+      i++;
+      status.textContent = 'Defragmenting... ' + Math.round(i/cells.length*100) + '%';
+    }, 12);
+  }
+}
+
+function buildRegedit(body, winObj){
+  var tree = {
+    'HKEY_CLASSES_ROOT':{},
+    'HKEY_CURRENT_USER':{ 'Software':{ 'Windows 94':{'Config':'1'} } },
+    'HKEY_LOCAL_MACHINE':{ 'Software':{ 'Microsoft':{} }, 'System':{} },
+    'HKEY_USERS':{}
+  };
+  var wrap = h('div','flex:1;display:flex;background:#fff;font-family:Consolas,monospace;font-size:12px;overflow:auto;margin:2px;box-shadow:inset 1px 1px 0 #808080');
+  body.appendChild(wrap);
+  function renderTree(node, container, indent){
+    Object.keys(node).forEach(function(k){
+      var row = h('div','padding:2px 6px;cursor:pointer;white-space:nowrap','📁 '+k);
+      row.style.paddingLeft = (8 + indent*14) + 'px';
+      container.appendChild(row);
+      var childBox = h('div');
+      container.appendChild(childBox);
+      row.addEventListener('click', function(){
+        childBox.innerHTML = '';
+        if(childBox.dataset.open === '1'){ childBox.dataset.open = ''; return; }
+        childBox.dataset.open = '1';
+        if(typeof node[k] === 'object') renderTree(node[k], childBox, indent+1);
+      });
+    });
+  }
+  renderTree(tree, wrap, 0);
+}
+
+function buildDevMgr(body, winObj){
+  var wrap = h('div','flex:1;display:flex;background:#fff;font-family:Consolas,monospace;font-size:12px;overflow:auto;margin:2px;box-shadow:inset 1px 1px 0 #808080');
+  body.appendChild(wrap);
+  var devices = [
+    {n:'💻 This Computer', c:[
+      {n:'🖥 Display adapters', c:[{n:'SVGA Compatible'}]},
+      {n:'💾 Disk drives', c:[{n:'Generic IDE Disk'},{n:'Floppy Disk Drive'}]},
+      {n:'⌨ Keyboards', c:[{n:'Standard 101/102-Key'}]},
+      {n:'🖱 Mice and other pointing devices', c:[{n:'PS/2 Compatible Mouse'}]},
+      {n:'📡 Modems', c:[{n:'Standard 28800 bps Modem'}]},
+      {n:'🔊 Sound, video and game controllers', c:[{n:'Sound Blaster 16'}]},
+      {n:'🖨 Ports (COM & LPT)', c:[{n:'COM1'},{n:'LPT1'}]}
+    ]}
+  ];
+  function renderTree(node, container, indent){
+    node.forEach(function(item){
+      var row = h('div','padding:2px 6px;cursor:pointer;white-space:nowrap', item.n);
+      row.style.paddingLeft = (8 + indent*14) + 'px';
+      container.appendChild(row);
+      var box = h('div'); container.appendChild(box);
+      if(item.c){
+        var open = false;
+        row.addEventListener('click', function(){
+          if(open){ box.innerHTML=''; open=false; row.textContent = '▶ ' + item.n; }
+          else { box.innerHTML=''; renderTree(item.c, box, indent+1); open=true; row.textContent = '▼ ' + item.n; }
+        });
+        row.textContent = '▶ ' + item.n;
+      }
+    });
+  }
+  renderTree(devices, wrap, 0);
+}
+
+function buildCharMap(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#c0c0c0');
+  var info = h('div','padding:6px;font-size:12px','Click a character to select it');
+  var grid = h('div','flex:1;overflow:auto;background:#fff;margin:4px;box-shadow:inset 1px 1px 0 #808080,inset -1px -1px 0 #fff;display:grid;grid-template-columns:repeat(16,1fr)');
+  var copyB = btn('Copy', function(){
+    if(selected){
+      if(navigator.clipboard) navigator.clipboard.writeText(selected);
+      info.textContent = 'Copied: ' + selected;
+      beep(700,0.05);
+    }
+  });
+  var row = h('div','padding:4px;display:flex;gap:6px;background:#c0c0c0;border-top:1px solid #fff');
+  row.appendChild(copyB);
+  wrap.appendChild(info); wrap.appendChild(grid); wrap.appendChild(row);
+  body.appendChild(wrap);
+  var selected = null;
+  for(var i=32;i<256;i++){
+    var c = h('div','padding:6px 0;text-align:center;font-size:16px;cursor:pointer;border:1px solid transparent', String.fromCharCode(i));
+    (function(ch, cell){
+      cell.addEventListener('click', function(){
+        grid.querySelectorAll('div').forEach(function(x){ x.style.background=''; x.style.border='1px solid transparent'; });
+        cell.style.background = '#000080'; cell.style.color = '#fff'; cell.style.border = '1px solid #000';
+        selected = ch;
+        info.textContent = 'Selected: "' + ch + '" (U+' + i.toString(16).toUpperCase().padStart(4,'0') + ')';
+      });
+    })(String.fromCharCode(i), c);
+    grid.appendChild(c);
+  }
+}
+
+function buildClipboard(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#c0c0c0');
+  var ta = h('textarea','flex:1;margin:4px;padding:6px;font-family:Consolas,monospace;font-size:12px;border:0;resize:none;outline:none;box-shadow:inset 1px 1px 0 #808080,inset -1px -1px 0 #fff','');
+  ta.value = 'Clipboard contents will appear here...';
+  wrap.appendChild(ta);
+  wrap.appendChild(h('div','padding:6px;font-size:11px;background:#c0c0c0;border-top:1px solid #fff','Clipboard Viewer — read-only'));
+  body.appendChild(wrap);
+}
+
+function buildSciCalc(body, winObj){ buildCalc(body, winObj); }
+
+function buildConverter(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#c0c0c0;padding:10px;gap:10px');
+  var units = {
+    length: {m:1, cm:0.01, mm:0.001, km:1000, in:0.0254, ft:0.3048, mi:1609.344},
+    weight: {kg:1, g:0.001, lb:0.453592, oz:0.0283495},
+    temp:   {C:'C', F:'F', K:'K'}
+  };
+  var type = 'length';
+  var typeSel = h('select','padding:4px;font-family:inherit');
+  Object.keys(units).forEach(function(k){ var o = document.createElement('option'); o.value=k; o.textContent=k; typeSel.appendChild(o); });
+  var fromSel = h('select','padding:4px;font-family:inherit');
+  var toSel = h('select','padding:4px;font-family:inherit');
+  var inVal = h('input','flex:1;padding:5px;font-size:14px;box-shadow:inset 1px 1px 0 #808080,inset -1px -1px 0 #fff;border:0');
+  var outVal = h('input','flex:1;padding:5px;font-size:14px;box-shadow:inset 1px 1px 0 #808080,inset -1px -1px 0 #fff;border:0;background:#f0f0f0');
+  outVal.readOnly = true;
+  wrap.appendChild(h('div','','Type: '));
+  wrap.appendChild(typeSel);
+  wrap.appendChild(h('div','','From:'));
+  wrap.appendChild(fromSel);
+  wrap.appendChild(h('div','','To:'));
+  wrap.appendChild(toSel);
+  wrap.appendChild(h('div','','Value:'));
+  wrap.appendChild(inVal);
+  wrap.appendChild(h('div','','Result:'));
+  wrap.appendChild(outVal);
+  body.appendChild(wrap);
+  function refreshUnits(){
+    fromSel.innerHTML=''; toSel.innerHTML='';
+    Object.keys(units[type]).forEach(function(k){
+      var o1 = document.createElement('option'); o1.value=k; o1.textContent=k; fromSel.appendChild(o1);
+      var o2 = document.createElement('option'); o2.value=k; o2.textContent=k; toSel.appendChild(o2);
+    });
+    convert();
+  }
+  function convert(){
+    var v = parseFloat(inVal.value);
+    if(isNaN(v)){ outVal.value=''; return; }
+    if(type === 'temp'){
+      var r;
+      if(fromSel.value === toSel.value) r = v;
+      else if(fromSel.value === 'C' && toSel.value === 'F') r = v*9/5+32;
+      else if(fromSel.value === 'C' && toSel.value === 'K') r = v+273.15;
+      else if(fromSel.value === 'F' && toSel.value === 'C') r = (v-32)*5/9;
+      else if(fromSel.value === 'F' && toSel.value === 'K') r = (v-32)*5/9+273.15;
+      else if(fromSel.value === 'K' && toSel.value === 'C') r = v-273.15;
+      else r = v*9/5 - 459.67;
+      outVal.value = r.toFixed(2);
+    } else {
+      var base = v * units[type][fromSel.value];
+      outVal.value = (base / units[type][toSel.value]).toFixed(6).replace(/\.?0+$/,'');
+    }
+  }
+  typeSel.addEventListener('change', function(){ type = typeSel.value; refreshUnits(); });
+  fromSel.addEventListener('change', convert);
+  toSel.addEventListener('change', convert);
+  inVal.addEventListener('input', convert);
+  refreshUnits();
+}
+
+function buildStopwatch(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#c0c0c0;padding:20px');
+  var disp = h('div','font-family:monospace;font-size:40px;background:#000;color:#0f0;padding:10px 20px;box-shadow:inset 1px 1px 0 #808080','00:00.00');
+  var buttons = h('div','display:flex;gap:6px');
+  wrap.appendChild(disp); wrap.appendChild(buttons);
+  body.appendChild(wrap);
+  var start=0, elapsed=0, running=false, id=null;
+  function fmt(ms){
+    var m = Math.floor(ms/60000), s = Math.floor(ms%60000/1000), cs = Math.floor(ms%1000/10);
+    return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')+'.'+String(cs).padStart(2,'0');
+  }
+  function tick(){ if(!alive(winObj)){ clearInterval(id); return; } disp.textContent = fmt(elapsed + (running ? Date.now()-start : 0)); }
+  buttons.appendChild(btn('Start', function(){
+    if(running) return;
+    running = true; start = Date.now();
+    id = setInterval(tick, 50);
+  }));
+  buttons.appendChild(btn('Stop', function(){
+    if(!running) return;
+    running = false; elapsed += Date.now()-start;
+    clearInterval(id);
+  }));
+  buttons.appendChild(btn('Reset', function(){
+    running = false; elapsed = 0; clearInterval(id);
+    disp.textContent = fmt(0);
+  }));
+}
+
+function buildTimer(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#c0c0c0;padding:20px');
+  var disp = h('div','font-family:monospace;font-size:40px;background:#000;color:#f80;padding:10px 20px;box-shadow:inset 1px 1px 0 #808080','00:00');
+  var input = h('input','padding:5px;font-size:14px;width:80px;text-align:center;box-shadow:inset 1px 1px 0 #808080;border:0');
+  input.value = '60';
+  input.type = 'number';
+  var lbl = h('div','font-size:12px','Seconds');
+  var buttons = h('div','display:flex;gap:6px');
+  wrap.appendChild(disp); wrap.appendChild(lbl); wrap.appendChild(input); wrap.appendChild(buttons);
+  body.appendChild(wrap);
+  var remain = 60, running = false, id=null;
+  function fmt(s){ return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'); }
+  function tick(){
+    if(!alive(winObj)){ clearInterval(id); return; }
+    remain--; disp.textContent = fmt(remain);
+    if(remain <= 0){ clearInterval(id); running = false; disp.textContent='00:00'; beep(800,0.3); setTimeout(function(){ beep(800,0.3); }, 400); }
+  }
+  buttons.appendChild(btn('Start', function(){
+    if(running) return;
+    remain = parseInt(input.value,10) || 60;
+    disp.textContent = fmt(remain);
+    running = true;
+    id = setInterval(tick, 1000);
+  }));
+  buttons.appendChild(btn('Stop', function(){ running = false; clearInterval(id); }));
+  buttons.appendChild(btn('Reset', function(){ clearInterval(id); running = false; remain = parseInt(input.value,10) || 60; disp.textContent = fmt(remain); }));
+  disp.textContent = fmt(remain);
+}
+
+function buildAlarm(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:#c0c0c0;padding:20px');
+  var timeIn = h('input','padding:6px;font-size:22px;font-family:monospace;text-align:center;box-shadow:inset 1px 1px 0 #808080;border:0');
+  timeIn.value = '07:00';
+  var status = h('div','font-size:12px','');
+  wrap.appendChild(h('div','font-size:12px','Alarm at (HH:MM):'));
+  wrap.appendChild(timeIn);
+  wrap.appendChild(btn('Set alarm', function(){
+    status.textContent = 'Alarm set for ' + timeIn.value;
+    var target = timeIn.value;
+    var checkId = setInterval(function(){
+      if(!alive(winObj)){ clearInterval(checkId); return; }
+      var d = new Date();
+      var cur = String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+      if(cur === target){
+        clearInterval(checkId);
+        status.textContent = '⏰ ALARM!';
+        for(var i=0;i<6;i++) setTimeout(function(){ beep(900, 0.2); }, i*250);
+      }
+    }, 5000);
+  }));
+  wrap.appendChild(status);
+  body.appendChild(wrap);
+}
+
+function buildWeather(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:linear-gradient(180deg,#3a6ea5,#a0c0e8);color:#fff;padding:20px;gap:10px');
+  var cities = [
+    {n:'Madrid', t:22, s:'☀️'},
+    {n:'London', t:14, s:'🌧️'},
+    {n:'New York', t:18, s:'☁️'},
+    {n:'Tokyo', t:25, s:'⛅'},
+    {n:'Moscow', t:8, s:'❄️'}
+  ];
+  wrap.appendChild(h('h2','font-size:20px;margin-bottom:6px','🌍 Weather'));
+  cities.forEach(function(c){
+    wrap.appendChild(h('div','display:flex;justify-content:space-between;padding:6px 10px;background:rgba(255,255,255,.15);border-radius:4px;font-size:14px',
+      '<span>'+c.s+' '+c.n+'</span><span>'+c.t+'°C</span>'));
+  });
+  wrap.appendChild(h('div','font-size:11px;opacity:.7;margin-top:10px','Simulated data'));
+  body.appendChild(wrap);
+}
+
+function buildStickies(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#c0c0c0;padding:8px');
+  var ta = h('textarea','flex:1;background:#ffffa0;border:0;resize:none;outline:none;padding:10px;font-family:Comic Sans MS,cursive;font-size:14px;box-shadow:0 4px 8px rgba(0,0,0,.3)');
+  ta.value = localStorage.getItem('w94_sticky') || 'Remember to defragment the hard drive!';
+  ta.addEventListener('input', function(){ localStorage.setItem('w94_sticky', ta.value); });
+  wrap.appendChild(ta);
+  body.appendChild(wrap);
+}
+
+function buildMagnifier(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#c0c0c0;padding:8px;gap:6px');
+  var cv = h('canvas','background:#fff;box-shadow:inset 1px 1px 0 #808080;cursor:crosshair');
+  cv.width = 500; cv.height = 300;
+  var lens = h('canvas','background:#000;box-shadow:inset 2px 2px 0 #808080');
+  lens.width = 200; lens.height = 200;
+  wrap.appendChild(cv); wrap.appendChild(lens);
+  body.appendChild(wrap);
+  var g = cv.getContext('2d');
+  var gl = lens.getContext('2d');
+  g.fillStyle='#fff'; g.fillRect(0,0,cv.width,cv.height);
+  g.fillStyle='#000'; g.font='14px monospace';
+  for(var i=0;i<8;i++) g.fillText('Windows 94 — sample text #' + (i+1), 20, 30 + i*30);
+  g.strokeStyle='#000080'; g.lineWidth=2; g.strokeRect(50,50,200,150);
+  g.fillStyle='#000080'; g.fillRect(70,70,60,60);
+  g.fillStyle='#c00000'; g.beginPath(); g.arc(300,200,40,0,Math.PI*2); g.fill();
+  var mx = 250, my = 150;
+  cv.addEventListener('mousemove', function(e){
+    var r = cv.getBoundingClientRect();
+    mx = (e.clientX-r.left)*cv.width/r.width;
+    my = (e.clientY-r.top)*cv.height/r.height;
+    gl.imageSmoothingEnabled = false;
+    gl.clearRect(0,0,lens.width,lens.height);
+    gl.drawImage(cv, mx-30, my-30, 60, 60, 0, 0, lens.width, lens.height);
+  });
+  gl.drawImage(cv, mx-30, my-30, 60, 60, 0, 0, lens.width, lens.height);
+}
+
+function buildOSK(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#c0c0c0;padding:6px;gap:6px');
+  var ta = h('textarea','flex:1;padding:6px;font-size:14px;font-family:inherit;border:0;outline:none;box-shadow:inset 1px 1px 0 #808080,inset -1px -1px 0 #fff');
+  var kb = h('div','display:flex;flex-direction:column;gap:4px;align-items:center');
+  var rows = [
+    ['QWERTYUIOP'],
+    ['ASDFGHJKL'],
+    ['ZXCVBNM'],
+    ['1234567890'],
+    [' ']
+  ];
+  rows.forEach(function(rowStr){
+    var r = h('div','display:flex;gap:4px');
+    rowStr.split('').forEach(function(ch){
+      var label = ch === ' ' ? 'Space' : ch;
+      var b = btn(label, function(){ insert(ch === ' ' ? ' ' : ch); }, 'padding:6px 10px;min-width:'+(ch===' '?'180':'32')+'px');
+      r.appendChild(b);
+    });
+    kb.appendChild(r);
+  });
+  var rowCtrl = h('div','display:flex;gap:4px');
+  rowCtrl.appendChild(btn('Backspace', function(){ ta.value = ta.value.slice(0,-1); }, 'padding:6px 14px'));
+  rowCtrl.appendChild(btn('Enter', function(){ insert('\n'); }, 'padding:6px 14px'));
+  rowCtrl.appendChild(btn('Clear', function(){ ta.value=''; }, 'padding:6px 14px'));
+  kb.appendChild(rowCtrl);
+  function insert(ch){ ta.value += ch; ta.focus(); }
+  wrap.appendChild(ta); wrap.appendChild(kb);
+  body.appendChild(wrap);
+}
+
+function buildVolume(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#c0c0c0;padding:14px;gap:12px');
+  var channels = ['Master','Wave','MIDI','CD Audio','Microphone','Line In'];
+  channels.forEach(function(n){
+    var row = h('div','display:flex;align-items:center;gap:8px;font-size:12px');
+    var val = h('div','width:36px;text-align:right','80');
+    var sl = h('input','flex:1');
+    sl.type='range'; sl.min=0; sl.max=100; sl.value=80;
+    sl.addEventListener('input', function(){ val.textContent = sl.value; });
+    row.appendChild(h('span','width:90px', n));
+    row.appendChild(sl);
+    row.appendChild(val);
+    wrap.appendChild(row);
+  });
+  wrap.appendChild(btn('Mute All', function(){ wrap.querySelectorAll('input').forEach(function(i){ i.value = 0; i.dispatchEvent(new Event('input')); }); }));
+  body.appendChild(wrap);
+}
+
+function buildRecorder(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#c0c0c0;gap:14px');
+  var cv = h('canvas','background:#000;box-shadow:inset 2px 2px 0 #808080');
+  cv.width = 400; cv.height = 150;
+  var status = h('div','font-size:12px','Ready');
+  var buttons = h('div','display:flex;gap:6px');
+  wrap.appendChild(cv); wrap.appendChild(status); wrap.appendChild(buttons);
+  body.appendChild(wrap);
+  var g = cv.getContext('2d');
+  var recording = false, points = [], id=null;
+  function draw(){
+    g.fillStyle='#000'; g.fillRect(0,0,cv.width,cv.height);
+    g.strokeStyle='#0f0'; g.lineWidth=2;
+    g.beginPath();
+    for(var i=0;i<points.length;i++){
+      var x = i/cv.width*400, y = 75 + points[i]*60;
+      if(i===0) g.moveTo(x,y); else g.lineTo(x,y);
+    }
+    g.stroke();
+  }
+  function record(){
+    recording = true; status.textContent = 'Recording...'; points=[];
+    id = setInterval(function(){
+      if(!alive(winObj)){ clearInterval(id); return; }
+      points.push(Math.random()*2-1);
+      if(points.length > 400) points.shift();
+      draw();
+    }, 30);
+  }
+  buttons.appendChild(btn('● Record', record));
+  buttons.appendChild(btn('■ Stop', function(){ recording = false; clearInterval(id); status.textContent = 'Stopped'; }));
+  buttons.appendChild(btn('▶ Play', function(){
+    if(points.length === 0) return;
+    var i = 0;
+    var pid = setInterval(function(){
+      if(!alive(winObj) || i >= points.length){ clearInterval(pid); return; }
+      i += 3;
+      draw();
+    }, 30);
+  }));
+  buttons.appendChild(btn('Clear', function(){ points=[]; draw(); status.textContent='Ready'; }));
+  draw();
+}
+
+function buildCamera(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#000;color:#fff;padding:10px;gap:8px');
+  var cv = h('canvas','background:#111;box-shadow:inset 0 0 0 2px #444;display:block;margin:0 auto');
+  cv.width = 480; cv.height = 360;
+  var status = h('div','font-size:12px;color:#0f0','Camera ready (simulated)');
+  var buttons = h('div','display:flex;gap:6px;justify-content:center');
+  wrap.appendChild(cv); wrap.appendChild(status); wrap.appendChild(buttons);
+  body.appendChild(wrap);
+  var g = cv.getContext('2d');
+  function frame(){
+    if(!alive(winObj)) return;
+    g.fillStyle = 'hsl(' + (Date.now()/50 % 360) + ',60%,25%)';
+    g.fillRect(0,0,cv.width,cv.height);
+    g.fillStyle = 'hsl(' + (Date.now()/30 % 360) + ',60%,15%)';
+    for(var i=0;i<40;i++) g.fillRect((i*37)%cv.width, (i*53)%cv.height, 20, 20);
+    g.fillStyle = '#fff'; g.font = '16px monospace';
+    g.fillText('Simulated Camera Feed', 20, 30);
+    g.fillText(new Date().toLocaleTimeString(), 20, 55);
+    requestAnimationFrame(frame);
+  }
+  frame();
+  buttons.appendChild(btn('Capture', function(){
+    status.textContent = 'Captured at ' + new Date().toLocaleTimeString();
+    beep(500,0.1);
+  }, 'background:#c0c0c0;padding:6px 16px'));
+}
+
+function buildSysInfo(body, winObj){
+  var wrap = h('div','flex:1;overflow:auto;background:#fff;padding:14px;font-family:Consolas,monospace;font-size:12px;margin:2px;box-shadow:inset 1px 1px 0 #808080');
+  var info = [
+    ['System', 'Windows 94'],
+    ['Version', '4.00.950'],
+    ['Architecture', '16-bit / simulated'],
+    ['Registered to', 'User'],
+    ['CPU', 'Intel Pentium 133 MHz'],
+    ['Memory', '16.0 MB RAM'],
+    ['Disk C:', '540 MB total, 120 MB free'],
+    ['Disk A:', '1.44 MB floppy'],
+    ['Display', 'SVGA 800x600 256 colors'],
+    ['Sound', 'Sound Blaster 16'],
+    ['Modem', 'US Robotics 28800 bps'],
+    ['Network', 'Dial-Up Networking'],
+    ['Uptime', Math.round(performance.now()/1000) + ' s']
+  ];
+  wrap.appendChild(h('h3','margin-bottom:10px;color:#000080','System Information'));
+  info.forEach(function(row){
+    wrap.appendChild(h('div','display:flex;gap:20px;padding:2px 0','<b style="width:140px;display:inline-block">'+row[0]+':</b><span>'+row[1]+'</span>'));
+  });
+  body.appendChild(wrap);
+}
+
+function buildScanDisk(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#c0c0c0;padding:14px;gap:10px');
+  var log = h('div','flex:1;overflow:auto;background:#000;color:#0f0;font-family:monospace;font-size:12px;padding:10px;box-shadow:inset 2px 2px 0 #808080');
+  var bar = h('div','height:18px;background:#c0c0c0;box-shadow:inset 1px 1px 0 #808080;padding:2px');
+  var fill = h('div','height:100%;width:0;background:linear-gradient(90deg,#000080,#1084d0)');
+  bar.appendChild(fill);
+  wrap.appendChild(h('h3','','ScanDisk — C:'));
+  wrap.appendChild(log); wrap.appendChild(bar);
+  body.appendChild(wrap);
+  var step = 0;
+  var steps = [
+    'Scanning file allocation table...',
+    'Checking directory structure...',
+    'Scanning for lost clusters...',
+    'Verifying file system...',
+    'Scanning for cross-linked files...',
+    'Checking disk surface...',
+    'No errors found.'
+  ];
+  var id = setInterval(function(){
+    if(!alive(winObj)){ clearInterval(id); return; }
+    if(step >= steps.length) return;
+    log.textContent += '> ' + steps[step] + '\n';
+    log.scrollTop = log.scrollHeight;
+    fill.style.width = Math.round((step+1)/steps.length*100) + '%';
+    step++;
+    beep(500, 0.03);
+  }, 900);
+}
+
+function buildFormat(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#c0c0c0;padding:14px;gap:10px');
+  var info = h('div','font-size:12px;line-height:1.6','Format Disk<br><br>Capacity: 1.44 MB (3.5")<br>File System: FAT12');
+  var prog = h('div','height:20px;background:#c0c0c0;box-shadow:inset 1px 1px 0 #808080;padding:2px');
+  var fill = h('div','height:100%;width:0;background:linear-gradient(90deg,#000080,#1084d0)');
+  prog.appendChild(fill);
+  var log = h('div','font-size:11px;font-family:monospace;color:#000080','Ready');
+  wrap.appendChild(info); wrap.appendChild(prog); wrap.appendChild(log);
+  wrap.appendChild(btn('Format A:', function(){
+    log.textContent = 'Formatting...';
+    var p = 0;
+    var id = setInterval(function(){
+      if(!alive(winObj)){ clearInterval(id); return; }
+      p += 5; fill.style.width = p + '%';
+      log.textContent = 'Formatting A: ... ' + p + '%';
+      if(p >= 100){ clearInterval(id); log.textContent = 'Format complete.'; beep(800,0.15); }
+    }, 100);
+  }));
+  body.appendChild(wrap);
+}
+
+function buildChkDsk(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#000;color:#c0c0c0;font-family:monospace;font-size:13px;padding:10px;gap:6px');
+  var out = h('div','flex:1;overflow:auto;white-space:pre-wrap;line-height:1.5','Microsoft ScanDisk\n\n');
+  wrap.appendChild(out);
+  wrap.appendChild(btn('Start', function(){
+    var lines = [
+      'Microsoft ScanDisk',
+      'Checking drive C: ...',
+      'Scanning FAT: 100% complete',
+      'Scanning directories: 100% complete',
+      'Scanning for lost clusters: none',
+      'Verifying files: OK',
+      'Disk check complete. No errors.'
+    ];
+    var i = 0;
+    var id = setInterval(function(){
+      if(!alive(winObj) || i >= lines.length){ clearInterval(id); return; }
+      out.textContent += lines[i] + '\n';
+      out.scrollTop = out.scrollHeight;
+      i++;
+    }, 700);
+  }));
+  body.appendChild(wrap);
+}
+
+function buildBackup(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#c0c0c0;padding:14px;gap:10px;font-size:12px');
+  wrap.appendChild(h('h3','color:#000080','Microsoft Backup'));
+  wrap.appendChild(h('div','line-height:1.6','Backup to: <select><option>A:\\</option><option>B:\\</option><option>Tape drive</option></select>'));
+  var files = h('div','background:#fff;padding:8px;box-shadow:inset 1px 1px 0 #808080;max-height:120px;overflow:auto');
+  ['C:\\Windows\\*.INI','C:\\Documentos\\*.TXT','C:\\Programas\\*.EXE','C:\\autoexec.bat','C:\\config.sys'].forEach(function(f){
+    var cb = document.createElement('input'); cb.type='checkbox'; cb.checked=true;
+    var row = h('div'); row.appendChild(cb); row.appendChild(document.createTextNode(' '+f));
+    files.appendChild(row);
+  });
+  wrap.appendChild(files);
+  var status = h('div','font-size:11px;color:#000080','Ready');
+  wrap.appendChild(btn('Start Backup', function(){
+    var p = 0;
+    var id = setInterval(function(){
+      if(!alive(winObj)){ clearInterval(id); return; }
+      p += 10; status.textContent = 'Backing up... ' + p + '%';
+      if(p >= 100){ clearInterval(id); status.textContent = 'Backup complete.'; beep(800,0.15); }
+    }, 200);
+  }));
+  wrap.appendChild(status);
+  body.appendChild(wrap);
+}
+
+function buildMediaPlayer(body, winObj){ buildMediaCore(body, winObj, 'mediaplayer'); }
+function buildCdPlayer(body, winObj){ buildMediaCore(body, winObj, 'cdplayer'); }
+function buildMidiPlayer(body, winObj){ buildMediaCore(body, winObj, 'midi'); }
+function buildRadio(body, winObj){ buildMediaCore(body, winObj, 'radio'); }
+
+function buildMediaCore(body, winObj){
+  var playing = false, pos = 0;
+  var content = h('div');
+  content.innerHTML =
+    '<div style="text-align:center;padding:14px">'+
+    '<div id="mpScreen" style="height:80px;background:linear-gradient(90deg,#000,#0a246a,#000);display:flex;align-items:center;justify-content:center;color:#0f0;font-family:monospace;font-size:22px;letter-spacing:6px;margin-bottom:14px">♪ ♫ ♪ ♫ ♪</div>'+
+    '<div style="height:14px;background:#c0c0c0;box-shadow:inset 1px 1px 0 #808080;padding:2px;margin-bottom:6px"><div id="mpBar" style="width:0%;height:100%;background:linear-gradient(90deg,#000080,#1084d0)"></div></div>'+
+    '<div style="font-size:11px;color:#333" id="mpTime">00:00 / 03:45</div>'+
+    '<div style="margin-top:12px;font-size:12px;font-weight:bold;color:#000080">'+t(winObj.app.title)+'</div>'+
+    '</div>';
+  frame(body, {
+    toolbar: toolbar([
+      btn('⏮'),
+      btn('▶', function(){ playing = true; }),
+      btn('⏸', function(){ playing = false; }),
+      btn('⏹', function(){ playing = false; pos = 0; }),
+      btn('⏭')
+    ]),
+    content: content,
+    status: t('status_ready')
+  });
+  var bar = content.querySelector('#mpBar');
+  var time = content.querySelector('#mpTime');
+  var screen = content.querySelector('#mpScreen');
+  var tick = 0;
+  var id = setInterval(function(){
+    if(!alive(winObj)){ clearInterval(id); return; }
+    tick++;
+    if(playing){
+      pos = (pos + 0.5) % 100;
+      bar.style.width = pos + '%';
+      var cur = Math.floor(pos*2.25);
+      var mm = String(Math.floor(cur/60)).padStart(2,'0');
+      var ss = String(cur%60).padStart(2,'0');
+      time.textContent = mm + ':' + ss + ' / 03:45';
+      screen.textContent = (tick % 2) ? '♪ ♫ ♪ ♫ ♪' : '♫ ♪ ♫ ♪ ♫';
+    }
+  }, 100);
+}
+
+function buildMixer(body, winObj){
+  var wrap = h('div','flex:1;display:flex;gap:14px;background:#c0c0c0;padding:14px;align-items:flex-end');
+  var channels = ['Master','Wave','MIDI','CD','Mic','Line'];
+  var sliders = [];
+  channels.forEach(function(n){
+    var col = h('div','display:flex;flex-direction:column;align-items:center;gap:6px');
+    var sl = h('input');
+    sl.type = 'range'; sl.min=0; sl.max=100; sl.value=70;
+    sl.style.transform = 'rotate(-90deg)';
+    sl.style.width = '120px';
+    sl.style.margin = '60px 0';
+    var lbl = h('div','font-size:11px;text-align:center;width:60px', n);
+    var val = h('div','font-size:11px', '70');
+    sl.addEventListener('input', function(){ val.textContent = sl.value; });
+    col.appendChild(sl); col.appendChild(val); col.appendChild(lbl);
+    wrap.appendChild(col);
+    sliders.push(sl);
+  });
+  body.appendChild(wrap);
+}
+
+function buildEqualizer(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;align-items:center;background:#c0c0c0;padding:20px;gap:10px');
+  wrap.appendChild(h('h3','color:#000080','Graphic Equalizer'));
+  var bands = ['60 Hz','170 Hz','350 Hz','1 kHz','3.5 kHz','10 kHz'];
+  var row = h('div','display:flex;gap:20px;align-items:flex-end;flex:1');
+  bands.forEach(function(f){
+    var col = h('div','display:flex;flex-direction:column;align-items:center;gap:6px;flex:1');
+    var sl = h('input');
+    sl.type='range'; sl.min=-12; sl.max=12; sl.value=0;
+    sl.style.transform = 'rotate(-90deg)';
+    sl.style.width = '160px';
+    sl.style.margin = '80px 0';
+    sl.addEventListener('input', function(){ val.textContent = (sl.value > 0 ? '+' : '') + sl.value + ' dB'; });
+    var val = h('div','font-size:11px', '0 dB');
+    var lbl = h('div','font-size:11px;font-weight:bold', f);
+    col.appendChild(sl); col.appendChild(val); col.appendChild(lbl);
+    row.appendChild(col);
+  });
+  wrap.appendChild(row);
+  wrap.appendChild(btn('Flat', function(){ row.querySelectorAll('input').forEach(function(i){ i.value = 0; i.dispatchEvent(new Event('input')); }); }));
+  body.appendChild(wrap);
+}
+
+function buildVisualizer(body, winObj){
+  var cv = h('canvas','background:#000;display:block;margin:6px auto;box-shadow:inset 0 0 0 2px #808080');
+  cv.width = 480; cv.height = 300;
+  body.appendChild(cv);
+  var g = cv.getContext('2d');
+  var bars = 48;
+  var data = new Array(bars).fill(0);
+  function loop(){
+    if(!alive(winObj)) return;
+    g.fillStyle='rgba(0,0,0,.25)'; g.fillRect(0,0,cv.width,cv.height);
+    for(var i=0;i<bars;i++){
+      data[i] = data[i]*0.9 + Math.random()*40;
+      var hh = Math.min(200, data[i]);
+      var hue = (i/bars*360 + Date.now()/20) % 360;
+      g.fillStyle = 'hsl(' + hue + ',80%,55%)';
+      var bw = cv.width/bars;
+      g.fillRect(i*bw+2, cv.height-hh-20, bw-3, hh);
+    }
+    g.fillStyle = '#0f0'; g.font = '11px monospace';
+    g.fillText('Visualizer — simulated audio', 8, 16);
+    requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+function buildImageView(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#808080;padding:8px');
+  var img = h('canvas','background:#fff;display:block;margin:auto;box-shadow:0 4px 10px rgba(0,0,0,.4)');
+  img.width = 400; img.height = 300;
+  wrap.appendChild(img);
+  body.appendChild(wrap);
+  var g = img.getContext('2d');
+  var grad = g.createLinearGradient(0,0,400,300);
+  grad.addColorStop(0,'#ff4040'); grad.addColorStop(1,'#4040ff');
+  g.fillStyle = grad; g.fillRect(0,0,400,300);
+  g.fillStyle='#fff'; g.font='bold 32px sans-serif'; g.textAlign='center';
+  g.fillText('Sample Image', 200, 130);
+  g.font='14px sans-serif';
+  g.fillText('400 x 300 pixels', 200, 170);
+  g.fillText('Windows 94 Viewer', 200, 190);
+}
+
+function buildSlideshow(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#000;color:#fff;gap:14px;padding:14px');
+  var cv = h('canvas','background:#111;box-shadow:0 0 0 3px #333');
+  cv.width = 420; cv.height = 280;
+  var idx = 0;
+  var caption = h('div','font-size:14px','');
+  var buttons = h('div','display:flex;gap:8px');
+  wrap.appendChild(cv); wrap.appendChild(caption); wrap.appendChild(buttons);
+  body.appendChild(wrap);
+  var g = cv.getContext('2d');
+  var slides = [
+    {c:'#c00000', t:'Welcome to Windows 94'},
+    {c:'#006000', t:'The Information Superhighway'},
+    {c:'#000060', t:'New features and beyond'},
+    {c:'#800080', t:'Thank you for watching'}
+  ];
+  function draw(){
+    var s = slides[idx];
+    g.fillStyle = s.c; g.fillRect(0,0,cv.width,cv.height);
+    g.fillStyle='#fff'; g.font='bold 26px sans-serif'; g.textAlign='center';
+    g.fillText(s.t, cv.width/2, cv.height/2);
+    caption.textContent = (idx+1) + ' / ' + slides.length;
+  }
+  buttons.appendChild(btn('◀ Prev', function(){ idx = (idx - 1 + slides.length) % slides.length; draw(); }));
+  buttons.appendChild(btn('Next ▶', function(){ idx = (idx + 1) % slides.length; draw(); }));
+  draw();
+}
+
+function buildSoundRec(body, winObj){ buildRecorder(body, winObj); }
+
+function buildBrowser(body, winObj){
+  var content = h('div','padding:10px;font-family:Times New Roman,serif');
+  content.innerHTML =
+    '<h1 style="font-size:20px;color:#000080;border-bottom:2px solid #000080;padding-bottom:6px;margin-bottom:10px">'+t(winObj.app.title)+'</h1>'+
+    '<p style="line-height:1.7;font-size:13px;margin-bottom:10px">'+t('browse_p1')+' <b>Windows 94 '+t(winObj.app.title)+'</b>. '+t('browse_p2')+'</p>'+
+    '<ul style="margin-left:20px;line-height:1.8;font-size:12px">'+
+      '<li>'+t('browse_li1')+'</li>'+
+      '<li>'+t('browse_li2')+'</li>'+
+      '<li>'+t('browse_li3')+'</li>'+
+      '<li>'+t('browse_li4')+'</li>'+
+    '</ul>'+
+    '<p style="margin-top:14px;font-size:11px;color:#666">'+t('browse_last')+'</p>';
+  frame(body, {
+    toolbar: toolbar([btn('◀'), btn('▶'), btn('⟳'), btn('🏠'), btn(t('tb_fav')), btn(t('tb_hist')), btn(t('tb_print'))]),
+    content: content,
+    status: t('status_ready')
+  });
+}
+
+function buildDownload(body, winObj){
+  var files = [
+    {n:'windows95.iso', s:660*1024*1024},
+    {n:'winamp.exe', s:2*1024*1024},
+    {n:'netscape.exe', s:8*1024*1024},
+    {n:'icq.exe', s:4*1024*1024}
+  ];
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#c0c0c0');
+  var list = h('div','flex:1;overflow:auto;background:#fff;margin:4px;box-shadow:inset 1px 1px 0 #808080');
+  wrap.appendChild(list);
+  body.appendChild(wrap);
+  function render(){
+    list.innerHTML='';
+    files.forEach(function(f, i){
+      var bar = h('div','height:8px;background:#eee;margin-top:4px');
+      var fill = h('div','height:100%;width:0;background:#000080');
+      bar.appendChild(fill);
+      var sizeMb = (f.s/1024/1024).toFixed(1);
+      var row = h('div','padding:8px 10px;border-bottom:1px solid #eee;font-size:12px',
+        '<b>'+f.n+'</b> <span style="color:#666">('+sizeMb+' MB)</span>');
+      row.appendChild(bar);
+      var dlBtn = btn('Download', function(){
+        var p = 0;
+        var id = setInterval(function(){
+          if(!alive(winObj)){ clearInterval(id); return; }
+          p += Math.random()*6;
+          fill.style.width = Math.min(100,p) + '%';
+          if(p >= 100){ clearInterval(id); dlBtn.textContent = '✓ Downloaded'; dlBtn.disabled = true; beep(700,0.08); }
+        }, 120);
+      }, 'margin-top:6px');
+      row.appendChild(dlBtn);
+      list.appendChild(row);
+    });
+  }
+  render();
+}
+
+function buildWordpad(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#c0c0c0');
+  var tb = h('div','display:flex;gap:3px;padding:4px;background:#c0c0c0;border-bottom:1px solid #808080;flex-wrap:wrap');
+  var ta = h('div','flex:1;background:#fff;margin:4px;padding:10px;overflow:auto;font-family:Times New Roman,serif;font-size:14px;line-height:1.6;box-shadow:inset 1px 1px 0 #808080,inset -1px -1px 0 #fff');
+  ta.contentEditable = true;
+  ta.innerHTML = '<h2 style="color:#000080">Welcome to WordPad</h2><p>This is a rich text editor. You can <b>bold</b>, <i>italic</i>, and <u>underline</u> your text.</p><p>Try the toolbar buttons!</p>';
+  tb.appendChild(btn('B', function(){ document.execCommand('bold'); }, 'font-weight:bold;min-width:30px'));
+  tb.appendChild(btn('I', function(){ document.execCommand('italic'); }, 'font-style:italic;min-width:30px'));
+  tb.appendChild(btn('U', function(){ document.execCommand('underline'); }, 'text-decoration:underline;min-width:30px'));
+  tb.appendChild(btn('Left', function(){ document.execCommand('justifyLeft'); }));
+  tb.appendChild(btn('Center', function(){ document.execCommand('justifyCenter'); }));
+  tb.appendChild(btn('Right', function(){ document.execCommand('justifyRight'); }));
+  tb.appendChild(btn('List', function(){ document.execCommand('insertUnorderedList'); }));
+  tb.appendChild(btn('H2', function(){ document.execCommand('formatBlock', false, 'H2'); }));
+  tb.appendChild(btn('P', function(){ document.execCommand('formatBlock', false, 'P'); }));
+  wrap.appendChild(tb); wrap.appendChild(ta);
+  body.appendChild(wrap);
+}
+
+function buildSpreadsheet(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#c0c0c0;overflow:hidden');
+  var bar = h('div','padding:3px;background:#c0c0c0;font-size:11px;border-bottom:1px solid #808080','');
+  var input = h('input','padding:3px;font-family:inherit;font-size:11px;box-shadow:inset 1px 1px 0 #808080;border:0;width:100%');
+  bar.appendChild(input);
+  wrap.appendChild(bar);
+  var table = h('table','border-collapse:collapse;background:#fff;font-size:11px;font-family:Arial,sans-serif');
+  var COLS = 12, ROWS = 30;
+  var data = {};
+  var selected = null;
+  function addr(r,c){ return String.fromCharCode(65+c) + (r+1); }
+  var tr2 = h('tr');
+  tr2.appendChild(h('th','width:36px;background:#c0c0c0;border:1px solid #808080',''));
+  for(var cc=0;cc<COLS;cc++) tr2.appendChild(h('th','min-width:70px;background:#c0c0c0;border:1px solid #808080;font-size:10px', String.fromCharCode(65+cc)));
+  table.appendChild(tr2);
+  for(var r2=0;r2<ROWS;r2++){
+    var rowEl = h('tr');
+    rowEl.appendChild(h('th','background:#c0c0c0;border:1px solid #808080;font-size:10px', String(r2+1)));
+    for(var c3=0;c3<COLS;c3++){
+      (function(rr, ccc){
+        var td = h('td','border:1px solid #d0d0d0;padding:2px 4px;min-width:70px;height:18px;cursor:cell','');
+        if(data[addr(rr,ccc)]) td.textContent = data[addr(rr,ccc)];
+        td.addEventListener('click', function(){
+          table.querySelectorAll('td').forEach(function(t){ t.style.background=''; });
+          td.style.background = '#e0e0ff';
+          selected = {r:rr, c:ccc};
+          input.value = data[addr(rr,ccc)] || '';
+          bar.firstChild.textContent = '';
+          bar.insertBefore(document.createTextNode(addr(rr,ccc)+': '), bar.firstChild);
+        });
+        rowEl.appendChild(td);
+      })(r2, c3);
+    }
+    table.appendChild(rowEl);
+  }
+  input.addEventListener('change', function(){
+    if(!selected) return;
+    var key = addr(selected.r, selected.c);
+    data[key] = input.value;
+    var cells = table.querySelectorAll('tr');
+    if(cells[selected.r+1]){
+      var rowCells = cells[selected.r+1].children;
+      if(rowCells[selected.c+1]) rowCells[selected.c+1].textContent = input.value;
+    }
+  });
+  wrap.appendChild(table);
+  body.appendChild(wrap);
+}
+
+function buildPresentation(body, winObj){
+  var slides = ['Title Slide','Introduction','Features','Thank You'];
+  var idx = 0;
+  var wrap = h('div','flex:1;display:flex;background:#c0c0c0');
+  var side = h('div','width:130px;background:#808080;padding:6px;overflow:auto');
+  var area = h('div','flex:1;padding:20px;display:flex;flex-direction:column;justify-content:center;align-items:center;background:#c0c0c0');
+  var slide = h('div','width:100%;max-width:420px;height:280px;background:#fff;box-shadow:0 4px 10px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;font-size:24px;color:#000080;font-weight:bold;padding:20px;text-align:center');
+  var controls = h('div','display:flex;gap:8px;margin-top:14px');
+  wrap.appendChild(side); wrap.appendChild(area);
+  area.appendChild(slide); area.appendChild(controls);
+  body.appendChild(wrap);
+  function render(){
+    side.innerHTML='';
+    slides.forEach(function(s, i){
+      var item = h('div','background:'+(i===idx?'#000080':'#fff')+';color:'+(i===idx?'#fff':'#000')+';padding:6px;margin-bottom:3px;font-size:11px;cursor:pointer',
+        (i+1)+'. '+s);
+      item.addEventListener('click', function(){ idx = i; render(); });
+      side.appendChild(item);
+    });
+    slide.textContent = slides[idx];
+  }
+  controls.appendChild(btn('◀ Prev', function(){ idx = (idx - 1 + slides.length) % slides.length; render(); }));
+  controls.appendChild(btn('Next ▶', function(){ idx = (idx + 1) % slides.length; render(); }));
+  render();
+}
+
+function buildDatabase(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#c0c0c0');
+  var list = h('div','flex:1;display:flex;overflow:hidden');
+  var tables = h('div','width:140px;background:#fff;box-shadow:inset 1px 1px 0 #808080;padding:4px;font-size:12px');
+  ['Customers','Orders','Products','Employees'].forEach(function(name, i){
+    var item = h('div','padding:4px 6px;cursor:pointer;background:'+(i===0?'#000080':'')+';color:'+(i===0?'#fff':'#000'), '📋 '+name);
+    item.addEventListener('click', function(){
+      tables.querySelectorAll('div').forEach(function(x){ x.style.background=''; x.style.color='#000'; });
+      item.style.background = '#000080'; item.style.color = '#fff';
+      renderTable(name);
+    });
+    tables.appendChild(item);
+  });
+  var data = h('div','flex:1;overflow:auto;background:#fff;margin:4px;box-shadow:inset 1px 1px 0 #808080');
+  list.appendChild(tables); list.appendChild(data);
+  wrap.appendChild(list);
+  body.appendChild(wrap);
+  function renderTable(name){
+    var t = h('table','border-collapse:collapse;width:100%;font-size:12px');
+    var tr = h('tr','background:#000080;color:#fff');
+    ['ID','Name','Value'].forEach(function(k){ tr.appendChild(h('th','padding:4px 8px;text-align:left;border:1px solid #808080', k)); });
+    t.appendChild(tr);
+    for(var i=1;i<=15;i++){
+      var r = h('tr','background:'+(i%2?'#fff':'#f0f0f0'));
+      r.appendChild(h('td','padding:3px 8px;border:1px solid #e0e0e0', String(i)));
+      r.appendChild(h('td','padding:3px 8px;border:1px solid #e0e0e0', name+' '+i));
+      r.appendChild(h('td','padding:3px 8px;border:1px solid #e0e0e0', String(Math.round(Math.random()*1000))));
+      t.appendChild(r);
+    }
+    data.innerHTML=''; data.appendChild(t);
+  }
+  renderTable('Customers');
+}
+
+function buildProject(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#fff;margin:2px;box-shadow:inset 1px 1px 0 #808080;overflow:auto');
+  body.appendChild(wrap);
+  var tasks = [
+    {n:'Planning', s:0, e:5},
+    {n:'Design', s:3, e:8},
+    {n:'Development', s:6, e:15},
+    {n:'Testing', s:14, e:20},
+    {n:'Deployment', s:19, e:24}
+  ];
+  var chart = h('div','padding:14px;font-size:12px;position:relative');
+  var scale = h('div','display:grid;grid-template-columns:repeat(24,26px);font-size:10px;color:#666;margin-bottom:6px');
+  for(var i=0;i<24;i++) scale.appendChild(h('div','text-align:center', String(i+1)));
+  chart.appendChild(scale);
+  tasks.forEach(function(tk){
+    var row = h('div','display:grid;grid-template-columns:repeat(24,26px);height:22px;margin-bottom:3px');
+    for(var i=0;i<24;i++){
+      var c = h('div','border-left:1px solid #eee;background:'+(i>=tk.s && i<tk.e ? '#000080' : 'transparent')+';color:#fff;font-size:10px;text-align:center;line-height:22px',
+        (i===tk.s ? tk.n : ''));
+      row.appendChild(c);
+    }
+    chart.appendChild(row);
+  });
+  wrap.appendChild(chart);
+}
+
+function buildFinance(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#c0c0c0;padding:14px;gap:12px');
+  wrap.appendChild(h('h3','color:#000080','Loan Calculator'));
+  var fields = [
+    {k:'Principal', v:10000},
+    {k:'Annual Rate (%)', v:5.5},
+    {k:'Years', v:5}
+  ];
+  var inputs = {};
+  fields.forEach(function(f){
+    var row = h('div','display:flex;align-items:center;gap:8px');
+    row.appendChild(h('span','width:150px', f.k+':'));
+    var inp = h('input','padding:4px;flex:1;box-shadow:inset 1px 1px 0 #808080;border:0');
+    inp.value = f.v;
+    inp.type = 'number';
+    row.appendChild(inp);
+    inputs[f.k] = inp;
+    wrap.appendChild(row);
+  });
+  var result = h('div','padding:12px;background:#000080;color:#fff;font-size:16px;font-family:monospace','');
+  wrap.appendChild(btn('Calculate', function(){
+    var p = parseFloat(inputs['Principal'].value) || 0;
+    var r = (parseFloat(inputs['Annual Rate (%)'].value) || 0)/100/12;
+    var n = (parseFloat(inputs['Years'].value) || 0)*12;
+    var pay = r === 0 ? p/n : p*r/(1-Math.pow(1+r, -n));
+    result.textContent = 'Monthly payment: $' + pay.toFixed(2) + '\nTotal: $' + (pay*n).toFixed(2);
+    result.style.whiteSpace = 'pre';
+  }));
+  wrap.appendChild(result);
+  body.appendChild(wrap);
+}
+
+function buildInvoice(body, winObj){
+  var wrap = h('div','flex:1;overflow:auto;background:#fff;padding:20px;font-family:Arial,sans-serif;font-size:13px;margin:2px;box-shadow:inset 1px 1px 0 #808080');
+  body.appendChild(wrap);
+  var n = 'INV-' + (1000 + Math.floor(Math.random()*9000));
+  wrap.innerHTML = '<h2 style="color:#000080;margin-bottom:14px">INVOICE '+n+'</h2>'+
+    '<div style="display:flex;justify-content:space-between;margin-bottom:20px">'+
+    '<div><b>From:</b><br>Windows 94 Ltd.<br>1 Redmond Way<br>Redmond, WA</div>'+
+    '<div><b>To:</b><br>Customer Name<br>Customer Address<br>City, Country</div>'+
+    '<div><b>Date:</b> '+new Date().toLocaleDateString()+'</div>'+
+    '</div>'+
+    '<table style="width:100%;border-collapse:collapse;margin-bottom:20px"><thead><tr style="background:#000080;color:#fff">'+
+    '<th style="padding:6px;text-align:left">Description</th><th style="padding:6px;text-align:right">Qty</th><th style="padding:6px;text-align:right">Price</th><th style="padding:6px;text-align:right">Total</th></tr></thead>'+
+    '<tbody id="items"></tbody></table>'+
+    '<div style="text-align:right;font-size:16px"><b>Total: $<span id="total">0.00</span></b></div>';
+  var items = [['Windows 94 License',1,99],['Support (1 year)',1,50],['3.5" Floppy disks',10,1.5]];
+  var tb = wrap.querySelector('#items');
+  var total = 0;
+  items.forEach(function(it){
+    total += it[1]*it[2];
+    tb.appendChild(h('tr','border-bottom:1px solid #ddd','<td style="padding:4px">'+it[0]+'</td><td style="padding:4px;text-align:right">'+it[1]+'</td><td style="padding:4px;text-align:right">$'+it[2].toFixed(2)+'</td><td style="padding:4px;text-align:right">$'+(it[1]*it[2]).toFixed(2)+'</td>'));
+  });
+  wrap.querySelector('#total').textContent = total.toFixed(2);
+}
+
+function buildBudget(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#c0c0c0;padding:14px;overflow:auto');
+  var table = h('table','border-collapse:collapse;background:#fff;font-size:12px;width:100%');
+  var headers = ['Category','Budget','Actual','Difference'];
+  var tr = h('tr','background:#000080;color:#fff');
+  headers.forEach(function(kk){ tr.appendChild(h('th','padding:6px;text-align:left;border:1px solid #808080', kk)); });
+  table.appendChild(tr);
+  var data = [
+    ['Rent', 1200, 1200],
+    ['Food', 400, 485],
+    ['Utilities', 200, 178],
+    ['Transport', 150, 132],
+    ['Entertainment', 100, 145]
+  ];
+  var totB = 0, totA = 0;
+  data.forEach(function(row){
+    totB += row[1]; totA += row[2];
+    var diff = row[1] - row[2];
+    var tr2 = h('tr');
+    tr2.appendChild(h('td','padding:4px 6px;border:1px solid #eee', row[0]));
+    tr2.appendChild(h('td','padding:4px 6px;border:1px solid #eee;text-align:right', '$'+row[1]));
+    tr2.appendChild(h('td','padding:4px 6px;border:1px solid #eee;text-align:right', '$'+row[2]));
+    tr2.appendChild(h('td','padding:4px 6px;border:1px solid #eee;text-align:right;color:'+(diff<0?'#c00':'#080'), (diff>=0?'+':'')+'$'+diff));
+    table.appendChild(tr2);
+  });
+  var trT = h('tr','background:#e0e0ff;font-weight:bold');
+  trT.appendChild(h('td','padding:6px;border:1px solid #808080','Total'));
+  trT.appendChild(h('td','padding:6px;border:1px solid #808080;text-align:right','$'+totB));
+  trT.appendChild(h('td','padding:6px;border:1px solid #808080;text-align:right','$'+totA));
+  trT.appendChild(h('td','padding:6px;border:1px solid #808080;text-align:right', (totB-totA>=0?'+':'')+'$'+(totB-totA)));
+  table.appendChild(trT);
+  wrap.appendChild(table);
+  body.appendChild(wrap);
+}
+
+function buildJournal(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#c0c0c0');
+  var tb = h('div','padding:4px;background:#c0c0c0;border-bottom:1px solid #808080;display:flex;gap:4px');
+  var ta = h('textarea','flex:1;background:#fffef0;margin:4px;padding:10px;font-family:Georgia,serif;font-size:14px;line-height:1.7;border:0;outline:none;box-shadow:inset 1px 1px 0 #808080,inset -1px -1px 0 #fff');
+  ta.value = localStorage.getItem('w94_journal') || (new Date().toLocaleDateString() + '\n\nDear diary, today I installed Windows 94...\n');
+  ta.addEventListener('input', function(){ localStorage.setItem('w94_journal', ta.value); });
+  tb.appendChild(btn('New entry', function(){
+    ta.value = new Date().toLocaleDateString() + '\n\n' + ta.value;
+    localStorage.setItem('w94_journal', ta.value);
+  }));
+  wrap.appendChild(tb); wrap.appendChild(ta);
+  body.appendChild(wrap);
+}
+
+function buildTodo(body, winObj){
+  var items = (function(){ try { return JSON.parse(localStorage.getItem('w94_todo') || '[]'); } catch(e){ return []; } })();
+  if(!items.length) items = [{t:'Buy floppy disks', d:false}, {t:'Install Windows 94', d:true}, {t:'Call tech support', d:false}];
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#c0c0c0;padding:8px');
+  var tb = h('div','display:flex;gap:4px;margin-bottom:6px');
+  var list = h('div','flex:1;overflow:auto;background:#fff;box-shadow:inset 1px 1px 0 #808080;padding:8px');
+  var input = h('input','flex:1;padding:4px;font-family:inherit;font-size:12px;box-shadow:inset 1px 1px 0 #808080;border:0');
+  input.placeholder = 'New task...';
+  tb.appendChild(input);
+  tb.appendChild(btn('Add', function(){
+    if(!input.value.trim()) return;
+    items.push({t:input.value.trim(), d:false});
+    input.value = '';
+    save(); render();
+  }));
+  wrap.appendChild(tb); wrap.appendChild(list);
+  body.appendChild(wrap);
+  function save(){ localStorage.setItem('w94_todo', JSON.stringify(items)); }
+  function render(){
+    list.innerHTML='';
+    items.forEach(function(it, i){
+      var row = h('div','display:flex;align-items:center;gap:8px;padding:4px 0;font-size:13px;border-bottom:1px solid #eee');
+      var cb = document.createElement('input'); cb.type='checkbox'; cb.checked = it.d;
+      cb.addEventListener('change', function(){ it.d = cb.checked; save(); render(); });
+      row.appendChild(cb);
+      var sp = h('span','flex:1;'+(it.d?'text-decoration:line-through;color:#888':''), it.t);
+      row.appendChild(sp);
+      var del = btn('✕', function(){ items.splice(i,1); save(); render(); }, 'padding:2px 6px');
+      row.appendChild(del);
+      list.appendChild(row);
+    });
+  }
+  render();
+}
+
+function buildPlanner(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#c0c0c0;padding:8px');
+  var grid = h('div','flex:1;display:grid;grid-template-columns:60px repeat(7,1fr);grid-template-rows:auto repeat(12,1fr);gap:1px;background:#808080');
+  grid.appendChild(h('div','background:#000080'));
+  ['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'].forEach(function(d){
+    grid.appendChild(h('div','background:#000080;color:#fff;text-align:center;padding:4px;font-size:11px;font-weight:bold', d));
+  });
+  for(var hour=8; hour<20; hour++){
+    grid.appendChild(h('div','background:#c0c0c0;text-align:center;padding:2px;font-size:10px', String(hour).padStart(2,'0')+':00'));
+    for(var d=0;d<7;d++){
+      grid.appendChild(h('div','background:#fff;cursor:pointer'));
+    }
+  }
+  wrap.appendChild(grid);
+  body.appendChild(wrap);
+}
+
+function buildAddressBook(body, winObj){ buildContacts(body, winObj); }
+
+function buildHelpView(body, winObj){
+  var wrap = h('div','flex:1;display:flex;background:#fff;font-size:12px;overflow:hidden;margin:2px;box-shadow:inset 1px 1px 0 #808080');
+  var side = h('div','width:180px;background:#c0c0c0;padding:6px;overflow:auto;border-right:1px solid #808080');
+  var main = h('div','flex:1;padding:14px;overflow:auto;line-height:1.7');
+  ['Getting Started','Using Programs','Customizing Windows','Using the Internet','Troubleshooting','Keyboard Shortcuts']
+  .forEach(function(topic, i){
+    var item = h('div','padding:4px 8px;margin-bottom:2px;cursor:pointer;font-size:11px;'+(i===0?'background:#000080;color:#fff':''), topic);
+    item.addEventListener('click', function(){
+      side.querySelectorAll('div').forEach(function(x){ x.style.background=''; x.style.color=''; });
+      item.style.background='#000080'; item.style.color='#fff';
+      main.innerHTML = '<h2 style="color:#000080;margin-bottom:10px">'+topic+'</h2>'+
+        '<p>This is the help content for <b>'+topic+'</b>. Windows 94 provides extensive documentation to help you make the most of your computer.</p>'+
+        '<p>Use the navigation on the left to browse topics, or search for keywords using the Find feature.</p>'+
+        '<ul style="margin-top:10px;line-height:1.8"><li>Click Start to open programs</li><li>Right-click for context menus</li><li>Use Ctrl+Alt+Del to log on</li><li>Press Alt+F4 to close windows</li></ul>';
+    });
+    side.appendChild(item);
+  });
+  wrap.appendChild(side); wrap.appendChild(main);
+  body.appendChild(wrap);
+}
+
+function buildRunDlg(body, winObj){
+  var wrap = h('div','padding:14px;display:flex;flex-direction:column;gap:10px;background:#c0c0c0;flex:1');
+  var lbl = h('div','font-size:12px','Type the name of a program and Windows will open it for you.');
+  var input = h('input','padding:5px;font-family:inherit;font-size:12px;box-shadow:inset 1px 1px 0 #808080;border:0;width:100%');
+  input.placeholder = 'e.g. notepad, calc, paint, explorer...';
+  var list = h('div','font-size:11px;color:#666;line-height:1.6');
+  list.innerHTML = 'Available: '+Object.keys(APPS).slice(0, 20).join(', ')+', ...';
+  var buttons = h('div','display:flex;gap:6px;justify-content:flex-end');
+  buttons.appendChild(btn('OK', function(){
+    var name = input.value.trim().toLowerCase();
+    if(APPS[name]){ closeWin('rundlg'); openApp(name); }
+    else if(name === 'explorer' || name === 'computer'){ closeWin('rundlg'); openApp('explorer'); }
+    else alert(t('runErr') + ': ' + name);
+  }));
+  buttons.appendChild(btn('Cancel', function(){ closeWin('rundlg'); }));
+  wrap.appendChild(lbl); wrap.appendChild(input); wrap.appendChild(list); wrap.appendChild(buttons);
+  body.appendChild(wrap);
+  setTimeout(function(){ input.focus(); }, 80);
+  input.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){ buttons.querySelector('button').click(); }
+  });
+}
+
+function buildFindFiles(body, winObj){
+  var files = ['bienvenida.txt','notas.txt','sistema.ini','autoexec.bat','config.sys','win.ini','command.com'];
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#c0c0c0');
+  var search = h('div','padding:6px;display:flex;gap:6px;background:#c0c0c0;border-bottom:1px solid #808080');
+  var input = h('input','flex:1;padding:4px;font-family:inherit;font-size:12px;box-shadow:inset 1px 1px 0 #808080;border:0');
+  input.placeholder = 'Search for files...';
+  search.appendChild(h('span','font-size:12px;line-height:24px','Named:'));
+  search.appendChild(input);
+  search.appendChild(btn('Find', render));
+  var list = h('div','flex:1;overflow:auto;background:#fff;margin:4px;box-shadow:inset 1px 1px 0 #808080');
+  wrap.appendChild(search); wrap.appendChild(list);
+  body.appendChild(wrap);
+  function render(){
+    var q = input.value.toLowerCase();
+    list.innerHTML='';
+    var matches = files.filter(function(f){ return !q || f.toLowerCase().indexOf(q) >= 0; });
+    if(!matches.length){ list.appendChild(h('div','padding:10px;color:#666','No files found')); return; }
+    matches.forEach(function(f){
+      list.appendChild(h('div','padding:6px 10px;border-bottom:1px solid #eee;font-size:12px','📄 '+f+' <span style="color:#666">— C:\\'+f+'</span>'));
+    });
+  }
+  render();
+}
+
+function buildWelcome(body, winObj){
+  var wrap = h('div','flex:1;background:linear-gradient(135deg,#0a246a,#3a6ea5);color:#fff;padding:20px;display:flex;flex-direction:column;overflow:auto');
+  wrap.innerHTML =
+    '<h1 style="font-size:24px;margin-bottom:6px">Welcome to <span style="color:#ffcc00">Windows 94</span></h1>'+
+    '<p style="opacity:.85;margin-bottom:14px">The fastest, most powerful Windows yet.</p>'+
+    '<div style="background:rgba(255,255,255,.1);padding:14px;border-radius:6px;line-height:1.7;font-size:13px">'+
+    '<h3 style="color:#ffcc00;margin-bottom:6px">Did you know?</h3>'+
+    '<ul style="margin-left:20px">'+
+    '<li>You can drag desktop icons to rearrange them</li>'+
+    '<li>Right-click anywhere for a context menu</li>'+
+    '<li>Ctrl+Alt+Del opens the login screen</li>'+
+    '<li>100 programs are included with Windows 94</li>'+
+    '</ul></div>'+
+    '<p style="margin-top:14px;font-size:11px;opacity:.7">Windows 94 · 16-bit Edition · 1994</p>';
+  body.appendChild(wrap);
+}
+
+function buildAboutWin(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#c0c0c0;padding:14px;gap:10px');
+  var box = h('div','display:flex;gap:14px;align-items:center;background:#c0c0c0;padding:10px;box-shadow:inset -1px -1px 0 #000,inset 1px 1px 0 #dfdfdf,inset -2px -2px 0 #808080,inset 2px 2px 0 #fff');
+  box.innerHTML = '<div style="font-size:56px">🪟</div>'+
+    '<div style="font-size:12px;line-height:1.8"><b style="font-size:14px">Microsoft Windows 94</b><br>Version 4.00.950<br>16-bit Edition<br><br>'+
+    'Copyright © 1994 Microsoft Corporation.<br>All rights reserved.</div>';
+  wrap.appendChild(box);
+  wrap.appendChild(h('div','font-size:11px;line-height:1.6;color:#000080',
+    'This product is licensed to:<br><b>User</b><br><br>'+
+    'Physical memory available to Windows: 16.384 KB<br>'+
+    'System resources: 85% free<br>'+
+    'File system: 32-bit, 16-bit compatible'));
+  wrap.appendChild(btn('OK', function(){ closeWin('aboutwin'); }));
+  body.appendChild(wrap);
+}
+
+function buildTips(body, winObj){
+  var tips = [
+    'You can right-click the desktop to change icon arrangement.',
+    'Press Alt+Tab to switch between open windows.',
+    'Drag windows by their title bar to move them.',
+    'Use the Language button on the taskbar to change locale.',
+    'Double-click desktop icons to open programs.',
+    'Use the Command Prompt to run DOS commands.',
+    'Drag the bottom-right corner of a window to resize it.',
+    'Press Ctrl+Alt+Del to return to the login screen.',
+    'You can save desktop icon positions by dragging them.',
+    'The Control Panel lets you change wallpaper and language.'
+  ];
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#c0c0c0;padding:14px;gap:10px');
+  var title = h('h3','color:#000080','💡 Did you know?');
+  var tip = h('div','flex:1;padding:14px;background:#fff;box-shadow:inset 1px 1px 0 #808080;font-size:13px;line-height:1.7','');
+  var buttons = h('div','display:flex;gap:6px;justify-content:flex-end');
+  function next(){ tip.textContent = tips[Math.floor(Math.random()*tips.length)]; }
+  buttons.appendChild(btn('Next Tip', next));
+  buttons.appendChild(btn('Close', function(){ closeWin('tips'); }));
+  wrap.appendChild(title); wrap.appendChild(tip); wrap.appendChild(buttons);
+  body.appendChild(wrap);
+  next();
+}
+
+function buildReadme(body, winObj){
+  var wrap = h('div','flex:1;display:flex;flex-direction:column;background:#c0c0c0;padding:6px');
+  var ta = h('textarea','flex:1;background:#fff;font-family:Consolas,monospace;font-size:12px;padding:8px;border:0;outline:none;resize:none;box-shadow:inset 1px 1px 0 #808080');
+  ta.value =
+'Windows 94 Readme\n'+
+'=================\n\n'+
+'Thank you for choosing Windows 94!\n\n'+
+'This file contains important information about this release.\n\n'+
+'Features\n--------\n'+
+'- New 32-bit file system\n'+
+'- Enhanced multimedia support\n'+
+'- Dial-Up Networking with TCP/IP\n'+
+'- Improved memory management\n'+
+'- 100 built-in applications\n\n'+
+'System Requirements\n-------------------\n'+
+'- 386DX or higher processor\n'+
+'- 4 MB RAM (8 MB recommended)\n'+
+'- 540 MB hard disk\n'+
+'- VGA display\n\n'+
+'Known Issues\n------------\n'+
+'- Modem may require re-dialing on first connect\n'+
+'- Some floppy disks may not be readable after formatting\n\n'+
+'(c) 1994. All rights reserved.';
+  wrap.appendChild(ta);
+  body.appendChild(wrap);
+}
+
+var impls = {
+  tetris: buildTetris, snake: buildSnake, pong: buildPong, breakout: buildBreakout,
+  g2048: build2048, tictactoe: buildTicTacToe, memory: buildMemory, hangman: buildHangman,
+  simon: buildSimon, dice: buildDice, coinflip: buildCoinFlip, lottery: buildLottery,
+  bingo: buildBingo, chess: buildChess, checkers: buildCheckers, sudoku: buildSudoku,
+  pinball: buildPinball, asteroids: buildAsteroids, invaders: buildInvaders,
+  pacman: buildPacman, blackjack: buildBlackjack, solitaire: buildSolitaire,
+  freecell: buildFreeCell, hearts: buildHearts, spider: buildSpider,
+  calendar: buildCalendar, contacts: buildContacts, taskmgr: buildTaskMgr,
+  defrag: buildDefrag, regedit: buildRegedit, devmgr: buildDevMgr,
+  charmap: buildCharMap, clipboard: buildClipboard, scicalc: buildSciCalc,
+  converter: buildConverter, stopwatch: buildStopwatch, timer: buildTimer,
+  alarm: buildAlarm, weather: buildWeather, stickies: buildStickies,
+  magnifier: buildMagnifier, osk: buildOSK, volume: buildVolume,
+  recorder: buildRecorder, camera: buildCamera, sysinfo: buildSysInfo,
+  scandisk: buildScanDisk, format: buildFormat, chkdsk: buildChkDsk,
+  backup: buildBackup,
+  mediaplayer: buildMediaPlayer, cdplayer: buildCdPlayer, midi: buildMidiPlayer,
+  radio: buildRadio, mixer: buildMixer, equalizer: buildEqualizer,
+  visualizer: buildVisualizer, imageview: buildImageView, slideshow: buildSlideshow,
+  soundrec: buildSoundRec,
+  iexplore: buildBrowser, outlook: buildBrowser, email: buildBrowser,
+  ftp: buildBrowser, news: buildBrowser, browser: buildBrowser,
+  netmeeting: buildBrowser, telnet: buildBrowser,
+  download: buildDownload,
+  wordpad: buildWordpad, spreadsheet: buildSpreadsheet,
+  presentation: buildPresentation, database: buildDatabase,
+  project: buildProject, finance: buildFinance,
+  invoice: buildInvoice, budget: buildBudget,
+  journal: buildJournal, todo: buildTodo, planner: buildPlanner,
+  addressbook: buildAddressBook,
+  helpview: buildHelpView, rundlg: buildRunDlg, findfiles: buildFindFiles,
+  welcome: buildWelcome, aboutwin: buildAboutWin,
+  tips: buildTips, readme: buildReadme
+};
+
+Object.keys(impls).forEach(function(id){
+  if(APPS[id]) APPS[id].build = impls[id];
+});
+
+console.log('%c[Windows 94] Implementaciones funcionales registradas: ' + Object.keys(impls).length,
+  'background:#006400;color:#fff;padding:3px 8px;font-weight:bold');
+
+})();
 </script>
 </body>
 </html>
